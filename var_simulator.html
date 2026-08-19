@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VAR Simulator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #15803d;
+      --accent: #facc15;
+      --red: #ef4444;
+      --green: #22c55e;
+      --yellow-btn: #eab308;
+      --bg: #090d16;
+      --panel: #111827;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.2rem;
+    }
+
+    header {
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.9rem 1.4rem;
+      background: linear-gradient(135deg, #15803d, #1e293b);
+      border: 2px solid var(--accent);
+      border-radius: 12px;
+      margin-bottom: 1.2rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+    }
+
+    .brand-title {
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--accent);
+      letter-spacing: 1.5px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .var-badge {
+      background-color: var(--red);
+      color: white;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-family: 'Share Tech Mono', monospace;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.96); }
+    }
+
+    .scoreboard {
+      display: flex;
+      gap: 10px;
+      background: rgba(0,0,0,0.4);
+      padding: 6px 12px;
+      border-radius: 8px;
+      border: 1px solid #334155;
+    }
+
+    .team-chip {
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .score-btn {
+      background: #334155;
+      color: white;
+      border: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .score-btn:hover { background: var(--accent); color: black; }
+
+    .var-screen {
+      width: 100%;
+      max-width: 1200px;
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 1.2rem;
+    }
+
+    .monitor-box {
+      background: #020617;
+      border: 3px solid #334155;
+      border-radius: 12px;
+      padding: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: inset 0 0 40px rgba(0,0,0,0.9);
+      position: relative;
+    }
+
+    .screen-header {
+      display: flex;
+      justify-content: space-between;
+      color: var(--accent);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.95rem;
+    }
+
+    .incident-visual {
+      margin: 1.2rem 0;
+      min-height: 230px;
+      background: radial-gradient(circle, #1e293b 0%, #090d16 100%);
+      border: 1px dashed #475569;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 1.2rem;
+    }
+
+    .incident-icon {
+      font-size: 3.2rem;
+      margin-bottom: 8px;
+    }
+
+    .incident-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .incident-desc {
+      font-size: 0.92rem;
+      color: #cbd5e1;
+      line-height: 1.45;
+    }
+
+    .timer-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #0f172a;
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+    }
+
+    .timer-text {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--accent);
+    }
+
+    .timer-progress {
+      flex: 1;
+      margin: 0 1rem;
+      height: 10px;
+      background: #334155;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .timer-bar {
+      height: 100%;
+      width: 100%;
+      background: var(--accent);
+      transition: width 1s linear, background-color 0.5s ease;
+    }
+
+    .control-panel {
+      background: var(--panel);
+      border: 2px solid #334155;
+      border-radius: 12px;
+      padding: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .panel-heading {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--accent);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .prompt-box {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #e2e8f0;
+      background: #1e293b;
+      padding: 8px 12px;
+      border-left: 4px solid var(--accent);
+      border-radius: 4px;
+    }
+
+    .options-container {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .option-btn {
+      background: #1e293b;
+      border: 2px solid #475569;
+      color: #f8fafc;
+      padding: 10px 14px;
+      border-radius: 8px;
+      text-align: left;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.2s ease;
+    }
+
+    .option-btn:hover:not(.locked) {
+      border-color: var(--accent);
+      background: #273549;
+    }
+
+    .opt-letter {
+      font-weight: 900;
+      font-family: 'Share Tech Mono', monospace;
+      color: var(--accent);
+      background: #0f172a;
+      padding: 4px 8px;
+      border-radius: 4px;
+    }
+
+    .option-btn.selected-suspense {
+      background: #b45309 !important;
+      border-color: var(--yellow-btn) !important;
+      color: #ffffff !important;
+      box-shadow: 0 0 15px rgba(234, 179, 8, 0.7);
+      animation: suspensePulse 1.2s infinite alternate;
+    }
+
+    .option-btn.selected-suspense .opt-letter {
+      background: #78350f;
+      color: #fef08a;
+    }
+
+    @keyframes suspensePulse {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.02); }
+    }
+
+    .option-btn.correct {
+      background: #15803d !important;
+      border-color: #4ade80 !important;
+      color: #ffffff !important;
+      box-shadow: 0 0 18px rgba(34, 197, 94, 0.8);
+    }
+
+    .option-btn.correct .opt-letter {
+      background: #14532d;
+      color: #bbf7d0;
+    }
+
+    .option-btn.incorrect {
+      background: #991b1b !important;
+      border-color: #f87171 !important;
+      color: #ffffff !important;
+      box-shadow: 0 0 18px rgba(239, 68, 68, 0.8);
+    }
+
+    .option-btn.incorrect .opt-letter {
+      background: #7f1d1d;
+      color: #fecaca;
+    }
+
+    .feedback-box {
+      background: #090d16;
+      border: 1px solid #334155;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      min-height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .nav-controls {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr 1fr;
+      gap: 8px;
+    }
+
+    .action-btn {
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: #334155;
+      color: white;
+    }
+
+    .action-btn:hover { background: #475569; }
+    .btn-start { background: var(--primary); }
+    .btn-start:hover { background: #16a34a; }
+    .btn-voice { background: #0284c7; }
+    .btn-voice:hover { background: #0369a1; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand-title">
+      ⚽ VAR SIMULATOR <span class="var-badge">LIVE CHECK</span>
+    </div>
+
+    <div class="scoreboard">
+      <div class="team-chip">
+        <strong>Team A:</strong> <span id="score-a">0</span>
+        <button class="score-btn" onclick="changeScore('a', 1)">+</button>
+        <button class="score-btn" onclick="changeScore('a', -1)">-</button>
+      </div>
+      <div class="team-chip">
+        <strong>Team B:</strong> <span id="score-b">0</span>
+        <button class="score-btn" onclick="changeScore('b', 1)">+</button>
+        <button class="score-btn" onclick="changeScore('b', -1)">-</button>
+      </div>
+      <div class="team-chip">
+        <strong>Team C:</strong> <span id="score-c">0</span>
+        <button class="score-btn" onclick="changeScore('c', 1)">+</button>
+        <button class="score-btn" onclick="changeScore('c', -1)">-</button>
+      </div>
+      <div class="team-chip">
+        <strong>Team D:</strong> <span id="score-d">0</span>
+        <button class="score-btn" onclick="changeScore('d', 1)">+</button>
+        <button class="score-btn" onclick="changeScore('d', -1)">-</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="var-screen">
+
+    <div class="monitor-box">
+      <div class="screen-header">
+        <span id="incident-tag">INCIDENT #01 / 25</span>
+        <span id="match-min">MIN 12' • SITUATION</span>
+        <span>REC ● 1080p 60FPS</span>
+      </div>
+
+      <div class="incident-visual">
+        <div class="incident-icon" id="incident-icon">🖐️</div>
+        <div class="incident-title" id="incident-title">Title</div>
+        <div class="incident-desc" id="incident-desc">Description text...</div>
+      </div>
+
+      <div class="timer-container">
+        <div class="timer-text" id="timer-display">30s</div>
+        <div class="timer-progress">
+          <div class="timer-bar" id="timer-bar"></div>
+        </div>
+        <button class="action-btn btn-start" id="btn-timer-toggle" onclick="toggleTimer()">⏱️ START</button>
+      </div>
+    </div>
+
+    <div class="control-panel">
+      <div>
+        <div class="panel-heading">
+          <span>OFFICIAL VAR DECISION</span>
+          <span style="font-size: 0.78rem; color: var(--text-muted);">Double click to lock</span>
+        </div>
+        <div class="prompt-box" style="margin-top: 6px;">
+          Choose the appropriate sanction:
+        </div>
+      </div>
+
+      <div class="options-container" id="options-container">
+        <button class="option-btn" id="opt-0" onclick="handleOptionClick(0)">
+          <span class="opt-letter">A</span> <span class="opt-text" id="opt-text-0">Option A</span>
+        </button>
+        <button class="option-btn" id="opt-1" onclick="handleOptionClick(1)">
+          <span class="opt-letter">B</span> <span class="opt-text" id="opt-text-1">Option B</span>
+        </button>
+        <button class="option-btn" id="opt-2" onclick="handleOptionClick(2)">
+          <span class="opt-letter">C</span> <span class="opt-text" id="opt-text-2">Option C</span>
+        </button>
+        <button class="option-btn" id="opt-3" onclick="handleOptionClick(3)">
+          <span class="opt-letter">D</span> <span class="opt-text" id="opt-text-3">Option D</span>
+        </button>
+      </div>
+
+      <div class="feedback-box" id="feedback-box">
+        💡 <em>1st click selects. 2nd click on the same option confirms the final decision.</em>
+      </div>
+
+      <div class="nav-controls">
+        <button class="action-btn" onclick="prevIncident()">⬅️ PREV</button>
+        <button class="action-btn btn-voice" onclick="speakRule()">🔊 READ RULE</button>
+        <button class="action-btn" onclick="nextIncident()">NEXT ➡️</button>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    const incidents = [
+      {
+        tag: "INCIDENT #01 / 25",
+        min: "MIN 12' • PENALTY BOX",
+        icon: "🖐️",
+        title: "Deliberate Handball on Goal Line",
+        desc: "A defender uses their hand to block a ball that was clearly entering the net.",
+        ruleText: "A defender mustn't touch the ball with their hands to deny an obvious goal.",
+        correct: 0,
+        options: [
+          "Penalty Kick + Red Card",
+          "Indirect Free Kick Only",
+          "Corner Kick",
+          "Yellow Card Only"
+        ]
+      },
+      {
+        tag: "INCIDENT #02 / 25",
+        min: "MIN 15' • COUNTER-ATTACK",
+        icon: "⚡",
+        title: "Dangerous Slide Tackle From Behind",
+        desc: "The defender lunges from behind with both studs showing, hitting the striker's ankle.",
+        ruleText: "Players mustn't make dangerous tackles from behind. It is serious foul play.",
+        correct: 1,
+        options: [
+          "No Foul (Play continues)",
+          "Direct Free Kick + Red Card",
+          "Indirect Free Kick",
+          "Throw-in"
+        ]
+      },
+      {
+        tag: "INCIDENT #03 / 25",
+        min: "MIN 21' • MIDFIELD",
+        icon: "👕",
+        title: "Tactical Shirt Pulling",
+        desc: "A midfielder grabs the opponent's jersey for several seconds to stop a clear counter-attack.",
+        ruleText: "A player can't pull an opponent's shirt to stop a promising attack.",
+        correct: 2,
+        options: [
+          "Direct Free Kick + Red Card",
+          "Drop Ball",
+          "Direct Free Kick + Yellow Card",
+          "Penalty Kick"
+        ]
+      },
+      {
+        tag: "INCIDENT #04 / 25",
+        min: "MIN 26' • TOUCHLINE",
+        icon: "🦶",
+        title: "Careless Tripping",
+        desc: "A fullback accidentally trips an advancing winger while trying to contest the ball.",
+        ruleText: "Defenders mustn't trip opponents when challenging for the ball.",
+        correct: 0,
+        options: [
+          "Direct Free Kick",
+          "Penalty Kick + Red Card",
+          "Indirect Free Kick",
+          "Drop Ball"
+        ]
+      },
+      {
+        tag: "INCIDENT #05 / 25",
+        min: "MIN 30' • AERIAL DUEL",
+        icon: "👟",
+        title: "High Boot Dangerous Play",
+        desc: "A player raises their foot near the opponent's forehead trying to reach a high ball.",
+        ruleText: "A player must not raise their foot dangerously close to an opponent's head.",
+        correct: 3,
+        options: [
+          "Penalty Kick",
+          "Throw-in",
+          "Goal Kick",
+          "Indirect Free Kick + Yellow Card"
+        ]
+      },
+      {
+        tag: "INCIDENT #06 / 25",
+        min: "MIN 34' • PENALTY AREA",
+        icon: "🎭",
+        title: "Simulation (Diving)",
+        desc: "An attacker falls dramatically to the ground pretending contact inside the box.",
+        ruleText: "Strikers mustn't dive or simulate fouls to deceive the referee.",
+        correct: 1,
+        options: [
+          "Penalty Kick",
+          "Indirect Free Kick + Yellow Card",
+          "Corner Kick",
+          "Red Card"
+        ]
+      },
+      {
+        tag: "INCIDENT #07 / 25",
+        min: "MIN 39' • REFEREE DISPUTE",
+        icon: "🗣️",
+        title: "Aggressive Dissent",
+        desc: "A player runs directly to the referee shouting insults and gesturing aggressively.",
+        ruleText: "Players must respect the referee's authority and mustn't show dissent.",
+        correct: 0,
+        options: [
+          "Indirect Free Kick + Yellow Card",
+          "Direct Free Kick Only",
+          "Penalty Kick",
+          "Drop Ball"
+        ]
+      },
+      {
+        tag: "INCIDENT #08 / 25",
+        min: "MIN 44' • OUTSIDE 18-YARD BOX",
+        icon: "🧤",
+        title: "Goalkeeper Handling Outside Box",
+        desc: "The goalkeeper rushes outside the penalty area and catches the ball with two hands.",
+        ruleText: "A goalkeeper can't touch the ball with their hands outside the penalty area.",
+        correct: 2,
+        options: [
+          "Play On (No Foul)",
+          "Penalty Kick",
+          "Direct Free Kick",
+          "Goal Kick"
+        ]
+      },
+      {
+        tag: "INCIDENT #09 / 25",
+        min: "MIN 48' • OFFSIDE POSITION",
+        icon: "🚩",
+        title: "Offside Interference",
+        desc: "An attacker in an offside position blocks the goalkeeper's line of sight during a shot.",
+        ruleText: "An attacker mustn't interfere with an opponent from an offside position.",
+        correct: 3,
+        options: [
+          "Goal Confirmed",
+          "Penalty Kick",
+          "Yellow Card Only",
+          "Disallow Goal + Indirect Free Kick"
+        ]
+      },
+      {
+        tag: "INCIDENT #10 / 25",
+        min: "MIN 52' • AERIAL CHALLENGE",
+        icon: "💥",
+        title: "Violent Elbow Strike",
+        desc: "A striker deliberately strikes a defender in the jaw with an elbow while jumping.",
+        ruleText: "Players must not strike opponents violently with elbows.",
+        correct: 1,
+        options: [
+          "Yellow Card Only",
+          "Direct Free Kick + Red Card",
+          "Indirect Free Kick",
+          "Drop Ball"
+        ]
+      },
+      {
+        tag: "INCIDENT #11 / 25",
+        min: "MIN 56' • DEAD BALL",
+        icon: "⏱️",
+        title: "Delaying the Restart",
+        desc: "After a whistle, the defending player deliberately kicks the ball 40 meters away.",
+        ruleText: "Players mustn't delay the restart of play by kicking the ball away.",
+        correct: 0,
+        options: [
+          "Yellow Card",
+          "Direct Free Kick + Red Card",
+          "No Action",
+          "Penalty Kick"
+        ]
+      },
+      {
+        tag: "INCIDENT #12 / 25",
+        min: "MIN 60' • CELEBRATION",
+        icon: "🎽",
+        title: "Removing Shirt in Celebration",
+        desc: "The striker scores a goal and removes their team shirt completely during celebration.",
+        ruleText: "A player must not remove their shirt when celebrating a goal.",
+        correct: 2,
+        options: [
+          "Disallow Goal",
+          "Red Card",
+          "Yellow Card",
+          "Warning Only"
+        ]
+      },
+      {
+        tag: "INCIDENT #13 / 25",
+        min: "MIN 64' • BREAKAWAY",
+        icon: "🛑",
+        title: "DOGSO Outside the Penalty Box",
+        desc: "The last defender trips the striker outside the box, stopping a clear goal opportunity.",
+        ruleText: "A defender must receive a red card for denying an obvious goal opportunity outside the box.",
+        correct: 1,
+        options: [
+          "Penalty Kick + Yellow Card",
+          "Direct Free Kick + Red Card",
+          "Indirect Free Kick",
+          "Corner Kick"
+        ]
+      },
+      {
+        tag: "INCIDENT #14 / 25",
+        min: "MIN 68' • DEAD BALL INCIDENT",
+        icon: "🚫",
+        title: "Spitting at an Opponent",
+        desc: "During a confrontation, a player spits directly at the opponent's face.",
+        ruleText: "A player must be sent off immediately with a red card for spitting.",
+        correct: 0,
+        options: [
+          "Direct Free Kick + Red Card",
+          "Yellow Card Only",
+          "Verbal Warning Only",
+          "Indirect Free Kick"
+        ]
+      },
+      {
+        tag: "INCIDENT #15 / 25",
+        min: "MIN 71' • SLIDING TACKLE",
+        icon: "⚠️",
+        title: "Two-Footed Jump Tackle",
+        desc: "A midfielder jumps with both feet forward off the ground directly into an opponent.",
+        ruleText: "Players mustn't jump into challenges with two feet because it endangers safety.",
+        correct: 2,
+        options: [
+          "Throw-in",
+          "Yellow Card Only",
+          "Direct Free Kick + Red Card",
+          "Indirect Free Kick"
+        ]
+      },
+      {
+        tag: "INCIDENT #16 / 25",
+        min: "MIN 74' • OBSTRUCTION",
+        icon: "🚧",
+        title: "Impeding Progress Without Contact",
+        desc: "A defender intentionally steps in front of a running attacker without playing the ball.",
+        ruleText: "Defenders shouldn't obstruct opponents without attempting to play the ball.",
+        correct: 3,
+        options: [
+          "Penalty Kick",
+          "Red Card",
+          "No Foul (Play on)",
+          "Indirect Free Kick"
+        ]
+      },
+      {
+        tag: "INCIDENT #17 / 25",
+        min: "MIN 77' • PENALTY REBOUND",
+        icon: "🔄",
+        title: "Double Touch on Penalty Kick",
+        desc: "The penalty taker hits the post, and shoots the rebound into the net without anyone else touching it.",
+        ruleText: "The penalty kicker cannot touch the ball twice before another player touches it.",
+        correct: 1,
+        options: [
+          "Goal Confirmed",
+          "Disallow Goal + Indirect Free Kick",
+          "Direct Free Kick",
+          "Retake Penalty"
+        ]
+      },
+      {
+        tag: "INCIDENT #18 / 25",
+        min: "MIN 80' • SUBSTITUTION",
+        icon: "🏃",
+        title: "Entering Pitch Without Permission",
+        desc: "A substitute runs onto the field and intercepts a pass without the referee's signal.",
+        ruleText: "Substitutes must receive the referee's permission before entering the field of play.",
+        correct: 0,
+        options: [
+          "Direct Free Kick + Yellow Card",
+          "Play on (No sanction)",
+          "Goal Kick",
+          "Red Card for the Coach"
+        ]
+      },
+      {
+        tag: "INCIDENT #19 / 25",
+        min: "MIN 82' • VERBAL DISTRACTION",
+        icon: "📢",
+        title: "Verbal Deception During Header",
+        desc: "A defender shouts 'Leave it!' pretending to be the goalkeeper to trick the attacker.",
+        ruleText: "A player mustn't use verbal deception to distract an opponent.",
+        correct: 2,
+        options: [
+          "Corner Kick",
+          "Direct Free Kick",
+          "Indirect Free Kick + Yellow Card",
+          "No Foul"
+        ]
+      },
+      {
+        tag: "INCIDENT #20 / 25",
+        min: "MIN 85' • PENALTY SHOOTOUT",
+        icon: "🥅",
+        title: "Goalkeeper Moving Off Line Early",
+        desc: "The goalkeeper steps 2 meters forward off the goal line before the penalty is kicked and saves it.",
+        ruleText: "Goalkeepers must keep at least one foot on the goal line during a penalty kick.",
+        correct: 1,
+        options: [
+          "Save Valid (Play on)",
+          "Retake Penalty + Warning",
+          "Red Card for Goalkeeper",
+          "Indirect Free Kick"
+        ]
+      },
+      {
+        tag: "INCIDENT #21 / 25",
+        min: "MIN 87' • SIDELINE RESTART",
+        icon: "🤾",
+        title: "Foul Throw-In",
+        desc: "A player lifts their back foot off the ground completely while taking a throw-in.",
+        ruleText: "A player has to keep both feet on or behind the line during a throw-in.",
+        correct: 0,
+        options: [
+          "Throw-in to Opponent",
+          "Yellow Card",
+          "Direct Free Kick",
+          "Retake Throw-in"
+        ]
+      },
+      {
+        tag: "INCIDENT #22 / 25",
+        min: "MIN 89' • PASS TO GOALKEEPER",
+        icon: "🔙",
+        title: "Deliberate Back-Pass Handled",
+        desc: "A defender deliberately kicks the ball back to their goalkeeper, who picks it up with hands.",
+        ruleText: "A goalkeeper cannot handle a ball kicked deliberately by a teammate.",
+        correct: 3,
+        options: [
+          "Penalty Kick",
+          "Play on",
+          "Red Card for Defender",
+          "Indirect Free Kick"
+        ]
+      },
+      {
+        tag: "INCIDENT #23 / 25",
+        min: "MIN 90+1' • STOPPAGE TIME",
+        icon: "🛑",
+        title: "Stopping a Promising Attack (SPA)",
+        desc: "A defender deliberately trips a player to break a dangerous 3-on-2 counter-attack.",
+        ruleText: "A defender must receive a yellow card for stopping a promising attack.",
+        correct: 1,
+        options: [
+          "Red Card",
+          "Direct Free Kick + Yellow Card",
+          "Drop Ball",
+          "Verbal Warning Only"
+        ]
+      },
+      {
+        tag: "INCIDENT #24 / 25",
+        min: "MIN 90+3' • HEADBUTT ATTEMPT",
+        icon: "🤕",
+        title: "Violent Conduct Headbutt",
+        desc: "During an off-the-ball confrontation, a player attempts to headbutt an opponent.",
+        ruleText: "Players must not use or attempt to use violent conduct against opponents.",
+        correct: 0,
+        options: [
+          "Direct Free Kick + Red Card",
+          "Yellow Card Only",
+          "Indirect Free Kick",
+          "Play on"
+        ]
+      },
+      {
+        tag: "INCIDENT #25 / 25",
+        min: "MIN 90+5' • PENALTY ENCROACHMENT",
+        icon: "📏",
+        title: "Encroachment on Penalty Kick",
+        desc: "Two defenders enter the penalty box before the ball is kicked, then clear the rebound.",
+        ruleText: "Defenders must stay outside the penalty box and arc until the kick is taken.",
+        correct: 2,
+        options: [
+          "Play on",
+          "Goal Awarded Automatically",
+          "Retake Penalty Kick",
+          "Red Card for Defenders"
+        ]
+      }
+    ];
+
+    let currentIndex = 0;
+    let selectedOption = null;
+    let isConfirmed = false;
+    let timerSeconds = 30;
+    let timerInterval = null;
+    let isRunning = false;
+
+    const scores = { a: 0, b: 0, c: 0, d: 0 };
+
+    // --- Web Audio API Dynamic Sound Engine ---
+    const AudioEngine = {
+      ctx: null,
+      bgTimer: null,
+      bgRunning: false,
+      suspensePulse: false,
+
+      init() {
+        if (!this.ctx) {
+          this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+      },
+
+      startBackgroundMusic() {
+        this.init();
+        if (this.bgRunning) return;
+        this.bgRunning = true;
+        this.suspensePulse = false;
+        this.loopPulse();
+      },
+
+      loopPulse() {
+        if (!this.bgRunning) return;
+        const now = this.ctx.currentTime;
+        
+        // Ambient Drone Chord
+        const osc1 = this.ctx.createOscillator();
+        const osc2 = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+
+        osc1.type = 'sawtooth';
+        osc2.type = 'triangle';
+
+        const baseFreq = this.suspensePulse ? 110 : 82.41; // Higher tension if yellow
+        osc1.frequency.setValueAtTime(baseFreq, now);
+        osc2.frequency.setValueAtTime(baseFreq * 1.5, now);
+
+        const filter = this.ctx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(this.suspensePulse ? 500 : 250, now);
+
+        const vol = this.suspensePulse ? 0.08 : 0.05;
+        gain.gain.setValueAtTime(0, now);
+        gain.gain.linearRampToValueAtTime(vol, now + 0.1);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + (this.suspensePulse ? 0.6 : 0.9));
+
+        osc1.connect(filter);
+        osc2.connect(filter);
+        filter.connect(gain);
+        gain.connect(this.ctx.destination);
+
+        osc1.start(now);
+        osc2.start(now);
+        osc1.stop(now + 1.0);
+        osc2.stop(now + 1.0);
+
+        const interval = this.suspensePulse ? 700 : 1100;
+        this.bgTimer = setTimeout(() => this.loopPulse(), interval);
+      },
+
+      setSuspenseMode(active) {
+        this.suspensePulse = active;
+      },
+
+      stopBackgroundMusic() {
+        this.bgRunning = false;
+        clearTimeout(this.bgTimer);
+      },
+
+      playSuspenseChord() {
+        this.init();
+        this.setSuspenseMode(true);
+        const now = this.ctx.currentTime;
+
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(146.83, now); // D3
+        osc.frequency.exponentialRampToValueAtTime(155.56, now + 0.8); // Eb3 tension
+
+        const filter = this.ctx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(450, now);
+
+        gain.gain.setValueAtTime(0.18, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.9);
+
+        osc.connect(filter);
+        filter.connect(gain);
+        gain.connect(this.ctx.destination);
+
+        osc.start(now);
+        osc.stop(now + 0.9);
+      },
+
+      playCorrect() {
+        this.stopBackgroundMusic();
+        const now = this.ctx.currentTime;
+        const notes = [523.25, 659.25, 783.99, 1046.50]; // C - E - G - C arpeggio
+
+        notes.forEach((freq, i) => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, now + i * 0.11);
+
+          gain.gain.setValueAtTime(0, now + i * 0.11);
+          gain.gain.linearRampToValueAtTime(0.25, now + i * 0.11 + 0.03);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.11 + 0.7);
+
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+
+          osc.start(now + i * 0.11);
+          osc.stop(now + i * 0.11 + 0.7);
+        });
+      },
+
+      playWrong() {
+        this.stopBackgroundMusic();
+        const now = this.ctx.currentTime;
+        const dissonantNotes = [185.00, 261.63, 277.18]; // Tritone sting
+
+        dissonantNotes.forEach((freq) => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(freq, now);
+          osc.frequency.exponentialRampToValueAtTime(freq * 0.88, now + 1.1);
+
+          const filter = this.ctx.createBiquadFilter();
+          filter.type = 'lowpass';
+          filter.frequency.setValueAtTime(550, now);
+
+          gain.gain.setValueAtTime(0.2, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 1.2);
+
+          osc.connect(filter);
+          filter.connect(gain);
+          gain.connect(this.ctx.destination);
+
+          osc.start(now);
+          osc.stop(now + 1.2);
+        });
+      }
+    };
+
+    function loadIncident(index) {
+      const inc = incidents[index];
+      selectedOption = null;
+      isConfirmed = false;
+
+      document.getElementById('incident-tag').innerText = inc.tag;
+      document.getElementById('match-min').innerText = inc.min;
+      document.getElementById('incident-icon').innerText = inc.icon;
+      document.getElementById('incident-title').innerText = inc.title;
+      document.getElementById('incident-desc').innerText = inc.desc;
+
+      for (let i = 0; i < 4; i++) {
+        const btn = document.getElementById(`opt-${i}`);
+        const txt = document.getElementById(`opt-text-${i}`);
+        txt.innerText = inc.options[i];
+        btn.className = "option-btn";
+      }
+
+      document.getElementById('feedback-box').innerHTML = 
+        `💡 <em>1st click selects (Yellow). 2nd click on the same option confirms decision.</em>`;
+
+      resetTimer();
+      AudioEngine.stopBackgroundMusic();
+    }
+
+    function handleOptionClick(index) {
+      if (isConfirmed) return;
+
+      AudioEngine.init();
+      const current = incidents[currentIndex];
+
+      // 1st click: Yellow Suspense + Tension chord
+      if (selectedOption !== index) {
+        selectedOption = index;
+        for (let i = 0; i < 4; i++) {
+          document.getElementById(`opt-${i}`).className = "option-btn";
+        }
+        document.getElementById(`opt-${index}`).classList.add('selected-suspense');
+        document.getElementById('feedback-box').innerHTML = 
+          `🔒 <strong>Option ${String.fromCharCode(65 + index)} selected.</strong> Click again to confirm final decision!`;
+        
+        AudioEngine.startBackgroundMusic();
+        AudioEngine.playSuspenseChord();
+      } 
+      // 2nd click: Confirmation
+      else {
+        isConfirmed = true;
+        clearInterval(timerInterval);
+        isRunning = false;
+
+        const isCorrect = (index === current.correct);
+        const selectedBtn = document.getElementById(`opt-${index}`);
+
+        if (isCorrect) {
+          selectedBtn.classList.remove('selected-suspense');
+          selectedBtn.classList.add('correct');
+          AudioEngine.playCorrect();
+          document.getElementById('feedback-box').innerHTML = 
+            `✅ <strong style="color: #4ade80;">CORRECT DECISION:</strong> ${current.ruleText}`;
+        } else {
+          selectedBtn.classList.remove('selected-suspense');
+          selectedBtn.classList.add('incorrect');
+          document.getElementById(`opt-${current.correct}`).classList.add('correct');
+          AudioEngine.playWrong();
+          document.getElementById('feedback-box').innerHTML = 
+            `❌ <strong style="color: #f87171;">WRONG VERDICT:</strong> Correct is (${String.fromCharCode(65 + current.correct)}) • ${current.ruleText}`;
+        }
+      }
+    }
+
+    function speakRule() {
+      const text = incidents[currentIndex].ruleText;
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'en-US';
+        utterance.rate = 0.88;
+        window.speechSynthesis.speak(utterance);
+      }
+    }
+
+    function toggleTimer() {
+      const btn = document.getElementById('btn-timer-toggle');
+      AudioEngine.init();
+
+      if (isRunning) {
+        clearInterval(timerInterval);
+        isRunning = false;
+        btn.innerText = "⏱️ RESUME";
+        AudioEngine.stopBackgroundMusic();
+      } else {
+        isRunning = true;
+        btn.innerText = "⏸️ PAUSE";
+        if (!isConfirmed) {
+          AudioEngine.startBackgroundMusic();
+        }
+        timerInterval = setInterval(() => {
+          if (timerSeconds > 0) {
+            timerSeconds--;
+            updateTimerDisplay();
+          } else {
+            clearInterval(timerInterval);
+            isRunning = false;
+            btn.innerText = "⏱️ TIME'S UP!";
+            if (!isConfirmed) {
+              AudioEngine.playWrong();
+            }
+          }
+        }, 1000);
+      }
+    }
+
+    function resetTimer() {
+      clearInterval(timerInterval);
+      isRunning = false;
+      timerSeconds = 30;
+      document.getElementById('btn-timer-toggle').innerText = "⏱️ START";
+      updateTimerDisplay();
+    }
+
+    function updateTimerDisplay() {
+      document.getElementById('timer-display').innerText = timerSeconds + "s";
+      const pct = (timerSeconds / 30) * 100;
+      const bar = document.getElementById('timer-bar');
+      bar.style.width = pct + "%";
+      if (timerSeconds <= 5) {
+        bar.style.backgroundColor = "var(--red)";
+      } else if (timerSeconds <= 12) {
+        bar.style.backgroundColor = "var(--yellow-btn)";
+      } else {
+        bar.style.backgroundColor = "var(--accent)";
+      }
+    }
+
+    function prevIncident() {
+      if (currentIndex > 0) {
+        currentIndex--;
+        loadIncident(currentIndex);
+      }
+    }
+
+    function nextIncident() {
+      if (currentIndex < incidents.length - 1) {
+        currentIndex++;
+        loadIncident(currentIndex);
+      }
+    }
+
+    function changeScore(team, delta) {
+      scores[team] = Math.max(0, scores[team] + delta);
+      document.getElementById(`score-${team}`).innerText = scores[team];
+    }
+
+    loadIncident(0);
+  </script>
+</body>
+</html>

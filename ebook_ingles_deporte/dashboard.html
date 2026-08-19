@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leguson Dashboard | Technical English</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --leguson-yellow: #f5b301;
+      --leguson-dark: #000000;
+      --leguson-gray: #f3f4f6;
+      --text-main: #1f2937;
+      --text-muted: #6b7280;
+      --border-color: #e5e7eb;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Open Sans', sans-serif; }
+    
+    body { background-color: #ffffff; color: var(--text-main); display: flex; flex-direction: column; height: 100vh; }
+
+    /* TOP NAVIGATION */
+    .top-nav {
+      background-color: var(--leguson-dark);
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 30px;
+      height: 70px;
+    }
+
+    .brand-logo {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+    .brand-logo span { color: var(--leguson-yellow); }
+
+    .nav-icons { display: flex; gap: 30px; }
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #9ca3af;
+      font-size: 11px;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .nav-item:hover, .nav-item.active { color: white; }
+    .nav-icon-placeholder { font-size: 20px; margin-bottom: 4px; }
+
+    /* MAIN LAYOUT */
+    .main-container { display: flex; flex: 1; overflow: hidden; }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 260px;
+      background-color: #f9fafb;
+      border-right: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .menu-item {
+      padding: 18px 25px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-main);
+      border-bottom: 1px solid var(--border-color);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .menu-item:hover { background-color: #f3f4f6; }
+    .menu-item.active {
+      background-color: var(--leguson-yellow);
+      color: var(--leguson-dark);
+      font-weight: 800;
+      border-bottom: none;
+    }
+
+    /* CONTENT AREA */
+    .content-area { flex: 1; overflow-y: auto; display: flex; flex-direction: column; }
+
+    .content-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 30px;
+      border-bottom: 1px solid var(--border-color);
+      position: relative;
+    }
+    
+    .back-btn {
+      position: absolute;
+      left: 30px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .course-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    /* GRID CARDS */
+    .grid-container {
+      padding: 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 30px;
+      background-color: #f3f4f6;
+      flex: 1;
+    }
+
+    .unit-card {
+      background: white;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      border: 1px solid var(--border-color);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+      color: inherit;
+      display: block; /* Asegura que toda el área sea clickeable */
+    }
+    
+    .unit-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+    }
+
+    .card-img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-bottom: 4px solid var(--leguson-yellow);
+    }
+
+    .card-body { padding: 20px; }
+    .card-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+    
+    .card-meta {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .card-count {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--leguson-dark);
+      margin-top: 4px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <header class="top-nav">
+    <div class="brand-logo">LEGUSON <span>EDTECH</span></div>
+    <div class="nav-icons">
+      <div class="nav-item active"><span class="nav-icon-placeholder">👥</span> Class Content</div>
+      <div class="nav-item"><span class="nav-icon-placeholder">📊</span> Dashboard</div>
+      <div class="nav-item"><span class="nav-icon-placeholder">📁</span> Cohorts</div>
+      <div class="nav-item"><span class="nav-icon-placeholder">📝</span> Assignments</div>
+      <div class="nav-item"><span class="nav-icon-placeholder">✉️</span> Messages</div>
+    </div>
+  </header>
+
+  <!-- MAIN LAYOUT -->
+  <div class="main-container">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="menu-item active">Technical Modules</div>
+      <div class="menu-item">Classroom Presentation</div>
+      <div class="menu-item">Instructor Resources</div>
+      <div class="menu-item">Zajuna / LMS Reports</div>
+      <div class="menu-item">User Management</div>
+      <div class="menu-item">Preview as Trainee</div>
+      <div class="menu-item">Course Settings</div>
+    </aside>
+
+    <!-- CONTENT AREA -->
+    <main class="content-area">
+      <div class="content-header">
+        <div class="back-btn">← Back</div>
+        <div class="course-title">Technical English | Sports Training Cohort</div>
+      </div>
+
+      <div class="grid-container">
+        
+        <!-- CARD 1 (Enlaza a tu revista. El href "./index.html" fuerza a buscar el archivo exacto en esa misma carpeta) -->
+        <a href="./unit1.html" class="unit-card">
+          <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&auto=format&fit=crop&q=80" alt="Strength Coach" class="card-img">
+          <div class="card-body">
+            <h3 class="card-title">Unit 1: I'd Like to Be a Strength Coach</h3>
+            <div class="card-meta">Interactive Lessons</div>
+            <div class="card-count">8</div>
+          </div>
+        </a>
+
+        <!-- CARD 2 -->
+        <div class="unit-card">
+          <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=800&auto=format&fit=crop&q=80" alt="Sports Nutrition" class="card-img">
+          <div class="card-body">
+            <h3 class="card-title">Unit 2: Sports Nutrition & Hydration</h3>
+            <div class="card-meta">Interactive Lessons</div>
+            <div class="card-count">8</div>
+          </div>
+        </div>
+
+        <!-- CARD 3 (IMAGEN CORREGIDA) -->
+        <div class="unit-card">
+          <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&auto=format&fit=crop&q=80" alt="Injury Prevention" class="card-img">
+          <div class="card-body">
+            <h3 class="card-title">Unit 3: Injury Prevention & First Aid</h3>
+            <div class="card-meta">Interactive Lessons</div>
+            <div class="card-count">8</div>
+          </div>
+        </div>
+
+        <!-- CARD 4 -->
+        <div class="unit-card">
+          <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&auto=format&fit=crop&q=80" alt="Sports Psychology" class="card-img">
+          <div class="card-body">
+            <h3 class="card-title">Unit 4: Sports Psychology & Focus</h3>
+            <div class="card-meta">Interactive Lessons</div>
+            <div class="card-count">8</div>
+          </div>
+        </div>
+
+        <!-- CARD 5 -->
+        <div class="unit-card">
+          <img src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=800&auto=format&fit=crop&q=80" alt="Event Management" class="card-img">
+          <div class="card-body">
+            <h3 class="card-title">Unit 5: Event & Tournament Management</h3>
+            <div class="card-meta">Interactive Lessons</div>
+            <div class="card-count">8</div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+</body>
+</html>

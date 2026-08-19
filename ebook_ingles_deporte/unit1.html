@@ -1,0 +1,2532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unit 1: English for Sports Training | National Geographic Learning Style</title>
+  
+  <!-- Tipografía Editorial NatGeo -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --natgeo-yellow: #f5b301;
+      --natgeo-green: #1b4332;
+      --natgeo-dark: #081c15;
+      --light-green: #eaf4ed;
+      --accent-orange: #e76f51;
+      --bg-reader: #e5e9f0;
+      --card-white: #ffffff;
+      --text-dark: #1e293b;
+      --text-muted: #64748b;
+      --border-color: #cbd5e1;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background-color: var(--bg-reader);
+      color: var(--text-dark);
+      padding: 20px 90px 40px 20px;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .zoom-wrapper {
+      max-width: 1080px;
+      margin: 0 auto;
+      transform-origin: top center;
+      transition: transform 0.2s ease;
+    }
+
+    .magazine-page {
+      display: none;
+      background: var(--card-white);
+      border-radius: 8px;
+      box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+      border: 1px solid var(--border-color);
+      overflow: hidden;
+      margin-bottom: 20px;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .magazine-page.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* HERO BANNER */
+    .page-hero {
+      position: relative;
+      height: 360px;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: flex-end;
+      padding: 30px;
+      color: white;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(8,28,21,0.85) 100%);
+    }
+
+    .unit-badge {
+      position: absolute;
+      top: 0;
+      left: 30px;
+      background-color: var(--natgeo-yellow);
+      color: var(--natgeo-dark);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 38px;
+      font-weight: 900;
+      padding: 10px 24px;
+      border-bottom-left-radius: 6px;
+      border-bottom-right-radius: 6px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      z-index: 3;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-tag {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--natgeo-yellow);
+      margin-bottom: 5px;
+    }
+
+    .hero-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 40px;
+      font-weight: 900;
+      line-height: 1.1;
+      text-transform: uppercase;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+    }
+
+    .goals-bar {
+      display: grid;
+      grid-template-columns: 1.8fr 1.2fr;
+      background-color: var(--natgeo-dark);
+      color: white;
+      padding: 16px 30px;
+      align-items: center;
+      border-bottom: 4px solid var(--natgeo-yellow);
+    }
+
+    .goals-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--natgeo-yellow);
+    }
+
+    .goals-list {
+      font-size: 13px;
+      list-style-type: none;
+    }
+
+    .goals-list li {
+      position: relative;
+      padding-left: 15px;
+      margin-bottom: 3px;
+    }
+
+    .goals-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--natgeo-yellow);
+      font-size: 18px;
+    }
+
+    .page-inner {
+      padding: 30px 30px;
+    }
+
+    .page-header-strip {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 8px;
+      margin-bottom: 20px;
+    }
+
+    .strip-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--natgeo-green);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .page-indicator-top {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 14px;
+      letter-spacing: 1.5px;
+      color: var(--natgeo-green);
+      background: var(--light-green);
+      padding: 4px 12px;
+      border-radius: 4px;
+    }
+
+    /* REPRODUCTOR DE AUDIO */
+    .natgeo-player {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #0f2d1e;
+      color: white;
+      padding: 6px 14px;
+      border-radius: 25px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+      vertical-align: middle;
+      margin: 4px 0;
+    }
+
+    .player-btn-toggle {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--natgeo-yellow);
+      color: var(--natgeo-dark);
+      border: none;
+      font-size: 13px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.2s, background-color 0.2s;
+    }
+
+    .player-btn-toggle:hover {
+      transform: scale(1.1);
+      background: #ffc700;
+    }
+
+    .player-track-label {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 12px;
+      color: var(--natgeo-yellow);
+      white-space: nowrap;
+    }
+
+    .player-slider {
+      width: 100px;
+      height: 5px;
+      -webkit-appearance: none;
+      background: #2a5a40;
+      border-radius: 5px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .player-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--natgeo-yellow);
+      cursor: pointer;
+    }
+
+    .player-time {
+      font-family: monospace;
+      font-size: 11px;
+      color: #cbd5e1;
+      white-space: nowrap;
+    }
+
+    /* FORMULARIOS Y REGISTRO (PÁGINA 1) */
+    .register-card {
+      background: #ffffff;
+      border: 2px solid var(--border-color);
+      border-radius: 12px;
+      padding: 30px;
+      max-width: 650px;
+      margin: 20px auto;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 13.5px;
+      color: var(--natgeo-green);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 10px 14px;
+      border: 2px solid var(--border-color);
+      border-radius: 6px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-control:focus {
+      border-color: var(--natgeo-yellow);
+    }
+
+    /* PREVIEW & TABLAS */
+    .preview-box {
+      border: 1px solid var(--border-color);
+      background: #fafbfc;
+      border-radius: 8px;
+      padding: 22px;
+      margin-bottom: 25px;
+    }
+
+    .preview-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+    .preview-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0 10px;
+    }
+
+    .preview-row {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .preview-row td {
+      padding: 12px 16px;
+      font-size: 14px;
+      vertical-align: middle;
+    }
+
+    .row-num {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      color: var(--natgeo-green);
+      font-size: 15px;
+      width: 25px;
+    }
+
+    .row-sentence {
+      line-height: 1.6;
+    }
+
+    .row-match {
+      text-align: right;
+      width: 260px;
+    }
+
+    .word-opt {
+      display: inline-block;
+      padding: 2px 8px;
+      border: 1.5px solid var(--border-color);
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      color: #334155;
+      background: white;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .word-opt:hover {
+      border-color: var(--natgeo-green);
+    }
+
+    .word-opt.selected {
+      background-color: var(--natgeo-yellow);
+      border-color: #d99b00;
+      color: var(--natgeo-dark);
+      font-weight: 800;
+    }
+
+    .career-select {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      padding: 6px 8px;
+      border: 2px solid #94a3b8;
+      border-radius: 6px;
+      background-color: #ffffff;
+      color: #0f172a;
+      cursor: pointer;
+      outline: none;
+      transition: all 0.2s ease;
+      width: 100%;
+    }
+
+    .career-select.correct { border-color: #16a34a !important; background-color: #dcfce7 !important; color: #15803d !important; }
+    .career-select.incorrect { border-color: #dc2626 !important; background-color: #fee2e2 !important; color: #991b1b !important; }
+
+    /* SPEAKING */
+    .speaking-card {
+      background: #ffffff;
+      border-left: 5px solid var(--natgeo-yellow);
+      border-radius: 8px;
+      padding: 18px 22px;
+      border-top: 1px solid #e2e8f0;
+      border-right: 1px solid #e2e8f0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .speech-bubble-row {
+      display: flex;
+      gap: 20px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+
+    .speech-bubble {
+      flex: 1;
+      min-width: 260px;
+      background: #f1f5f9;
+      border-radius: 12px;
+      padding: 12px 18px;
+      font-size: 13.5px;
+      position: relative;
+      border: 1px solid var(--border-color);
+    }
+
+    .speech-bubble strong {
+      color: var(--natgeo-green);
+    }
+
+    /* DIALOGUE & LANGUAGE FOCUS */
+    .natgeo-dialogue-card {
+      border: 2.5px solid #2e7d32;
+      background-color: #f6fcf8;
+      border-radius: 12px;
+      padding: 22px;
+      margin-bottom: 25px;
+    }
+
+    .dialogue-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 25px;
+      align-items: center;
+    }
+
+    .dialogue-script {
+      font-size: 14.5px;
+      line-height: 1.8;
+    }
+
+    .dialogue-line {
+      margin-bottom: 14px;
+      background: white;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .speaker-pill {
+      display: inline-block;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-right: 8px;
+      text-transform: uppercase;
+    }
+
+    .speaker-kevin { background-color: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }
+    .speaker-sarah { background-color: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
+
+    .target-phrase {
+      font-weight: 800;
+      color: #0f172a;
+      background: #fef08a;
+      padding: 2px 6px;
+      border-radius: 4px;
+      transition: all 0.25s ease;
+      display: inline-block;
+    }
+
+    .pill-opt {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      color: #047857;
+      background: #e2e8f0;
+      padding: 2px 8px;
+      border-radius: 12px;
+      cursor: pointer;
+      margin: 2px 2px;
+      border: 1px solid #cbd5e1;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .pill-opt.active-pill {
+      background: #10b981;
+      color: white;
+      border-color: #059669;
+    }
+
+    .dialogue-img-frame {
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+      border: 2px solid #cbd5e1;
+    }
+
+    .dialogue-img-frame img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .dialogue-img-caption {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      padding: 8px 12px;
+      background: #fff;
+      font-style: italic;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .real-english-banner {
+      background: var(--natgeo-yellow);
+      color: var(--natgeo-dark);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 12px;
+      padding: 5px 14px;
+      border-radius: 6px;
+      display: inline-block;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .should-select {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 13.5px;
+      padding: 4px 10px;
+      border: 2px solid #94a3b8;
+      border-radius: 6px;
+      background-color: #ffffff;
+      color: #0f172a;
+      cursor: pointer;
+      outline: none;
+      display: inline-block;
+      margin: 0 4px;
+    }
+
+    .should-select.correct { border-color: #16a34a !important; background-color: #dcfce7 !important; color: #15803d !important; }
+    .should-select.incorrect { border-color: #dc2626 !important; background-color: #fee2e2 !important; color: #991b1b !important; }
+
+    .grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+      margin-bottom: 20px;
+    }
+
+    .box-card {
+      background: #fafbfc;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .box-card h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .q-item {
+      margin-bottom: 14px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .fill-box {
+      border: none;
+      border-bottom: 2px solid #94a3b8;
+      background-color: transparent;
+      padding: 2px 6px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--natgeo-green);
+      outline: none;
+      text-align: center;
+      width: 120px;
+      transition: border-color 0.2s ease;
+    }
+
+    .fill-box:focus {
+      border-bottom-color: var(--natgeo-yellow);
+      background-color: #fff;
+    }
+
+    .tf-wrap {
+      display: inline-flex;
+      gap: 6px;
+      margin-left: 10px;
+      vertical-align: middle;
+      transition: all 0.2s;
+    }
+
+    .tf-btn {
+      padding: 2px 10px;
+      font-size: 12px;
+      font-weight: 800;
+      border: 1px solid var(--border-color);
+      background: white;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .tf-btn.active-true { background-color: var(--natgeo-green); color: white; border-color: var(--natgeo-green); }
+    .tf-btn.active-false { background-color: var(--accent-orange); color: white; border-color: var(--accent-orange); }
+
+    .grammar-box {
+      background-color: var(--light-green);
+      border-left: 5px solid var(--natgeo-green);
+      padding: 18px 20px;
+      border-radius: 6px;
+      margin-bottom: 25px;
+    }
+
+    .grammar-box h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--natgeo-green);
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .natgeo-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      background: white;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .natgeo-table th, .natgeo-table td {
+      padding: 9px 14px;
+      border: 1px solid var(--border-color);
+      text-align: left;
+    }
+
+    .natgeo-table th {
+      background-color: var(--natgeo-green);
+      color: white;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+    }
+
+    .did-you-know {
+      background: #e0f2fe;
+      border-left: 4px solid #0284c7;
+      padding: 15px;
+      border-radius: 6px;
+      font-size: 13.5px;
+    }
+
+    .did-you-know h4 {
+      color: #0369a1;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    /* READING & UNIR CON LÍNEAS (PÁGINA 5) */
+    .reading-paragraph {
+      margin-bottom: 14px;
+      font-size: 13.8px;
+      line-height: 1.7;
+    }
+
+    .para-letter {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      color: var(--natgeo-green);
+      margin-right: 6px;
+      font-size: 15px;
+    }
+
+    .idiom-box {
+      background: #fefce8;
+      border-left: 4px solid var(--natgeo-yellow);
+      padding: 12px 16px;
+      border-radius: 6px;
+      margin-bottom: 15px;
+    }
+
+    .idiom-tag {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 12px;
+      background: #1e3a8a;
+      color: white;
+      padding: 2px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      display: inline-block;
+      margin-bottom: 6px;
+    }
+
+    .matching-wrapper {
+      position: relative;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 20px;
+      user-select: none;
+    }
+
+    .matching-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .match-col {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .match-node {
+      display: flex;
+      align-items: center;
+      padding: 10px 14px;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 13.5px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .match-node:hover {
+      border-color: var(--natgeo-green);
+      background: #f1f5f9;
+    }
+
+    .match-node.selected {
+      border-color: var(--natgeo-yellow);
+      background: #fef9c3;
+      box-shadow: 0 0 0 2px var(--natgeo-yellow);
+    }
+
+    .match-node.matched {
+      border-color: #0284c7;
+      background: #e0f2fe;
+    }
+
+    .match-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #94a3b8;
+      border: 2px solid white;
+      box-shadow: 0 0 0 1px #64748b;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .col-left .match-dot { right: -8px; }
+    .col-right .match-dot { left: -8px; }
+    .match-node.matched .match-dot { background: #0284c7; }
+
+    .matching-svg-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* COMPREHENSION ESTILO NATGEO CON PILLS (PÁGINA 6) */
+    .natgeo-pill-badge {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 11px;
+      padding: 2px 7px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      display: inline-block;
+      margin-right: 6px;
+      vertical-align: middle;
+    }
+
+    .pill-detail { background: #fef08a; color: #854d0e; }
+    .pill-purpose { background: #fed7aa; color: #9a3412; }
+    .pill-cohesion { background: #e0e7ff; color: #3730a3; }
+    .pill-vocabulary { background: #dcfce7; color: #166534; }
+
+    .mc-options {
+      margin-top: 8px;
+      padding-left: 20px;
+    }
+
+    .mc-opt {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 13.5px;
+      cursor: pointer;
+    }
+
+    .mc-opt input {
+      margin-right: 8px;
+    }
+
+    /* BOTONES DE CALIFICACIÓN INDIVIDUAL */
+    .section-eval-bar {
+      margin-top: 20px;
+      padding: 16px;
+      background: #f8fafc;
+      border-radius: 8px;
+      border: 1px dashed var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .btn-grade-section {
+      background: var(--natgeo-green);
+      color: white;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 9px 20px;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-grade-section:hover {
+      background: #143527;
+      transform: translateY(-1px);
+    }
+
+    .btn-grade-section:disabled {
+      background: #94a3b8;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .section-feedback-msg {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13.5px;
+      font-weight: 800;
+      display: none;
+    }
+
+    /* PÁGINA 7: CERTIFICADO Y REPORTE FINAL */
+    .certificate-card {
+      background: white;
+      border: 4px solid var(--natgeo-yellow);
+      border-radius: 12px;
+      padding: 35px;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      margin-bottom: 25px;
+    }
+
+    .cert-seal {
+      width: 70px;
+      height: 70px;
+      background: var(--natgeo-yellow);
+      color: var(--natgeo-dark);
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      font-weight: 900;
+      margin-bottom: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .score-breakdown-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+      margin: 25px 0;
+      text-align: left;
+    }
+
+    .score-metric-box {
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 14px;
+    }
+
+    .score-metric-box h5 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .score-metric-box .metric-val {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 20px;
+      font-weight: 900;
+      color: var(--natgeo-green);
+    }
+
+    .page-footer-strip {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 2px solid var(--border-color);
+      padding-top: 15px;
+      margin-top: 25px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    /* BARRA LATERAL FLOTANTE */
+    .floating-sidebar {
+      position: fixed;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--natgeo-dark);
+      padding: 16px 10px;
+      border-radius: 35px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      z-index: 999;
+      border: 2px solid var(--natgeo-yellow);
+    }
+
+    .nav-arrow-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--natgeo-yellow);
+      color: var(--natgeo-dark);
+      border: none;
+      font-size: 16px;
+      font-weight: 900;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .nav-arrow-btn:hover {
+      transform: scale(1.1);
+      background: #ffc700;
+    }
+
+    .nav-arrow-btn:disabled {
+      background: #334155;
+      color: #64748b;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .page-dots {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin: 4px 0;
+    }
+
+    .dot-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #1e293b;
+      color: white;
+      border: 1px solid #475569;
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .dot-btn:hover, .dot-btn.active {
+      background: var(--natgeo-yellow);
+      color: var(--natgeo-dark);
+      border-color: var(--natgeo-yellow);
+      font-weight: 900;
+    }
+
+    .sidebar-divider {
+      width: 25px;
+      height: 1px;
+      background: #334155;
+      margin: 2px 0;
+    }
+
+    .zoom-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 6px;
+      background: #1e293b;
+      color: white;
+      border: 1px solid #475569;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .zoom-btn:hover {
+      background: var(--natgeo-green);
+      color: white;
+    }
+
+    .locked-exercise {
+      pointer-events: none !important;
+      opacity: 0.92;
+    }
+
+    @media (max-width: 860px) {
+      body { padding-right: 75px; }
+      .grid-2col, .dialogue-grid, .matching-grid { grid-template-columns: 1fr; }
+      .hero-title { font-size: 28px; }
+      .row-match { width: 180px; }
+      .matching-grid { gap: 30px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- BARRA LATERAL FLOTANTE (7 PÁGINAS) -->
+<div class="floating-sidebar">
+  <button class="nav-arrow-btn" id="prev-btn" onclick="changePage(-1)" title="Previous Page">▲</button>
+  <div class="page-dots">
+    <button class="dot-btn active" onclick="goToPage(1)" title="Página 1: Registro">1</button>
+    <button class="dot-btn" onclick="goToPage(2)" title="Página 2: Preview">2</button>
+    <button class="dot-btn" onclick="goToPage(3)" title="Página 3: Grammar">3</button>
+    <button class="dot-btn" onclick="goToPage(4)" title="Página 4: Asprilla">4</button>
+    <button class="dot-btn" onclick="goToPage(5)" title="Página 5: Valderrama">5</button>
+    <button class="dot-btn" onclick="goToPage(6)" title="Página 6: Comprehension">6</button>
+    <button class="dot-btn" onclick="goToPage(7)" title="Página 7: Calificación Final">7</button>
+  </div>
+  <button class="nav-arrow-btn" id="next-btn" onclick="changePage(1)" title="Next Page">▼</button>
+  <div class="sidebar-divider"></div>
+  <button class="zoom-btn" onclick="zoom(0.1)" title="Zoom In">🔍+</button>
+  <button class="zoom-btn" onclick="zoom(-0.1)" title="Zoom Out">🔍-</button>
+  <button class="zoom-btn" onclick="resetZoom()" title="Reset Zoom" style="font-size: 9px;">100%</button>
+</div>
+
+<!-- CONTENEDOR PRINCIPAL -->
+<div class="zoom-wrapper" id="zoom-container">
+
+  <!-- ============================================================= -->
+  <!-- PÁGINA 1: REGISTRO DEL ESTUDIANTE & INTRODUCCIÓN -->
+  <!-- ============================================================= -->
+  <div class="magazine-page active" id="page-1">
+    <div class="page-hero" style="background-image: url('https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=1400&auto=format&fit=crop&q=80');">
+      <div class="unit-badge">1</div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-tag">National Geographic Learning Inspired E-Book</div>
+        <h1 class="hero-title">English for Sports Training</h1>
+      </div>
+    </div>
+
+    <div class="page-inner">
+      <div class="page-header-strip">
+        <span class="strip-title">Student Registration & Induction</span>
+        <span class="page-indicator-top">PAGE 1 / 7</span>
+      </div>
+
+      <div class="register-card">
+        <h3 style="font-family: 'Montserrat'; font-size: 18px; color: var(--natgeo-green); margin-bottom: 8px; text-transform: uppercase;">
+          🏃‍♂️ Athlete & Coach Identification
+        </h3>
+        <p style="font-size: 13.5px; color: var(--text-muted); margin-bottom: 20px;">
+          Please enter your full name and training details before starting Unit 1. Your official score and performance certificate will be generated automatically on Page 7.
+        </p>
+
+        <div class="form-group">
+          <label>Full Name / Nombre Completo *</label>
+          <input type="text" id="student-name" class="form-control" placeholder="e.g. Carlos Rodriguez" required>
+        </div>
+
+        <div class="form-group">
+          <label>Sports Program / Ficha / Disciplina</label>
+          <input type="text" id="student-cohort" class="form-control" placeholder="e.g. Tecnólogo en Entrenamiento Deportivo - Ficha 282910">
+        </div>
+
+        <div class="form-group">
+          <label>Target Sports Coaching Goal</label>
+          <input type="text" id="student-goal" class="form-control" placeholder="e.g. Strength and Conditioning / Football Coach">
+        </div>
+
+        <div style="text-align: center; margin-top: 25px;">
+          <button class="btn-grade-section" style="padding: 12px 35px; font-size: 14px; background: linear-gradient(135deg, var(--natgeo-yellow) 0%, #e5a500 100%); color: var(--natgeo-dark);" onclick="saveStudentAndContinue()">
+            Start Unit 1 &bull; Empezar Revista ➔
+          </button>
+        </div>
+      </div>
+
+      <div class="page-footer-strip">
+        <span>Unit 1: Sports Careers & Modals of Advice</span>
+        <span>Page 1 of 7</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================= -->
+  <!-- PÁGINA 2: UNIT OPENER & PREVIEW (MATCHING) -->
+  <!-- ============================================================= -->
+  <div class="magazine-page" id="page-2">
+    <div class="page-hero" style="background-image: url('https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1400&auto=format&fit=crop&q=80');">
+      <div class="unit-badge">1</div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-tag">High Performance & Athletic Conditioning</div>
+        <h1 class="hero-title">I'd like to be a<br>Strength Coach</h1>
+      </div>
+    </div>
+
+    <div class="goals-bar">
+      <div class="goals-title">Unit Goals</div>
+      <ul class="goals-list">
+        <li>Talk about sports careers and training goals</li>
+        <li>Give athlete advice with <em>should</em> & <em>shouldn't</em></li>
+        <li>Understand technical audio reports on sports recovery</li>
+      </ul>
+    </div>
+
+    <div class="page-inner">
+      <div class="page-header-strip">
+        <span class="strip-title">Preview & Career Matching</span>
+        <span class="page-indicator-top">PAGE 2 / 7</span>
+      </div>
+
+      <div class="preview-box" id="section-p2">
+        <div class="preview-header">
+          <strong style="color: var(--natgeo-green); font-size: 18px;">A & B</strong>
+          <div class="natgeo-player" data-src="track_1_1.mp3">
+            <button class="player-btn-toggle" onclick="togglePlayer(this)">▶</button>
+            <span class="player-track-label">🎧 1.1 Listen & Match</span>
+            <input type="range" class="player-slider" value="0" min="0" max="100" step="0.1" oninput="seekAudio(this)">
+            <span class="player-time">0:00 / 0:00</span>
+          </div>
+          <span style="font-size: 13.5px; font-weight: 600;">Listen to the 5 trainers. Circle the kind of job each wants and match their sports career.</span>
+        </div>
+
+        <table class="preview-table">
+          <tbody>
+            <tr class="preview-row">
+              <td class="row-num">1</td>
+              <td class="row-sentence">
+                Danny wants a job that's 
+                <span class="word-opt" onclick="toggleWord(this)">easy</span> / 
+                <span class="word-opt" onclick="toggleWord(this)" data-correct="true">challenging</span>.
+              </td>
+              <td class="row-match">
+                <select class="career-select" data-ans="strength-coach">
+                  <option value="">Match Career...</option>
+                  <option value="youth-coach">Youth Sports Coach</option>
+                  <option value="athletic-trainer">Athletic Trainer</option>
+                  <option value="strength-coach">Strength & Conditioning Coach</option>
+                  <option value="physiotherapist">Sports Physiotherapist</option>
+                  <option value="nutritionist">Sports Nutritionist</option>
+                </select>
+              </td>
+            </tr>
+
+            <tr class="preview-row">
+              <td class="row-num">2</td>
+              <td class="row-sentence">
+                Caitlyn wants a job that allows her to 
+                <span class="word-opt" onclick="toggleWord(this)" data-correct="true">travel</span> / 
+                <span class="word-opt" onclick="toggleWord(this)">stay home</span> with teams.
+              </td>
+              <td class="row-match">
+                <select class="career-select" data-ans="physiotherapist">
+                  <option value="">Match Career...</option>
+                  <option value="youth-coach">Youth Sports Coach</option>
+                  <option value="athletic-trainer">Athletic Trainer</option>
+                  <option value="strength-coach">Strength & Conditioning Coach</option>
+                  <option value="physiotherapist">Sports Physiotherapist</option>
+                  <option value="nutritionist">Sports Nutritionist</option>
+                </select>
+              </td>
+            </tr>
+
+            <tr class="preview-row">
+              <td class="row-num">3</td>
+              <td class="row-sentence">
+                Mateo wants a job that involves working with 
+                <span class="word-opt" onclick="toggleWord(this)" data-correct="true">children</span> / 
+                <span class="word-opt" onclick="toggleWord(this)">animals</span>.
+              </td>
+              <td class="row-match">
+                <select class="career-select" data-ans="youth-coach">
+                  <option value="">Match Career...</option>
+                  <option value="youth-coach">Youth Sports Coach</option>
+                  <option value="athletic-trainer">Athletic Trainer</option>
+                  <option value="strength-coach">Strength & Conditioning Coach</option>
+                  <option value="physiotherapist">Sports Physiotherapist</option>
+                  <option value="nutritionist">Sports Nutritionist</option>
+                </select>
+              </td>
+            </tr>
+
+            <tr class="preview-row">
+              <td class="row-num">4</td>
+              <td class="row-sentence">
+                Sara wants a job that is 
+                <span class="word-opt" onclick="toggleWord(this)">boring</span> / 
+                <span class="word-opt" onclick="toggleWord(this)" data-correct="true">rewarding</span>.
+              </td>
+              <td class="row-match">
+                <select class="career-select" data-ans="nutritionist">
+                  <option value="">Match Career...</option>
+                  <option value="youth-coach">Youth Sports Coach</option>
+                  <option value="athletic-trainer">Athletic Trainer</option>
+                  <option value="strength-coach">Strength & Conditioning Coach</option>
+                  <option value="physiotherapist">Sports Physiotherapist</option>
+                  <option value="nutritionist">Sports Nutritionist</option>
+                </select>
+              </td>
+            </tr>
+
+            <tr class="preview-row">
+              <td class="row-num">5</td>
+              <td class="row-sentence">
+                Lucas wants a job that helps athletes 
+                <span class="word-opt" onclick="toggleWord(this)" data-correct="true">prevent injuries</span> / 
+                <span class="word-opt" onclick="toggleWord(this)">sell equipment</span>.
+              </td>
+              <td class="row-match">
+                <select class="career-select" data-ans="athletic-trainer">
+                  <option value="">Match Career...</option>
+                  <option value="youth-coach">Youth Sports Coach</option>
+                  <option value="athletic-trainer">Athletic Trainer</option>
+                  <option value="strength-coach">Strength & Conditioning Coach</option>
+                  <option value="physiotherapist">Sports Physiotherapist</option>
+                  <option value="nutritionist">Sports Nutritionist</option>
+                </select>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- BOTÓN ACTUALIZADO (Look) -->
+        <div class="section-eval-bar">
+          <button class="btn-grade-section" id="btn-grade-p2" onclick="gradePage2()">Check answers & look</button>
+          <span class="section-feedback-msg" id="msg-grade-p2"></span>
+        </div>
+      </div>
+
+      <div class="speaking-card">
+        <h3 style="font-family: 'Montserrat'; font-size: 15px; font-weight: 800; color: var(--natgeo-dark);">
+          <span style="color: var(--natgeo-yellow); font-size: 18px; font-weight: 900;">C</span> 
+          Work with a partner. What other sports careers match the descriptions in A?
+        </h3>
+        <div class="speech-bubble-row">
+          <div class="speech-bubble">
+            <strong>Student A:</strong> "What other sports jobs are challenging?"
+          </div>
+          <div class="speech-bubble">
+            <strong>Student B:</strong> "I know. A high-altitude mountain guide or a professional boxing coach!"
+          </div>
+        </div>
+      </div>
+
+      <div class="page-footer-strip">
+        <span>Unit 1: Preview & Vocab Matching</span>
+        <span>Page 2 of 7</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================= -->
+  <!-- PÁGINA 3: LANGUAGE FOCUS (SHOULD / SHOULDN'T) -->
+  <!-- ============================================================= -->
+  <div class="magazine-page" id="page-3">
+    <div class="page-inner">
+      <div class="page-header-strip">
+        <span class="strip-title">Language Focus & Modals</span>
+        <span class="page-indicator-top">PAGE 3 / 7</span>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
+        <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+          <strong style="color: var(--natgeo-green); font-size: 17px;">A</strong>
+          <div class="natgeo-player" data-src="track_1_2.mp3">
+            <button class="player-btn-toggle" onclick="togglePlayer(this)">▶</button>
+            <span class="player-track-label">🎧 1.2 Listen & Read</span>
+            <input type="range" class="player-slider" value="0" min="0" max="100" step="0.1" oninput="seekAudio(this)">
+            <span class="player-time">0:00 / 0:00</span>
+          </div>
+          <span style="font-size: 13.5px; font-weight: 600;">Click the options in parentheses to replace the highlighted words.</span>
+        </div>
+        <div class="real-english-banner">REAL ENGLISH &bull; Take it easy ...</div>
+      </div>
+
+      <div class="natgeo-dialogue-card">
+        <div class="dialogue-grid">
+          <div class="dialogue-script">
+            <div class="dialogue-line">
+              <span class="speaker-pill speaker-kevin">Kevin</span> 
+              Coach Sarah, my legs are <span class="target-phrase" id="tg-1">burning</span> after yesterday's heavy squats. 
+              ( <span class="pill-opt" onclick="swapPhrase('tg-1', 'feeling stiff', this)">feeling stiff</span> / 
+                <span class="pill-opt" onclick="swapPhrase('tg-1', 'exhausted', this)">exhausted</span> )
+            </div>
+
+            <div class="dialogue-line">
+              <span class="speaker-pill speaker-sarah">Coach Sarah</span> 
+              Did you stretch properly after the session?
+            </div>
+
+            <div class="dialogue-line">
+              <span class="speaker-pill speaker-kevin">Kevin</span> 
+              Well, today my quadriceps <span class="target-phrase" id="tg-2">hurt badly</span>. 
+              ( <span class="pill-opt" onclick="swapPhrase('tg-2', 'feel sore', this)">feel sore</span> / 
+                <span class="pill-opt" onclick="swapPhrase('tg-2', 'ache a lot', this)">ache a lot</span> )
+            </div>
+
+            <div class="dialogue-line">
+              <span class="speaker-pill speaker-sarah">Coach Sarah</span> 
+              You look very tired. You <span class="target-phrase" id="tg-3">should do light active recovery</span> and hydrate. 
+              ( <span class="pill-opt" onclick="swapPhrase('tg-3', 'should take a rest day', this)">should take a rest day</span> / 
+                <span class="pill-opt" onclick="swapPhrase('tg-3', 'should do swimming', this)">should do swimming</span> )
+            </div>
+
+            <div class="dialogue-line">
+              <span class="speaker-pill speaker-sarah">Coach Sarah</span> 
+              And remember: you <span class="target-phrase" id="tg-4">shouldn't lift heavy weights</span> when your muscles are inflamed. 
+              ( <span class="pill-opt" onclick="swapPhrase('tg-4', 'shouldn\'t do squats', this)">shouldn't do squats</span> / 
+                <span class="pill-opt" onclick="swapPhrase('tg-4', 'shouldn\'t push through pain', this)">shouldn't push through pain</span> )
+            </div>
+          </div>
+
+          <div class="dialogue-img-frame">
+            <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&auto=format&fit=crop&q=80" alt="Athlete and coach consultation">
+            <div class="dialogue-img-caption">
+              Coach Sarah reviewing Kevin's muscle fatigue and designing his recovery routine.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grammar-box">
+        <h3><span style="color: var(--natgeo-yellow); font-weight: 900;">B</span> Grammar Chart: Giving Athlete Advice (Should / Shouldn't)</h3>
+        <table class="natgeo-table">
+          <thead>
+            <tr>
+              <th>Athlete Situation / Symptom</th>
+              <th>Coach Advice (Should / Shouldn't)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>The runner has severe muscle soreness after heavy squats.</td>
+              <td>They <strong>should</strong> perform active recovery and hydrate constantly.</td>
+            </tr>
+            <tr>
+              <td>An athlete feels sharp pain in the knee joint.</td>
+              <td>They <strong>shouldn't</strong> lift maximum weights or do high jumps.</td>
+            </tr>
+            <tr>
+              <td>To improve cardiovascular endurance and stamina:</td>
+              <td>Athletes <strong>should</strong> include regular interval training.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="grid-2col" id="section-p3">
+        <div class="box-card">
+          <h3><span style="color: var(--natgeo-yellow); font-weight: 900;">C</span> Choose <em>should</em> or <em>shouldn't</em>:</h3>
+          <div class="q-item">
+            1. If your joints hurt badly, you 
+            <select class="should-select" data-ans="shouldn't">
+              <option value="">Choose...</option>
+              <option value="should">should</option>
+              <option value="shouldn't">shouldn't</option>
+            </select> 
+            lift heavy weights today.
+          </div>
+          <div class="q-item">
+            2. To build muscle, athletes 
+            <select class="should-select" data-ans="should">
+              <option value="">Choose...</option>
+              <option value="should">should</option>
+              <option value="shouldn't">shouldn't</option>
+            </select> 
+            consume adequate protein.
+          </div>
+          <div class="q-item">
+            3. You 
+            <select class="should-select" data-ans="shouldn't">
+              <option value="">Choose...</option>
+              <option value="should">should</option>
+              <option value="shouldn't">shouldn't</option>
+            </select> 
+            skip your post-workout hydration.
+          </div>
+          <div class="q-item">
+            4. To maximize recovery, you 
+            <select class="should-select" data-ans="should">
+              <option value="">Choose...</option>
+              <option value="should">should</option>
+              <option value="shouldn't">shouldn't</option>
+            </select> 
+            sleep at least 8 hours a night.
+          </div>
+        </div>
+
+        <div class="box-card">
+          <h3><span style="color: var(--natgeo-yellow); font-weight: 900;">D</span> Grammar Rules (Circle the correct word):</h3>
+          <div class="q-item">
+            1. After <em>should</em> and <em>shouldn't</em>, we use 
+            <span class="word-opt" onclick="toggleWord(this)" data-correct="true">base verb</span> / 
+            <span class="word-opt" onclick="toggleWord(this)">verb + ing</span>.
+          </div>
+          <div class="q-item">
+            2. <em>Should</em> expresses an 
+            <span class="word-opt" onclick="toggleWord(this)" data-correct="true">advice/recommendation</span> / 
+            <span class="word-opt" onclick="toggleWord(this)">obligation by law</span>.
+          </div>
+          <div class="q-item">
+            3. "You shouldn't train" means it is 
+            <span class="word-opt" onclick="toggleWord(this)" data-correct="true">not recommended</span> / 
+            <span class="word-opt" onclick="toggleWord(this)">mandatory</span>.
+          </div>
+        </div>
+      </div>
+
+      <!-- BOTÓN ACTUALIZADO (Look) -->
+      <div class="section-eval-bar">
+        <button class="btn-grade-section" id="btn-grade-p3" onclick="gradePage3()">Check answers & look</button>
+        <span class="section-feedback-msg" id="msg-grade-p3"></span>
+      </div>
+
+      <div class="page-footer-strip">
+        <span>English for Sports Training &bull; Modals of Advice</span>
+        <span>Page 3 of 7</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================= -->
+  <!-- PÁGINA 4: THE REAL WORLD (HISTORIA DEL TINO ASPRILLA) -->
+  <!-- ============================================================= -->
+  <div class="magazine-page" id="page-4">
+    <div class="page-hero" style="background-image: url('https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=1400&auto=format&fit=crop&q=80'); height: 300px;">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-tag">The Real World &bull; Sports Legends</div>
+        <h1 class="hero-title" style="font-size: 36px;">"El Tino" Under the English Snow</h1>
+      </div>
+    </div>
+
+    <div class="page-inner">
+      <div class="page-header-strip">
+        <span class="strip-title">Field Report: Faustino Asprilla's Debut (1996)</span>
+        <span class="page-indicator-top">PAGE 4 / 7</span>
+      </div>
+
+      <div class="grid-2col" id="section-p4">
+        <div class="box-card">
+          <h3>
+            <span style="color: var(--natgeo-yellow); font-weight: 900;">A</span>
+            <div class="natgeo-player" data-src="track_1_3.mp3">
+              <button class="player-btn-toggle" onclick="togglePlayer(this)">▶</button>
+              <span class="player-track-label">🎧 1.3 Listen to the Story</span>
+              <input type="range" class="player-slider" value="0" min="0" max="100" step="0.1" oninput="seekAudio(this)">
+              <span class="player-time">0:00 / 0:00</span>
+            </div>
+          </h3>
+          <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 14px;">
+            Listen to the story of Colombian footballer Faustino Asprilla arriving in England. Circle the correct answer for each question.
+          </p>
+
+          <div class="q-item">
+            <strong>1. Why did Faustino arrive in England in 1996?</strong>
+            <div style="margin-top: 5px;">
+              <span class="word-opt" onclick="toggleWord(this)" data-correct="true">To play for Newcastle United</span><br>
+              <span class="word-opt" onclick="toggleWord(this)" style="margin-top: 4px;">To go on a ski vacation</span>
+            </div>
+          </div>
+
+          <div class="q-item">
+            <strong>2. What was the weather like when he arrived?</strong>
+            <div style="margin-top: 5px;">
+              <span class="word-opt" onclick="toggleWord(this)">Hot and sunny</span><br>
+              <span class="word-opt" onclick="toggleWord(this)" data-correct="true" style="margin-top: 4px;">Freezing and snowing heavily</span>
+            </div>
+          </div>
+
+          <div class="q-item">
+            <strong>3. What unusual clothing was Faustino wearing?</strong>
+            <div style="margin-top: 5px;">
+              <span class="word-opt" onclick="toggleWord(this)" data-correct="true">A giant, elegant fur coat</span><br>
+              <span class="word-opt" onclick="toggleWord(this)" style="margin-top: 4px;">A yellow summer t-shirt</span>
+            </div>
+          </div>
+
+          <div class="q-item">
+            <strong>4. What did the coach tell Faustino before the game?</strong>
+            <div style="margin-top: 5px;">
+              <span class="word-opt" onclick="toggleWord(this)" data-correct="true">He shouldn't play in the blizzard</span><br>
+              <span class="word-opt" onclick="toggleWord(this)" style="margin-top: 4px;">He should run 20 kilometers</span>
+            </div>
+          </div>
+
+          <div class="q-item">
+            <strong>5. What advice did "El Tino" give to athletes?</strong>
+            <div style="margin-top: 5px;">
+              <span class="word-opt" onclick="toggleWord(this)" data-correct="true">Athletes should always wear warm jackets</span><br>
+              <span class="word-opt" onclick="toggleWord(this)" style="margin-top: 4px;">Athletes shouldn't drink warm tea</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 20px;">
+          <div class="did-you-know">
+            <h4>🇨🇴 Football Folklore: "El Tino"</h4>
+            <p style="margin-bottom: 8px;">
+              When Faustino Asprilla landed in Newcastle during a historic snowstorm in 1996, the English media were shocked by his fur coat and warm smile.
+            </p>
+            <p style="margin-bottom: 8px;">
+              Despite having zero training sessions with the team, he entered in the second half and gave an iconic assist to beat Middlesbrough 2-1!
+            </p>
+            <p style="font-size: 12px; color: #0369a1; font-weight: 700;">
+              ✨ Fun Fact: He later scored a historic hat-trick against FC Barcelona in the UEFA Champions League!
+            </p>
+          </div>
+
+          <div class="box-card" style="margin-bottom: 0;">
+            <img src="https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=600&auto=format&fit=crop&q=80" alt="Football under cold conditions" style="width: 100%; border-radius: 6px; height: 140px; object-fit: cover; margin-bottom: 8px;">
+            <p style="font-size: 11.5px; color: var(--text-muted); font-style: italic;">
+              Professional players must adapt quickly to extreme cold and freezing pitches across European leagues.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="box-card" style="margin-top: 10px;">
+        <h3><span style="color: var(--natgeo-yellow); font-weight: 900;">B</span> Sports Conditioning Vocabulary - Fill in the blanks:</h3>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 10px;">Word bank: <strong>hydrate / stamina / warm up / recovery</strong></p>
+        <div class="grid-2col" style="margin-bottom: 0;">
+          <div class="q-item">
+            1. High-intensity intervals increase a footballer's cardiovascular <input type="text" class="fill-box" data-ans="stamina" placeholder="...">.
+          </div>
+          <div class="q-item">
+            2. In cold weather, athletes must still drink fluids to <input type="text" class="fill-box" data-ans="hydrate" placeholder="..."> properly.
+          </div>
+          <div class="q-item">
+            3. Dynamic mobility exercises help players <input type="text" class="fill-box" data-ans="warm up" placeholder="..."> before entering the pitch.
+          </div>
+          <div class="q-item">
+            4. Hot baths, nutrition and sleep are vital for muscle <input type="text" class="fill-box" data-ans="recovery" placeholder="..."> after 90 minutes.
+          </div>
+        </div>
+      </div>
+
+      <!-- BOTÓN ACTUALIZADO (Look) -->
+      <div class="section-eval-bar">
+        <button class="btn-grade-section" id="btn-grade-p4" onclick="gradePage4()">Check answers & look</button>
+        <span class="section-feedback-msg" id="msg-grade-p4"></span>
+      </div>
+
+      <div class="page-footer-strip">
+        <span>The Real World &bull; Sports Anecdotes & Conditioning</span>
+        <span>Page 4 of 7</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================= -->
+  <!-- PÁGINA 5: READING (CARLOS "EL PIBE" VALDERRAMA) -->
+  <!-- ============================================================= -->
+  <div class="magazine-page" id="page-5">
+    <div class="page-hero" style="background-image: url('https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=1400&auto=format&fit=crop&q=80'); height: 300px;">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-tag">Reading & Performance Science</div>
+        <h1 class="hero-title" style="font-size: 34px;">Speed of the Mind: Carlos "El Pibe"</h1>
+      </div>
+    </div>
+
+    <div class="page-inner">
+      <div class="page-header-strip">
+        <span class="strip-title">Reading & Comprehension Analysis</span>
+        <span class="page-indicator-top">PAGE 5 / 7</span>
+      </div>
+
+      <div class="grid-2col">
+        <div>
+          <div class="reading-paragraph">
+            <span class="para-letter">A</span> <strong>Carlos "El Pibe" Valderrama</strong> is arguably the most famous football icon in Colombian history. Recognized globally for his iconic blonde curly hair and colorful bracelets, Valderrama transformed the concept of speed in modern sports.
+          </div>
+
+          <div class="reading-paragraph">
+            <span class="para-letter">B</span> When Carlos arrived in European football to play for Montpellier in France, the physical trainers were surprised. While European players focused on maximum sprinting and heavy weight lifting, Valderrama rarely sprinted. He famously stated: <em>"The ball should run faster than the players. Athletes shouldn't exhaust their muscles running without purpose."</em>
+          </div>
+
+          <div class="reading-paragraph">
+            <span class="para-letter">C</span> Instead of running long laps, his technical conditioning focused on <strong>peripheral vision</strong> and rapid decision-making. Back in Santa Marta, he developed incredible foot <strong>agility</strong> by playing bare-foot drills on deep sand beaches under high temperatures.
+          </div>
+
+          <div class="reading-paragraph">
+            <span class="para-letter">D</span> A world-famous anecdote occurred in 1991 during a Spanish league match against Real Madrid. Spanish midfielder Míchel tried to provoke and distract Carlos during a corner kick. Instead of reacting aggressively or getting a red card, "El Pibe" remained calm, smiled, and dominated the game with surgical passing accuracy.
+          </div>
+
+          <div class="reading-paragraph">
+            <span class="para-letter">E</span> Today, sports scientists study his technique. Valderrama proved that high-performance athletes should master cognitive speed and spatial awareness just as much as muscular strength.
+          </div>
+        </div>
+
+        <div>
+          <div class="idiom-box">
+            <div class="idiom-tag">Idiom Focus</div>
+            <h4 style="font-family: 'Montserrat'; font-size: 14px; color: #1e3a8a; margin-bottom: 4px;">Ahead of the game</h4>
+            <p style="font-size: 12.5px; color: #475569; margin-bottom: 8px;">
+              To be <em>ahead of the game</em> means having an advantage by anticipating what will happen before others do.
+            </p>
+            <p style="font-size: 12.5px; font-weight: 700; color: #0f172a;">
+              Example: "Valderrama was always ahead of the game because his mind saw the play 3 seconds before his rivals."
+            </p>
+          </div>
+
+          <!-- IMAGEN NUEVA VERIFICADA (Balón de fútbol en campo - 100% funcional) -->
+          <img src="https://images.unsplash.com/photo-1511886929837-354d827aae26?w=700&auto=format&fit=crop&q=80" alt="Football tactical vision" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); margin-bottom: 8px;">
+        </div>
+      </div>
+
+      <!-- EJERCICIO A: 5 TRUE / FALSE -->
+      <div class="box-card" id="section-p5-tf" style="margin-top: 10px;">
+        <h3><span style="color: var(--natgeo-yellow); font-weight: 900;">A</span> Read the article. Choose True (T) or False (F):</h3>
+        
+        <div class="q-item">
+          1. Valderrama believed that athletes should run constantly across the field without the ball.
+          <div class="tf-wrap" data-ans="F">
+            <button class="tf-btn" onclick="setTF(this, 'T')">True</button>
+            <button class="tf-btn" onclick="setTF(this, 'F')">False</button>
+          </div>
+        </div>
+
+        <div class="q-item">
+          2. Carlos developed his foot agility training on the sand beaches of Santa Marta.
+          <div class="tf-wrap" data-ans="T">
+            <button class="tf-btn" onclick="setTF(this, 'T')">True</button>
+            <button class="tf-btn" onclick="setTF(this, 'F')">False</button>
+          </div>
+        </div>
+
+        <div class="q-item">
+          3. Valderrama was sent off with a red card during the match against Real Madrid in 1991.
+          <div class="tf-wrap" data-ans="F">
+            <button class="tf-btn" onclick="setTF(this, 'T')">True</button>
+            <button class="tf-btn" onclick="setTF(this, 'F')">False</button>
+          </div>
+        </div>
+
+        <div class="q-item">
+          4. European coaches in France placed great importance on sprinting and physical power.
+          <div class="tf-wrap" data-ans="T">
+            <button class="tf-btn" onclick="setTF(this, 'T')">True</button>
+            <button class="tf-btn" onclick="setTF(this, 'F')">False</button>
+          </div>
+        </div>
+
+        <div class="q-item">
+          5. Modern sports science acknowledges that cognitive vision is vital for sports performance.
+          <div class="tf-wrap" data-ans="T">
+            <button class="tf-btn" onclick="setTF(this, 'T')">True</button>
+            <button class="tf-btn" onclick="setTF(this, 'F')">False</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- EJERCICIO B: UNIR CON LÍNEAS -->
+      <div class="box-card" id="section-p5-matching" style="margin-top: 15px;">
+        <h3><span style="color: var(--natgeo-yellow); font-weight: 900;">B</span> Scan the article. Match the sports words to their definitions:</h3>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">
+          👉 <em>Click a word on the left, then click its corresponding definition on the right.</em>
+        </p>
+
+        <div class="matching-wrapper" id="match-area">
+          <svg class="matching-svg-canvas" id="svg-match-canvas"></svg>
+          
+          <div class="matching-grid">
+            <div class="match-col col-left" id="col-left">
+              <div class="match-node" data-id="1" data-pair="c" onclick="handleNodeClick(this, 'left')">
+                <strong>1. Agility</strong>
+                <div class="match-dot"></div>
+              </div>
+              <div class="match-node" data-id="2" data-pair="a" onclick="handleNodeClick(this, 'left')">
+                <strong>2. Peripheral vision</strong>
+                <div class="match-dot"></div>
+              </div>
+              <div class="match-node" data-id="3" data-pair="d" onclick="handleNodeClick(this, 'left')">
+                <strong>3. Purpose</strong>
+                <div class="match-dot"></div>
+              </div>
+              <div class="match-node" data-id="4" data-pair="b" onclick="handleNodeClick(this, 'left')">
+                <strong>4. Provoke</strong>
+                <div class="match-dot"></div>
+              </div>
+            </div>
+
+            <div class="match-col col-right" id="col-right">
+              <div class="match-node" data-id="a" onclick="handleNodeClick(this, 'right')">
+                <div class="match-dot"></div>
+                <span>Ability to see wide areas around you without turning your head.</span>
+              </div>
+              <div class="match-node" data-id="b" onclick="handleNodeClick(this, 'right')">
+                <div class="match-dot"></div>
+                <span>To deliberately make an opponent angry or distracted.</span>
+              </div>
+              <div class="match-node" data-id="c" onclick="handleNodeClick(this, 'right')">
+                <div class="match-dot"></div>
+                <span>Ability to move quickly, smoothly, and change directions easily.</span>
+              </div>
+              <div class="match-node" data-id="d" onclick="handleNodeClick(this, 'right')">
+                <div class="match-dot"></div>
+                <span>A specific goal, intention, or clear reason for an action.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOTÓN ACTUALIZADO (Look) -->
+      <div class="section-eval-bar">
+        <button class="btn-grade-section" id="btn-grade-p5" onclick="gradePage5()">Check answers & look</button>
+        <span class="section-feedback-msg" id="msg-grade-p5"></span>
+      </div>
+
+      <div class="page-footer-strip">
+        <span>Reading & Vocabulary Scanning</span>
+        <span>Page 5 of 7</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================= -->
+  <!-- PÁGINA 6: COMPREHENSION (ESTILO NATGEO CON PILLS) & WRITING -->
+  <!-- ============================================================= -->
+  <div class="magazine-page" id="page-6">
+    <div class="page-inner">
+      <div class="page-header-strip">
+        <span class="strip-title">Comprehension & Synthesis Analysis</span>
+        <span class="page-indicator-top">PAGE 6 / 7</span>
+      </div>
+
+      <!-- SECCIÓN A: COMPREHENSION MULTIPLE CHOICE CON BADGES -->
+      <div class="box-card" id="section-p6-mc">
+        <h3 style="font-size: 16px; margin-bottom: 14px;">
+          <span style="color: var(--natgeo-yellow); font-weight: 900;">A</span> Answer the questions about the Carlos Valderrama text:
+        </h3>
+
+        <!-- PREGUNTA 1: DETAIL -->
+        <div class="q-item" data-q="mc1">
+          <strong>1. <span class="natgeo-pill-badge pill-detail">Detail</span> Which statement about Carlos Valderrama is true?</strong>
+          <div class="mc-options">
+            <label class="mc-opt"><input type="radio" name="p6_q1" value="a"> a) He was known for sprinting fast across the 90 minutes.</label>
+            <label class="mc-opt"><input type="radio" name="p6_q1" value="b" data-correct="true"> b) He trained barefoot on Santa Marta beaches to build foot agility.</label>
+            <label class="mc-opt"><input type="radio" name="p6_q1" value="c"> c) He got a red card against Real Madrid after reacting with anger.</label>
+          </div>
+        </div>
+
+        <!-- PREGUNTA 2: DETAIL -->
+        <div class="q-item" data-q="mc2">
+          <strong>2. <span class="natgeo-pill-badge pill-detail">Detail</span> What did European coaches prioritize when Valderrama arrived in France?</strong>
+          <div class="mc-options">
+            <label class="mc-opt"><input type="radio" name="p6_q2" value="a" data-correct="true"> a) Maximum sprinting, running laps and heavy weight lifting.</label>
+            <label class="mc-opt"><input type="radio" name="p6_q2" value="b"> b) Beach workouts and swimming recovery drills.</label>
+            <label class="mc-opt"><input type="radio" name="p6_q2" value="c"> c) Deep breathing and resting during the whole first half.</label>
+          </div>
+        </div>
+
+        <!-- PREGUNTA 3: PURPOSE -->
+        <div class="q-item" data-q="mc3">
+          <strong>3. <span class="natgeo-pill-badge pill-purpose">Purpose</span> What is the main purpose of Paragraph B?</strong>
+          <div class="mc-options">
+            <label class="mc-opt"><input type="radio" name="p6_q3" value="a"> a) To describe how cold the weather was in Montpellier.</label>
+            <label class="mc-opt"><input type="radio" name="p6_q3" value="b" data-correct="true"> b) To explain Valderrama's philosophy that the ball should run faster than the player.</label>
+            <label class="mc-opt"><input type="radio" name="p6_q3" value="c"> c) To list how many trophies he won in Europe.</label>
+          </div>
+        </div>
+
+        <!-- PREGUNTA 4: COHESION -->
+        <div class="q-item" data-q="mc4">
+          <strong>4. <span class="natgeo-pill-badge pill-cohesion">Cohesion</span> What is the best place for this sentence in Paragraph D?</strong>
+          <p style="font-size: 12.5px; font-style: italic; background: #f1f5f9; padding: 6px 12px; border-radius: 4px; margin: 4px 0 6px 0;">
+            "His emotional control prevented a major conflict on the pitch."
+          </p>
+          <div class="mc-options">
+            <label class="mc-opt"><input type="radio" name="p6_q4" value="a"> a) after the first sentence</label>
+            <label class="mc-opt"><input type="radio" name="p6_q4" value="b"> b) before Paragraph D</label>
+            <label class="mc-opt"><input type="radio" name="p6_q4" value="c" data-correct="true"> c) after the last sentence</label>
+          </div>
+        </div>
+
+        <!-- PREGUNTA 5: VOCABULARY -->
+        <div class="q-item" data-q="mc5">
+          <strong>5. <span class="natgeo-pill-badge pill-vocabulary">Vocabulary</span> The phrase <em>"ahead of the game"</em> is closest in meaning to:</strong>
+          <div class="mc-options">
+            <label class="mc-opt"><input type="radio" name="p6_q5" value="a" data-correct="true"> a) anticipating plays and having a tactical advantage before others</label>
+            <label class="mc-opt"><input type="radio" name="p6_q5" value="b"> b) arriving 30 minutes late to the stadium</label>
+            <label class="mc-opt"><input type="radio" name="p6_q5" value="c"> c) running faster than the referee</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECCIÓN B: COMPARACIÓN DE LEYENDAS COLOMBIANAS -->
+      <div class="box-card" id="section-p6-legend">
+        <h3><span style="color: var(--natgeo-yellow); font-weight: 900;">B</span> Colombian Sports Legends Synthesis</h3>
+        <p style="font-size: 13.5px; color: var(--text-muted); margin-bottom: 10px;">Which Colombian footballer transformed modern training by emphasizing cognitive speed over sprinting?</p>
+        <div class="q-item">
+          <span class="word-opt" onclick="toggleWord(this)">Faustino Asprilla</span> / 
+          <span class="word-opt" onclick="toggleWord(this)" data-correct="true">Carlos Valderrama</span> / 
+          <span class="word-opt" onclick="toggleWord(this)">Both</span>
+        </div>
+      </div>
+
+      <!-- SECCIÓN C: WRITING PRODUCTION -->
+      <div class="box-card">
+        <h3><span style="color: var(--natgeo-yellow); font-weight: 900;">C</span> Writing Challenge: Professional Coach Advisory</h3>
+        <p style="font-size: 13.5px; margin-bottom: 10px;">
+          Write 3 recommendations for an athlete experiencing high muscle fatigue using <strong>should</strong> and <strong>shouldn't</strong>:
+        </p>
+        <div style="background: white; border: 1px solid var(--border-color); border-radius: 6px; padding: 12px;">
+          <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 4px;">To: athlete@team.com | Subject: Weekly Recovery & Tactical Plan</div>
+          <textarea id="writing-area" style="width: 100%; height: 80px; border: none; outline: none; font-family: inherit; font-size: 13.5px; resize: none;" placeholder="Dear athlete, you should do light active recovery and stay hydrated. You shouldn't lift maximum weights when sore..."></textarea>
+        </div>
+      </div>
+
+      <!-- BOTÓN ACTUALIZADO (Look) -->
+      <div class="section-eval-bar">
+        <button class="btn-grade-section" id="btn-grade-p6" onclick="gradePage6()">Check answers & look</button>
+        <span class="section-feedback-msg" id="msg-grade-p6"></span>
+      </div>
+
+      <div class="page-footer-strip">
+        <span>Unit 1: Reading Comprehension & Writing Synthesis</span>
+        <span>Page 6 of 7</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================= -->
+  <!-- PÁGINA 7: GRAN FINAL - CALIFICACIÓN OFICIAL & REPORTE -->
+  <!-- ============================================================= -->
+  <div class="magazine-page" id="page-7">
+    <div class="page-inner">
+      <div class="page-header-strip">
+        <span class="strip-title">Final Performance Report & Certificate</span>
+        <span class="page-indicator-top">PAGE 7 / 7</span>
+      </div>
+
+      <div class="certificate-card">
+        <div class="cert-seal">★</div>
+        <h2 style="font-family: 'Montserrat'; font-size: 26px; font-weight: 900; color: var(--natgeo-green); text-transform: uppercase;">
+          Unit 1: Certificate of Completion
+        </h2>
+        <p style="font-size: 14px; color: var(--text-muted); margin-top: 4px;">English for Sports Training &bull; Technical English A1-A2</p>
+
+        <div style="margin: 20px 0; border-top: 2px solid #e2e8f0; border-bottom: 2px solid #e2e8f0; padding: 15px 0;">
+          <div style="font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted);">This official e-learning record certifies that</div>
+          <div style="font-family: 'Montserrat'; font-size: 28px; font-weight: 900; color: #0f172a; margin: 6px 0;" id="report-name">Student Name</div>
+          <div style="font-size: 14px; font-weight: 700; color: var(--natgeo-green);" id="report-cohort">Sports Training Cohort</div>
+        </div>
+
+        <!-- MÉTRICAS DE PUNTAJE -->
+        <div class="score-breakdown-grid">
+          <div class="score-metric-box">
+            <h5>Page 2: Preview Matching</h5>
+            <div class="metric-val" id="metric-p2">0 / 10</div>
+          </div>
+          <div class="score-metric-box">
+            <h5>Page 3: Modals Advice</h5>
+            <div class="metric-val" id="metric-p3">0 / 7</div>
+          </div>
+          <div class="score-metric-box">
+            <h5>Page 4: "El Tino" Report</h5>
+            <div class="metric-val" id="metric-p4">0 / 9</div>
+          </div>
+          <div class="score-metric-box">
+            <h5>Page 5: Valderrama Reading</h5>
+            <div class="metric-val" id="metric-p5">0 / 9</div>
+          </div>
+          <div class="score-metric-box">
+            <h5>Page 6: Comprehension</h5>
+            <div class="metric-val" id="metric-p6">0 / 6</div>
+          </div>
+        </div>
+
+        <!-- PUNTAJE TOTAL Y RETROALIMENTACIÓN -->
+        <div style="background: #f8fafc; border-radius: 8px; padding: 20px; border: 2px solid var(--border-color); text-align: left;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap;">
+            <span style="font-family: 'Montserrat'; font-size: 18px; font-weight: 900; color: var(--natgeo-dark);">Global Score / Calificación General:</span>
+            <span style="font-family: 'Montserrat'; font-size: 26px; font-weight: 900; color: var(--natgeo-green);" id="report-global-score">0% (0 / 41 pts)</span>
+          </div>
+          <div id="report-pedagogical-feedback" style="font-size: 14px; line-height: 1.6; color: #334155;">
+            Please make sure you complete and grade each page to see your personalized feedback report.
+          </div>
+        </div>
+
+        <div style="margin-top: 25px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+          <button class="btn-grade-section" style="background: var(--natgeo-yellow); color: var(--natgeo-dark);" onclick="window.print()">
+            🖨️ Print / Save PDF Certificate
+          </button>
+          <button class="btn-grade-section" onclick="goToPage(2)">
+            Review Magazine Pages ➔
+          </button>
+        </div>
+      </div>
+
+      <div class="page-footer-strip">
+        <span>Unit 1 Final Evaluation & Official Scorecard</span>
+        <span>Page 7 of 7</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- JAVASCRIPT NATIVO -->
+<script>
+  let currentPage = 1;
+  const totalPages = 7;
+  let zoomLevel = 1.0;
+
+  // ESTADO GLOBAL DE PUNTAJES POR SECCIÓN
+  const sectionScores = {
+    p2: { score: 0, total: 10, graded: false },
+    p3: { score: 0, total: 7, graded: false },
+    p4: { score: 0, total: 9, graded: false },
+    p5: { score: 0, total: 9, graded: false },
+    p6: { score: 0, total: 6, graded: false }
+  };
+
+  let studentData = {
+    name: "Guest Student",
+    cohort: "Sports Training Group",
+    goal: ""
+  };
+
+  // REGISTRO DE ESTUDIANTE (PÁGINA 1)
+  function saveStudentAndContinue() {
+    const nameInput = document.getElementById('student-name').value.trim();
+    const cohortInput = document.getElementById('student-cohort').value.trim();
+    const goalInput = document.getElementById('student-goal').value.trim();
+
+    if (!nameInput) {
+      alert("Por favor ingresa tu nombre completo para iniciar la revista.");
+      return;
+    }
+
+    studentData.name = nameInput;
+    studentData.cohort = cohortInput || "Sports Coaching Cohort";
+    studentData.goal = goalInput || "Strength & Conditioning";
+
+    updateFinalReportUI();
+    goToPage(2);
+  }
+
+  // REPRODUCTOR DE AUDIO
+  let globalAudio = new Audio();
+  let currentActiveContainer = null;
+
+  function togglePlayer(btn) {
+    const container = btn.closest('.natgeo-player');
+    const src = container.getAttribute('data-src');
+
+    if (currentActiveContainer === container) {
+      if (globalAudio.paused) {
+        globalAudio.play();
+        btn.textContent = '⏸';
+      } else {
+        globalAudio.pause();
+        btn.textContent = '▶';
+      }
+      return;
+    }
+
+    if (currentActiveContainer) {
+      currentActiveContainer.querySelector('.player-btn-toggle').textContent = '▶';
+    }
+
+    globalAudio.pause();
+    globalAudio.src = src;
+    currentActiveContainer = container;
+    btn.textContent = '⏸';
+    globalAudio.play();
+  }
+
+  function seekAudio(slider) {
+    const container = slider.closest('.natgeo-player');
+    const src = container.getAttribute('data-src');
+
+    if (currentActiveContainer !== container) {
+      globalAudio.src = src;
+      currentActiveContainer = container;
+    }
+
+    if (globalAudio.duration) {
+      globalAudio.currentTime = (slider.value / 100) * globalAudio.duration;
+    }
+  }
+
+  globalAudio.addEventListener('timeupdate', () => {
+    if (!currentActiveContainer) return;
+    const slider = currentActiveContainer.querySelector('.player-slider');
+    const timeLabel = currentActiveContainer.querySelector('.player-time');
+
+    if (globalAudio.duration) {
+      const progress = (globalAudio.currentTime / globalAudio.duration) * 100;
+      slider.value = progress;
+
+      const curM = Math.floor(globalAudio.currentTime / 60);
+      const curS = Math.floor(globalAudio.currentTime % 60).toString().padStart(2, '0');
+      const durM = Math.floor(globalAudio.duration / 60);
+      const durS = Math.floor(globalAudio.duration % 60).toString().padStart(2, '0');
+      timeLabel.textContent = `${curM}:${curS} / ${durM}:${durS}`;
+    }
+  });
+
+  globalAudio.addEventListener('ended', () => {
+    if (currentActiveContainer) {
+      currentActiveContainer.querySelector('.player-btn-toggle').textContent = '▶';
+      currentActiveContainer.querySelector('.player-slider').value = 0;
+    }
+  });
+
+  // SUSTITUCIÓN DINÁMICA
+  function swapPhrase(targetId, newText, pillEl) {
+    const el = document.getElementById(targetId);
+    if (el) {
+      el.textContent = newText;
+      el.style.backgroundColor = '#86efac';
+      setTimeout(() => {
+        el.style.backgroundColor = '#fef08a';
+      }, 400);
+    }
+    
+    const line = pillEl.closest('.dialogue-line');
+    line.querySelectorAll('.pill-opt').forEach(p => p.classList.remove('active-pill'));
+    pillEl.classList.add('active-pill');
+  }
+
+  // NAVEGACIÓN
+  function showPage(pageNum) {
+    if (pageNum < 1 || pageNum > totalPages) return;
+    
+    document.querySelectorAll('.magazine-page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.dot-btn').forEach(d => d.classList.remove('active'));
+    
+    const target = document.getElementById(`page-${pageNum}`);
+    if (target) {
+      target.classList.add('active');
+      currentPage = pageNum;
+    }
+
+    const dot = document.querySelectorAll('.dot-btn')[pageNum - 1];
+    if (dot) dot.classList.add('active');
+
+    document.getElementById('prev-btn').disabled = (currentPage === 1);
+    document.getElementById('next-btn').disabled = (currentPage === totalPages);
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    if (pageNum === 5) {
+      setTimeout(redrawAllLines, 60);
+    }
+    if (pageNum === 7) {
+      updateFinalReportUI();
+    }
+  }
+
+  function changePage(delta) {
+    showPage(currentPage + delta);
+  }
+
+  function goToPage(num) {
+    showPage(num);
+  }
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === 'PageDown') changePage(1);
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') changePage(-1);
+  });
+
+  function zoom(delta) {
+    zoomLevel = Math.min(Math.max(zoomLevel + delta, 0.75), 1.4);
+    applyZoom();
+  }
+
+  function resetZoom() {
+    zoomLevel = 1.0;
+    applyZoom();
+  }
+
+  function applyZoom() {
+    const container = document.getElementById('zoom-container');
+    container.style.transform = `scale(${zoomLevel})`;
+    setTimeout(redrawAllLines, 60);
+  }
+
+  function toggleWord(el) {
+    const parent = el.closest('.preview-row') || el.closest('.q-item');
+    parent.querySelectorAll('.word-opt').forEach(opt => opt.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  function setTF(btn, val) {
+    const group = btn.closest('.tf-wrap');
+    group.querySelectorAll('.tf-btn').forEach(b => b.classList.remove('active-true', 'active-false'));
+    if (val === 'T') btn.classList.add('active-true');
+    if (val === 'F') btn.classList.add('active-false');
+    group.setAttribute('data-user', val);
+  }
+
+  // =============================================================
+  // UNIR CON LÍNEAS (MATCHING PÁGINA 5)
+  // =============================================================
+  let selectedLeftNode = null;
+  let matches = {};
+
+  function handleNodeClick(node, side) {
+    if (sectionScores.p5.graded) return;
+
+    if (side === 'left') {
+      if (selectedLeftNode) selectedLeftNode.classList.remove('selected');
+      if (selectedLeftNode === node) {
+        selectedLeftNode = null;
+        return;
+      }
+      selectedLeftNode = node;
+      node.classList.add('selected');
+    } else if (side === 'right') {
+      if (!selectedLeftNode) return;
+
+      const leftId = selectedLeftNode.getAttribute('data-id');
+      const rightId = node.getAttribute('data-id');
+
+      for (const [lKey, rVal] of Object.entries(matches)) {
+        if (rVal === rightId) delete matches[lKey];
+      }
+
+      matches[leftId] = rightId;
+      selectedLeftNode.classList.remove('selected');
+      selectedLeftNode = null;
+
+      updateNodeMatchedStyles();
+      redrawAllLines();
+    }
+  }
+
+  function updateNodeMatchedStyles() {
+    document.querySelectorAll('#col-left .match-node').forEach(n => {
+      const id = n.getAttribute('data-id');
+      if (matches[id]) n.classList.add('matched');
+      else n.classList.remove('matched');
+    });
+
+    const activeRights = Object.values(matches);
+    document.querySelectorAll('#col-right .match-node').forEach(n => {
+      const id = n.getAttribute('data-id');
+      if (activeRights.includes(id)) n.classList.add('matched');
+      else n.classList.remove('matched');
+    });
+  }
+
+  function redrawAllLines(graded = false) {
+    const svg = document.getElementById('svg-match-canvas');
+    if (!svg) return;
+    svg.innerHTML = '';
+
+    const container = document.getElementById('match-area');
+    if (!container) return;
+    const containerRect = container.getBoundingClientRect();
+
+    for (const [leftId, rightId] of Object.entries(matches)) {
+      const leftNode = document.querySelector(`#col-left .match-node[data-id="${leftId}"]`);
+      const rightNode = document.querySelector(`#col-right .match-node[data-id="${rightId}"]`);
+
+      if (!leftNode || !rightNode) continue;
+
+      const leftDot = leftNode.querySelector('.match-dot');
+      const rightDot = rightNode.querySelector('.match-dot');
+
+      const lRect = leftDot.getBoundingClientRect();
+      const rRect = rightDot.getBoundingClientRect();
+
+      const x1 = (lRect.left + lRect.width / 2 - containerRect.left) / zoomLevel;
+      const y1 = (lRect.top + lRect.height / 2 - containerRect.top) / zoomLevel;
+      const x2 = (rRect.left + rRect.width / 2 - containerRect.left) / zoomLevel;
+      const y2 = (rRect.top + rRect.height / 2 - containerRect.top) / zoomLevel;
+
+      let strokeColor = '#0284c7';
+      let strokeWidth = 3;
+
+      if (graded) {
+        const correctPair = leftNode.getAttribute('data-pair');
+        strokeColor = (rightId === correctPair) ? '#16a34a' : '#dc2626';
+        strokeWidth = 4;
+      }
+
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', x1);
+      line.setAttribute('y1', y1);
+      line.setAttribute('x2', x2);
+      line.setAttribute('y2', y2);
+      line.setAttribute('stroke', strokeColor);
+      line.setAttribute('stroke-width', strokeWidth);
+      line.setAttribute('stroke-linecap', 'round');
+      line.setAttribute('stroke-dasharray', graded ? 'none' : '6, 3');
+      svg.appendChild(line);
+    }
+  }
+
+  // =============================================================
+  // CALIFICADORES POR PÁGINA CON BLOQUEO (LOCK)
+  // =============================================================
+
+  // PÁGINA 2
+  function gradePage2() {
+    if (sectionScores.p2.graded) return;
+    let score = 0;
+
+    // 5 dropdowns
+    document.querySelectorAll('#section-p2 .career-select').forEach(sel => {
+      const u = sel.value;
+      const a = sel.getAttribute('data-ans');
+      sel.disabled = true;
+      if (u === a) { score++; sel.classList.add('correct'); }
+      else { sel.classList.add('incorrect'); }
+    });
+
+    // 5 word options
+    document.querySelectorAll('#section-p2 .preview-row').forEach(row => {
+      const sel = row.querySelector('.word-opt.selected');
+      row.querySelectorAll('.word-opt').forEach(w => w.style.pointerEvents = 'none');
+      if (sel) {
+        if (sel.getAttribute('data-correct') === 'true') {
+          score++;
+          sel.style.backgroundColor = '#dcfce7';
+          sel.style.borderColor = '#16a34a';
+        } else {
+          sel.style.backgroundColor = '#fee2e2';
+          sel.style.borderColor = '#dc2626';
+        }
+      }
+    });
+
+    sectionScores.p2.score = score;
+    sectionScores.p2.graded = true;
+
+    const btn = document.getElementById('btn-grade-p2');
+    const msg = document.getElementById('msg-grade-p2');
+    btn.disabled = true;
+    btn.textContent = 'Looked & Graded ✓';
+    msg.style.display = 'inline';
+    msg.style.color = '#15803d';
+    msg.textContent = `Score: ${score} / 10 pts`;
+  }
+
+  // PÁGINA 3
+  function gradePage3() {
+    if (sectionScores.p3.graded) return;
+    let score = 0;
+
+    // 4 should selects
+    document.querySelectorAll('#section-p3 .should-select').forEach(sel => {
+      const u = sel.value;
+      const a = sel.getAttribute('data-ans');
+      sel.disabled = true;
+      if (u === a) { score++; sel.classList.add('correct'); }
+      else { sel.classList.add('incorrect'); }
+    });
+
+    // 3 word options
+    document.querySelectorAll('#section-p3 .q-item').forEach(item => {
+      const sel = item.querySelector('.word-opt.selected');
+      item.querySelectorAll('.word-opt').forEach(w => w.style.pointerEvents = 'none');
+      if (sel) {
+        if (sel.getAttribute('data-correct') === 'true') {
+          score++;
+          sel.style.backgroundColor = '#dcfce7';
+          sel.style.borderColor = '#16a34a';
+        } else {
+          sel.style.backgroundColor = '#fee2e2';
+          sel.style.borderColor = '#dc2626';
+        }
+      }
+    });
+
+    sectionScores.p3.score = score;
+    sectionScores.p3.graded = true;
+
+    const btn = document.getElementById('btn-grade-p3');
+    const msg = document.getElementById('msg-grade-p3');
+    btn.disabled = true;
+    btn.textContent = 'Looked & Graded ✓';
+    msg.style.display = 'inline';
+    msg.style.color = '#15803d';
+    msg.textContent = `Score: ${score} / 7 pts`;
+  }
+
+  // PÁGINA 4
+  function gradePage4() {
+    if (sectionScores.p4.graded) return;
+    let score = 0;
+
+    // 5 MC Asprilla options
+    document.querySelectorAll('#section-p4 .q-item').forEach(item => {
+      const sel = item.querySelector('.word-opt.selected');
+      item.querySelectorAll('.word-opt').forEach(w => w.style.pointerEvents = 'none');
+      if (sel) {
+        if (sel.getAttribute('data-correct') === 'true') {
+          score++;
+          sel.style.backgroundColor = '#dcfce7';
+          sel.style.borderColor = '#16a34a';
+        } else {
+          sel.style.backgroundColor = '#fee2e2';
+          sel.style.borderColor = '#dc2626';
+        }
+      }
+    });
+
+    // 4 Fill in blanks
+    document.querySelectorAll('#page-4 .fill-box').forEach(inp => {
+      inp.disabled = true;
+      const u = inp.value.trim().toLowerCase();
+      const a = inp.getAttribute('data-ans').toLowerCase();
+      if (u === a) {
+        score++;
+        inp.style.borderBottomColor = '#16a34a';
+        inp.style.color = '#16a34a';
+      } else {
+        inp.style.borderBottomColor = '#dc2626';
+        inp.style.color = '#dc2626';
+      }
+    });
+
+    sectionScores.p4.score = score;
+    sectionScores.p4.graded = true;
+
+    const btn = document.getElementById('btn-grade-p4');
+    const msg = document.getElementById('msg-grade-p4');
+    btn.disabled = true;
+    btn.textContent = 'Looked & Graded ✓';
+    msg.style.display = 'inline';
+    msg.style.color = '#15803d';
+    msg.textContent = `Score: ${score} / 9 pts`;
+  }
+
+  // PÁGINA 5
+  function gradePage5() {
+    if (sectionScores.p5.graded) return;
+    let score = 0;
+
+    // 5 True/False
+    document.querySelectorAll('#section-p5-tf .tf-wrap').forEach(tf => {
+      const u = tf.getAttribute('data-user');
+      const a = tf.getAttribute('data-ans');
+      tf.querySelectorAll('.tf-btn').forEach(b => b.disabled = true);
+
+      if (u && u === a) {
+        score++;
+        tf.style.border = '2px solid #16a34a';
+        tf.style.borderRadius = '6px';
+        tf.style.padding = '2px 4px';
+        tf.style.backgroundColor = '#dcfce7';
+      } else {
+        tf.style.border = '2px solid #dc2626';
+        tf.style.borderRadius = '6px';
+        tf.style.padding = '2px 4px';
+        tf.style.backgroundColor = '#fee2e2';
+      }
+    });
+
+    // 4 Matching connections
+    document.querySelectorAll('#col-left .match-node').forEach(node => {
+      const id = node.getAttribute('data-id');
+      const correctPair = node.getAttribute('data-pair');
+      if (matches[id] && matches[id] === correctPair) {
+        score++;
+      }
+    });
+    redrawAllLines(true);
+
+    sectionScores.p5.score = score;
+    sectionScores.p5.graded = true;
+
+    const btn = document.getElementById('btn-grade-p5');
+    const msg = document.getElementById('msg-grade-p5');
+    btn.disabled = true;
+    btn.textContent = 'Looked & Graded ✓';
+    msg.style.display = 'inline';
+    msg.style.color = '#15803d';
+    msg.textContent = `Score: ${score} / 9 pts`;
+  }
+
+  // PÁGINA 6
+  function gradePage6() {
+    if (sectionScores.p6.graded) return;
+    let score = 0;
+
+    // 5 Comprehension MC questions
+    for (let i = 1; i <= 5; i++) {
+      const checked = document.querySelector(`input[name="p6_q${i}"]:checked`);
+      const inputs = document.querySelectorAll(`input[name="p6_q${i}"]`);
+      inputs.forEach(inp => inp.disabled = true);
+
+      if (checked) {
+        const parentLabel = checked.closest('.mc-opt');
+        if (checked.getAttribute('data-correct') === 'true') {
+          score++;
+          parentLabel.style.color = '#15803d';
+          parentLabel.style.fontWeight = '700';
+        } else {
+          parentLabel.style.color = '#dc2626';
+          parentLabel.style.fontWeight = '700';
+        }
+      }
+    }
+
+    // 1 Legend Synthesis
+    const legSel = document.querySelector('#section-p6-legend .word-opt.selected');
+    document.querySelectorAll('#section-p6-legend .word-opt').forEach(w => w.style.pointerEvents = 'none');
+    if (legSel) {
+      if (legSel.getAttribute('data-correct') === 'true') {
+        score++;
+        legSel.style.backgroundColor = '#dcfce7';
+        legSel.style.borderColor = '#16a34a';
+      } else {
+        legSel.style.backgroundColor = '#fee2e2';
+        legSel.style.borderColor = '#dc2626';
+      }
+    }
+
+    // Lock writing area
+    document.getElementById('writing-area').disabled = true;
+
+    sectionScores.p6.score = score;
+    sectionScores.p6.graded = true;
+
+    const btn = document.getElementById('btn-grade-p6');
+    const msg = document.getElementById('msg-grade-p6');
+    btn.disabled = true;
+    btn.textContent = 'Looked & Graded ✓';
+    msg.style.display = 'inline';
+    msg.style.color = '#15803d';
+    msg.textContent = `Score: ${score} / 6 pts`;
+  }
+
+  // =============================================================
+  // REPORTE FINAL Y CERTIFICADO (PÁGINA 7)
+  // =============================================================
+  function updateFinalReportUI() {
+    document.getElementById('report-name').textContent = studentData.name || "Student";
+    document.getElementById('report-cohort').textContent = `${studentData.cohort} &bull; Target Goal: ${studentData.goal || "Sports Performance"}`;
+
+    document.getElementById('metric-p2').textContent = `${sectionScores.p2.score} / ${sectionScores.p2.total}`;
+    document.getElementById('metric-p3').textContent = `${sectionScores.p3.score} / ${sectionScores.p3.total}`;
+    document.getElementById('metric-p4').textContent = `${sectionScores.p4.score} / ${sectionScores.p4.total}`;
+    document.getElementById('metric-p5').textContent = `${sectionScores.p5.score} / ${sectionScores.p5.total}`;
+    document.getElementById('metric-p6').textContent = `${sectionScores.p6.score} / ${sectionScores.p6.total}`;
+
+    const totalEarned = sectionScores.p2.score + sectionScores.p3.score + sectionScores.p4.score + sectionScores.p5.score + sectionScores.p6.score;
+    const maxScore = sectionScores.p2.total + sectionScores.p3.total + sectionScores.p4.total + sectionScores.p5.total + sectionScores.p6.total;
+    const percentage = Math.round((totalEarned / maxScore) * 100);
+
+    document.getElementById('report-global-score').textContent = `${percentage}% (${totalEarned} / ${maxScore} pts)`;
+
+    const feedbackEl = document.getElementById('report-pedagogical-feedback');
+    if (percentage >= 85) {
+      feedbackEl.innerHTML = `🏆 <strong>Mastery Level (Outstanding):</strong> Excellent command of technical sports vocabulary, modal verbs of advice (<em>should/shouldn't</em>), and scanning comprehension! You demonstrate readiness for advanced sports communication in professional coaching contexts.`;
+    } else if (percentage >= 65) {
+      feedbackEl.innerHTML = `👍 <strong>Proficient Level:</strong> Good overall performance. Review modal structures on Page 3 and vocabulary scanning on Page 5 to ensure full precision when giving advice to athletes.`;
+    } else {
+      feedbackEl.innerHTML = `⚠️ <strong>Needs Reinforcement:</strong> You should review the grammar chart on Page 3 and re-read the Colombian legends stories to improve your technical reading accuracy.`;
+    }
+  }
+
+  showPage(1);
+</script>
+
+</body>
+</html>
