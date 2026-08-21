@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VAR Simulator</title>
+  <title>VAR Simulator - A2 English Edition</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -131,7 +131,7 @@
     }
 
     .incident-visual {
-      margin: 1.2rem 0;
+      margin: 1rem 0;
       min-height: 230px;
       background: radial-gradient(circle, #1e293b 0%, #090d16 100%);
       border: 1px dashed #475569;
@@ -142,24 +142,61 @@
       justify-content: center;
       text-align: center;
       padding: 1.2rem;
+      position: relative;
     }
 
     .incident-icon {
       font-size: 3.2rem;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .incident-title {
       font-size: 1.25rem;
       font-weight: 700;
       color: #ffffff;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
-    .incident-desc {
+    /* Structured breakdown for A2 comprehension */
+    .incident-structured {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      text-align: left;
+      width: 100%;
+      max-width: 480px;
+      background: rgba(15, 23, 42, 0.7);
+      padding: 10px 14px;
+      border-radius: 8px;
+      border-left: 3px solid var(--accent);
+    }
+
+    .incident-row {
       font-size: 0.92rem;
-      color: #cbd5e1;
-      line-height: 1.45;
+      color: #e2e8f0;
+      line-height: 1.35;
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .incident-row strong {
+      color: var(--accent);
+      min-width: 70px;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .incident-row span {
+      flex: 1;
+    }
+
+    .keyword-highlight {
+      color: #fef08a;
+      font-weight: 600;
+      text-decoration: underline;
+      text-decoration-color: #eab308;
     }
 
     .timer-container {
@@ -316,21 +353,21 @@
 
     .nav-controls {
       display: grid;
-      grid-template-columns: 1fr 1.3fr 1fr;
-      gap: 8px;
+      grid-template-columns: 0.8fr 1.1fr 1.1fr 0.8fr;
+      gap: 6px;
     }
 
     .action-btn {
-      padding: 10px;
+      padding: 9px 6px;
       border-radius: 8px;
       font-weight: 700;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       border: none;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 5px;
       background: #334155;
       color: white;
     }
@@ -338,15 +375,17 @@
     .action-btn:hover { background: #475569; }
     .btn-start { background: var(--primary); }
     .btn-start:hover { background: #16a34a; }
-    .btn-voice { background: #0284c7; }
-    .btn-voice:hover { background: #0369a1; }
+    .btn-situation { background: #0891b2; }
+    .btn-situation:hover { background: #0e7490; }
+    .btn-voice { background: #6366f1; }
+    .btn-voice:hover { background: #4f46e5; }
   </style>
 </head>
 <body>
 
   <header>
     <div class="brand-title">
-      ⚽ VAR SIMULATOR <span class="var-badge">LIVE CHECK</span>
+      ⚽ VAR SIMULATOR <span class="var-badge">A2 PRACTICE</span>
     </div>
 
     <div class="scoreboard">
@@ -378,14 +417,25 @@
     <div class="monitor-box">
       <div class="screen-header">
         <span id="incident-tag">INCIDENT #01 / 25</span>
-        <span id="match-min">MIN 12' • SITUATION</span>
+        <span id="match-min">MIN 12' • PENALTY BOX</span>
         <span>REC ● 1080p 60FPS</span>
       </div>
 
       <div class="incident-visual">
         <div class="incident-icon" id="incident-icon">🖐️</div>
-        <div class="incident-title" id="incident-title">Title</div>
-        <div class="incident-desc" id="incident-desc">Description text...</div>
+        <div class="incident-title" id="incident-title">Deliberate Handball on Goal Line</div>
+        
+        <div class="incident-structured">
+          <div class="incident-row">
+            <strong>👤 Who:</strong> <span id="inc-who">Defender</span>
+          </div>
+          <div class="incident-row">
+            <strong>⚡ Action:</strong> <span id="inc-action">Uses hands to stop a goal</span>
+          </div>
+          <div class="incident-row">
+            <strong>📍 Place:</strong> <span id="inc-place">On the goal line</span>
+          </div>
+        </div>
       </div>
 
       <div class="timer-container">
@@ -404,7 +454,7 @@
           <span style="font-size: 0.78rem; color: var(--text-muted);">Double click to lock</span>
         </div>
         <div class="prompt-box" style="margin-top: 6px;">
-          Choose the appropriate sanction:
+          Choose the correct sanction:
         </div>
       </div>
 
@@ -424,12 +474,13 @@
       </div>
 
       <div class="feedback-box" id="feedback-box">
-        💡 <em>1st click selects. 2nd click on the same option confirms the final decision.</em>
+        💡 <em>1st click selects (Yellow). 2nd click confirms final decision.</em>
       </div>
 
       <div class="nav-controls">
         <button class="action-btn" onclick="prevIncident()">⬅️ PREV</button>
-        <button class="action-btn btn-voice" onclick="speakRule()">🔊 READ RULE</button>
+        <button class="action-btn btn-situation" onclick="speakIncident()">🔊 SITUATION</button>
+        <button class="action-btn btn-voice" onclick="speakRule()">📢 RULE</button>
         <button class="action-btn" onclick="nextIncident()">NEXT ➡️</button>
       </div>
     </div>
@@ -443,8 +494,11 @@
         min: "MIN 12' • PENALTY BOX",
         icon: "🖐️",
         title: "Deliberate Handball on Goal Line",
-        desc: "A defender uses their hand to block a ball that was clearly entering the net.",
-        ruleText: "A defender mustn't touch the ball with their hands to deny an obvious goal.",
+        who: "Defender",
+        action: "Stops the ball with their <span class='keyword-highlight'>hand</span> on the line",
+        place: "Inside the goal line",
+        spokenText: "Incident 1. A defender stops the ball with their hand on the goal line to prevent a clear goal.",
+        ruleText: "A defender mustn't touch the ball with their hands to stop an obvious goal.",
         correct: 0,
         options: [
           "Penalty Kick + Red Card",
@@ -457,9 +511,12 @@
         tag: "INCIDENT #02 / 25",
         min: "MIN 15' • COUNTER-ATTACK",
         icon: "⚡",
-        title: "Dangerous Slide Tackle From Behind",
-        desc: "The defender lunges from behind with both studs showing, hitting the striker's ankle.",
-        ruleText: "Players mustn't make dangerous tackles from behind. It is serious foul play.",
+        title: "Dangerous Tackle From Behind",
+        who: "Defender",
+        action: "Slides from behind with <span class='keyword-highlight'>studs</span> into the ankle",
+        place: "Open field",
+        spokenText: "Incident 2. A defender slides from behind with high studs and hits the striker's ankle.",
+        ruleText: "Players mustn't make dangerous tackles. It is serious foul play.",
         correct: 1,
         options: [
           "No Foul (Play continues)",
@@ -473,8 +530,11 @@
         min: "MIN 21' • MIDFIELD",
         icon: "👕",
         title: "Tactical Shirt Pulling",
-        desc: "A midfielder grabs the opponent's jersey for several seconds to stop a clear counter-attack.",
-        ruleText: "A player can't pull an opponent's shirt to stop a promising attack.",
+        who: "Midfielder",
+        action: "<span class='keyword-highlight'>Pulls the jersey</span> to stop a fast counter-attack",
+        place: "Midfield line",
+        spokenText: "Incident 3. A midfielder pulls an opponent's shirt to stop a fast counter-attack.",
+        ruleText: "A player cannot pull an opponent's shirt to stop a promising attack.",
         correct: 2,
         options: [
           "Direct Free Kick + Red Card",
@@ -488,7 +548,10 @@
         min: "MIN 26' • TOUCHLINE",
         icon: "🦶",
         title: "Careless Tripping",
-        desc: "A fullback accidentally trips an advancing winger while trying to contest the ball.",
+        who: "Fullback",
+        action: "Accidentally <span class='keyword-highlight'>trips</span> an advancing winger",
+        place: "Near the sideline",
+        spokenText: "Incident 4. A fullback accidentally trips an advancing winger while running for the ball.",
         ruleText: "Defenders mustn't trip opponents when challenging for the ball.",
         correct: 0,
         options: [
@@ -502,8 +565,11 @@
         tag: "INCIDENT #05 / 25",
         min: "MIN 30' • AERIAL DUEL",
         icon: "👟",
-        title: "High Boot Dangerous Play",
-        desc: "A player raises their foot near the opponent's forehead trying to reach a high ball.",
+        title: "High Boot (Dangerous Play)",
+        who: "Player",
+        action: "Raises foot dangerously close to opponent's <span class='keyword-highlight'>head</span>",
+        place: "Midfield air duel",
+        spokenText: "Incident 5. A player raises their foot near an opponent's head to reach a high ball.",
         ruleText: "A player must not raise their foot dangerously close to an opponent's head.",
         correct: 3,
         options: [
@@ -518,8 +584,11 @@
         min: "MIN 34' • PENALTY AREA",
         icon: "🎭",
         title: "Simulation (Diving)",
-        desc: "An attacker falls dramatically to the ground pretending contact inside the box.",
-        ruleText: "Strikers mustn't dive or simulate fouls to deceive the referee.",
+        who: "Attacker",
+        action: "Falls to the ground. <span class='keyword-highlight'>No contact</span> occurred.",
+        place: "Inside the penalty box",
+        spokenText: "Incident 6. An attacker dives to the ground inside the penalty box without any contact.",
+        ruleText: "Attackers mustn't dive or simulate fouls to trick the referee.",
         correct: 1,
         options: [
           "Penalty Kick",
@@ -533,7 +602,10 @@
         min: "MIN 39' • REFEREE DISPUTE",
         icon: "🗣️",
         title: "Aggressive Dissent",
-        desc: "A player runs directly to the referee shouting insults and gesturing aggressively.",
+        who: "Player",
+        action: "<span class='keyword-highlight'>Shouts insults</span> and makes angry gestures at referee",
+        place: "Near referee",
+        spokenText: "Incident 7. A player runs to the referee, shouting angry words and waving hands.",
         ruleText: "Players must respect the referee's authority and mustn't show dissent.",
         correct: 0,
         options: [
@@ -545,11 +617,14 @@
       },
       {
         tag: "INCIDENT #08 / 25",
-        min: "MIN 44' • OUTSIDE 18-YARD BOX",
+        min: "MIN 44' • OUTSIDE BOX",
         icon: "🧤",
-        title: "Goalkeeper Handling Outside Box",
-        desc: "The goalkeeper rushes outside the penalty area and catches the ball with two hands.",
-        ruleText: "A goalkeeper can't touch the ball with their hands outside the penalty area.",
+        title: "Goalkeeper Hand Outside Box",
+        who: "Goalkeeper",
+        action: "Catches the ball with hands <span class='keyword-highlight'>outside the box</span>",
+        place: "1 meter outside penalty area",
+        spokenText: "Incident 8. The goalkeeper runs outside the penalty box and catches the ball with hands.",
+        ruleText: "A goalkeeper cannot touch the ball with hands outside the penalty box.",
         correct: 2,
         options: [
           "Play On (No Foul)",
@@ -563,7 +638,10 @@
         min: "MIN 48' • OFFSIDE POSITION",
         icon: "🚩",
         title: "Offside Interference",
-        desc: "An attacker in an offside position blocks the goalkeeper's line of sight during a shot.",
+        who: "Offside Attacker",
+        action: "<span class='keyword-highlight'>Blocks goalkeeper vision</span> during a shot",
+        place: "Goal area",
+        spokenText: "Incident 9. An attacker in an offside position blocks the goalkeeper's line of vision.",
         ruleText: "An attacker mustn't interfere with an opponent from an offside position.",
         correct: 3,
         options: [
@@ -578,7 +656,10 @@
         min: "MIN 52' • AERIAL CHALLENGE",
         icon: "💥",
         title: "Violent Elbow Strike",
-        desc: "A striker deliberately strikes a defender in the jaw with an elbow while jumping.",
+        who: "Striker",
+        action: "Hits defender in the jaw with an <span class='keyword-highlight'>elbow</span> on purpose",
+        place: "Penalty box air jump",
+        spokenText: "Incident 10. A striker jumps and strikes a defender in the face with an elbow.",
         ruleText: "Players must not strike opponents violently with elbows.",
         correct: 1,
         options: [
@@ -593,7 +674,10 @@
         min: "MIN 56' • DEAD BALL",
         icon: "⏱️",
         title: "Delaying the Restart",
-        desc: "After a whistle, the defending player deliberately kicks the ball 40 meters away.",
+        who: "Defending Player",
+        action: "<span class='keyword-highlight'>Kicks the ball away</span> after the referee's whistle",
+        place: "Defensive half",
+        spokenText: "Incident 11. After the whistle, a player kicks the ball far away to waste time.",
         ruleText: "Players mustn't delay the restart of play by kicking the ball away.",
         correct: 0,
         options: [
@@ -608,7 +692,10 @@
         min: "MIN 60' • CELEBRATION",
         icon: "🎽",
         title: "Removing Shirt in Celebration",
-        desc: "The striker scores a goal and removes their team shirt completely during celebration.",
+        who: "Goal Scorer",
+        action: "<span class='keyword-highlight'>Takes off team shirt</span> completely",
+        place: "Corner flag / Stadium crowd",
+        spokenText: "Incident 12. A striker scores a goal and removes their shirt to celebrate.",
         ruleText: "A player must not remove their shirt when celebrating a goal.",
         correct: 2,
         options: [
@@ -622,8 +709,11 @@
         tag: "INCIDENT #13 / 25",
         min: "MIN 64' • BREAKAWAY",
         icon: "🛑",
-        title: "DOGSO Outside the Penalty Box",
-        desc: "The last defender trips the striker outside the box, stopping a clear goal opportunity.",
+        title: "Denying Goal Opportunity (DOGSO)",
+        who: "Last Defender",
+        action: "Trips the striker to stop a <span class='keyword-highlight'>clear 1-on-1 goal chance</span>",
+        place: "Just outside penalty box",
+        spokenText: "Incident 13. The last defender trips the striker outside the box to stop an obvious goal opportunity.",
         ruleText: "A defender must receive a red card for denying an obvious goal opportunity outside the box.",
         correct: 1,
         options: [
@@ -635,10 +725,13 @@
       },
       {
         tag: "INCIDENT #14 / 25",
-        min: "MIN 68' • DEAD BALL INCIDENT",
+        min: "MIN 68' • DEAD BALL",
         icon: "🚫",
         title: "Spitting at an Opponent",
-        desc: "During a confrontation, a player spits directly at the opponent's face.",
+        who: "Player",
+        action: "<span class='keyword-highlight'>Spits</span> directly into opponent's face",
+        place: "Center circle confrontation",
+        spokenText: "Incident 14. During an argument, a player spits directly into an opponent's face.",
         ruleText: "A player must be sent off immediately with a red card for spitting.",
         correct: 0,
         options: [
@@ -653,8 +746,11 @@
         min: "MIN 71' • SLIDING TACKLE",
         icon: "⚠️",
         title: "Two-Footed Jump Tackle",
-        desc: "A midfielder jumps with both feet forward off the ground directly into an opponent.",
-        ruleText: "Players mustn't jump into challenges with two feet because it endangers safety.",
+        who: "Midfielder",
+        action: "Jumps off ground with <span class='keyword-highlight'>both feet forward</span> into player",
+        place: "Midfield duel",
+        spokenText: "Incident 15. A midfielder jumps with two feet forward off the ground into an opponent.",
+        ruleText: "Players mustn't jump into challenges with two feet because it endangers player safety.",
         correct: 2,
         options: [
           "Throw-in",
@@ -668,7 +764,10 @@
         min: "MIN 74' • OBSTRUCTION",
         icon: "🚧",
         title: "Impeding Progress Without Contact",
-        desc: "A defender intentionally steps in front of a running attacker without playing the ball.",
+        who: "Defender",
+        action: "<span class='keyword-highlight'>Blocks the running path</span> without playing the ball",
+        place: "Wing attack",
+        spokenText: "Incident 16. A defender steps in front of a running attacker to block them without playing the ball.",
         ruleText: "Defenders shouldn't obstruct opponents without attempting to play the ball.",
         correct: 3,
         options: [
@@ -683,7 +782,10 @@
         min: "MIN 77' • PENALTY REBOUND",
         icon: "🔄",
         title: "Double Touch on Penalty Kick",
-        desc: "The penalty taker hits the post, and shoots the rebound into the net without anyone else touching it.",
+        who: "Penalty Kicker",
+        action: "Hits the post, then <span class='keyword-highlight'>shoots again</span> before anyone touches it",
+        place: "Penalty spot / Goal net",
+        spokenText: "Incident 17. The penalty kicker hits the post, and kicks the rebound into the net alone.",
         ruleText: "The penalty kicker cannot touch the ball twice before another player touches it.",
         correct: 1,
         options: [
@@ -698,7 +800,10 @@
         min: "MIN 80' • SUBSTITUTION",
         icon: "🏃",
         title: "Entering Pitch Without Permission",
-        desc: "A substitute runs onto the field and intercepts a pass without the referee's signal.",
+        who: "Substitute Player",
+        action: "Enters the field and <span class='keyword-highlight'>stops a pass</span> without referee signal",
+        place: "Sideline / Pitch",
+        spokenText: "Incident 18. A substitute player enters the pitch and touches the ball without the referee's signal.",
         ruleText: "Substitutes must receive the referee's permission before entering the field of play.",
         correct: 0,
         options: [
@@ -712,8 +817,11 @@
         tag: "INCIDENT #19 / 25",
         min: "MIN 82' • VERBAL DISTRACTION",
         icon: "📢",
-        title: "Verbal Deception During Header",
-        desc: "A defender shouts 'Leave it!' pretending to be the goalkeeper to trick the attacker.",
+        title: "Verbal Deception",
+        who: "Defender",
+        action: "<span class='keyword-highlight'>Shouts 'Leave it!'</span> pretending to be the goalkeeper",
+        place: "Inside penalty box",
+        spokenText: "Incident 19. A defender shouts 'Leave it!' pretending to be the goalkeeper to trick the attacker.",
         ruleText: "A player mustn't use verbal deception to distract an opponent.",
         correct: 2,
         options: [
@@ -728,7 +836,10 @@
         min: "MIN 85' • PENALTY SHOOTOUT",
         icon: "🥅",
         title: "Goalkeeper Moving Off Line Early",
-        desc: "The goalkeeper steps 2 meters forward off the goal line before the penalty is kicked and saves it.",
+        who: "Goalkeeper",
+        action: "Steps <span class='keyword-highlight'>2 meters forward</span> before the penalty is kicked",
+        place: "Goal line",
+        spokenText: "Incident 20. The goalkeeper steps two meters forward off the line before the penalty is taken and saves it.",
         ruleText: "Goalkeepers must keep at least one foot on the goal line during a penalty kick.",
         correct: 1,
         options: [
@@ -743,7 +854,10 @@
         min: "MIN 87' • SIDELINE RESTART",
         icon: "🤾",
         title: "Foul Throw-In",
-        desc: "A player lifts their back foot off the ground completely while taking a throw-in.",
+        who: "Thrower",
+        action: "<span class='keyword-highlight'>Lifts back foot</span> completely in the air during throw",
+        place: "Sideline",
+        spokenText: "Incident 21. A player lifts their back foot completely off the ground while taking a throw-in.",
         ruleText: "A player has to keep both feet on or behind the line during a throw-in.",
         correct: 0,
         options: [
@@ -757,8 +871,11 @@
         tag: "INCIDENT #22 / 25",
         min: "MIN 89' • PASS TO GOALKEEPER",
         icon: "🔙",
-        title: "Deliberate Back-Pass Handled",
-        desc: "A defender deliberately kicks the ball back to their goalkeeper, who picks it up with hands.",
+        title: "Goalkeeper Handles Back-Pass",
+        who: "Goalkeeper",
+        action: "<span class='keyword-highlight'>Picks up the ball with hands</span> after teammate kicks it back",
+        place: "Penalty box",
+        spokenText: "Incident 22. A defender kicks the ball back, and their goalkeeper catches it with hands.",
         ruleText: "A goalkeeper cannot handle a ball kicked deliberately by a teammate.",
         correct: 3,
         options: [
@@ -772,8 +889,11 @@
         tag: "INCIDENT #23 / 25",
         min: "MIN 90+1' • STOPPAGE TIME",
         icon: "🛑",
-        title: "Stopping a Promising Attack (SPA)",
-        desc: "A defender deliberately trips a player to break a dangerous 3-on-2 counter-attack.",
+        title: "Stopping Promising Attack (SPA)",
+        who: "Defender",
+        action: "Trips player to stop a <span class='keyword-highlight'>3-on-2 counter-attack</span>",
+        place: "Midfield",
+        spokenText: "Incident 23. A defender trips an attacker to break a dangerous 3-on-2 counter-attack.",
         ruleText: "A defender must receive a yellow card for stopping a promising attack.",
         correct: 1,
         options: [
@@ -787,8 +907,11 @@
         tag: "INCIDENT #24 / 25",
         min: "MIN 90+3' • HEADBUTT ATTEMPT",
         icon: "🤕",
-        title: "Violent Conduct Headbutt",
-        desc: "During an off-the-ball confrontation, a player attempts to headbutt an opponent.",
+        title: "Violent Conduct (Headbutt)",
+        who: "Player",
+        action: "<span class='keyword-highlight'>Attempts to headbutt</span> an opponent off the ball",
+        place: "Off the ball",
+        spokenText: "Incident 24. During an argument without the ball, a player tries to headbutt an opponent.",
         ruleText: "Players must not use or attempt to use violent conduct against opponents.",
         correct: 0,
         options: [
@@ -802,9 +925,12 @@
         tag: "INCIDENT #25 / 25",
         min: "MIN 90+5' • PENALTY ENCROACHMENT",
         icon: "📏",
-        title: "Encroachment on Penalty Kick",
-        desc: "Two defenders enter the penalty box before the ball is kicked, then clear the rebound.",
-        ruleText: "Defenders must stay outside the penalty box and arc until the kick is taken.",
+        title: "Early Entry on Penalty Kick",
+        who: "Two Defenders",
+        action: "Enter box <span class='keyword-highlight'>before ball is kicked</span> and clear rebound",
+        place: "Inside penalty box",
+        spokenText: "Incident 25. Two defenders enter the penalty box before the kick and clear the rebound.",
+        ruleText: "Defenders must stay outside the penalty box until the kick is taken.",
         correct: 2,
         options: [
           "Play on",
@@ -852,7 +978,6 @@
         if (!this.bgRunning) return;
         const now = this.ctx.currentTime;
         
-        // Ambient Drone Chord
         const osc1 = this.ctx.createOscillator();
         const osc2 = this.ctx.createOscillator();
         const gain = this.ctx.createGain();
@@ -860,7 +985,7 @@
         osc1.type = 'sawtooth';
         osc2.type = 'triangle';
 
-        const baseFreq = this.suspensePulse ? 110 : 82.41; // Higher tension if yellow
+        const baseFreq = this.suspensePulse ? 110 : 82.41;
         osc1.frequency.setValueAtTime(baseFreq, now);
         osc2.frequency.setValueAtTime(baseFreq * 1.5, now);
 
@@ -904,8 +1029,8 @@
         const osc = this.ctx.createOscillator();
         const gain = this.ctx.createGain();
         osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(146.83, now); // D3
-        osc.frequency.exponentialRampToValueAtTime(155.56, now + 0.8); // Eb3 tension
+        osc.frequency.setValueAtTime(146.83, now);
+        osc.frequency.exponentialRampToValueAtTime(155.56, now + 0.8);
 
         const filter = this.ctx.createBiquadFilter();
         filter.type = 'lowpass';
@@ -925,7 +1050,7 @@
       playCorrect() {
         this.stopBackgroundMusic();
         const now = this.ctx.currentTime;
-        const notes = [523.25, 659.25, 783.99, 1046.50]; // C - E - G - C arpeggio
+        const notes = [523.25, 659.25, 783.99, 1046.50];
 
         notes.forEach((freq, i) => {
           const osc = this.ctx.createOscillator();
@@ -948,7 +1073,7 @@
       playWrong() {
         this.stopBackgroundMusic();
         const now = this.ctx.currentTime;
-        const dissonantNotes = [185.00, 261.63, 277.18]; // Tritone sting
+        const dissonantNotes = [185.00, 261.63, 277.18];
 
         dissonantNotes.forEach((freq) => {
           const osc = this.ctx.createOscillator();
@@ -983,7 +1108,10 @@
       document.getElementById('match-min').innerText = inc.min;
       document.getElementById('incident-icon').innerText = inc.icon;
       document.getElementById('incident-title').innerText = inc.title;
-      document.getElementById('incident-desc').innerText = inc.desc;
+
+      document.getElementById('inc-who').innerHTML = inc.who;
+      document.getElementById('inc-action').innerHTML = inc.action;
+      document.getElementById('inc-place').innerHTML = inc.place;
 
       for (let i = 0; i < 4; i++) {
         const btn = document.getElementById(`opt-${i}`);
@@ -993,7 +1121,7 @@
       }
 
       document.getElementById('feedback-box').innerHTML = 
-        `💡 <em>1st click selects (Yellow). 2nd click on the same option confirms decision.</em>`;
+        `💡 <em>1st click selects (Yellow). 2nd click confirms decision.</em>`;
 
       resetTimer();
       AudioEngine.stopBackgroundMusic();
@@ -1005,7 +1133,6 @@
       AudioEngine.init();
       const current = incidents[currentIndex];
 
-      // 1st click: Yellow Suspense + Tension chord
       if (selectedOption !== index) {
         selectedOption = index;
         for (let i = 0; i < 4; i++) {
@@ -1018,7 +1145,6 @@
         AudioEngine.startBackgroundMusic();
         AudioEngine.playSuspenseChord();
       } 
-      // 2nd click: Confirmation
       else {
         isConfirmed = true;
         clearInterval(timerInterval);
@@ -1044,13 +1170,24 @@
       }
     }
 
+    function speakIncident() {
+      const inc = incidents[currentIndex];
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(inc.spokenText);
+        utterance.lang = 'en-US';
+        utterance.rate = 0.85; // Paused natural pace for A2
+        window.speechSynthesis.speak(utterance);
+      }
+    }
+
     function speakRule() {
       const text = incidents[currentIndex].ruleText;
       if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = 'en-US';
-        utterance.rate = 0.88;
+        utterance.rate = 0.85;
         window.speechSynthesis.speak(utterance);
       }
     }

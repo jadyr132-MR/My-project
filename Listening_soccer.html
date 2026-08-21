@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Soccer Technical English - Listening Assessment A2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-main: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
+      
+      /* Estados de interacción */
+      --state-pending-bg: #fef9c3;
+      --state-pending-border: #eab308;
+      --state-pending-text: #854d0e;
+
+      --state-correct-bg: #dcfce7;
+      --state-correct-border: #22c55e;
+      --state-correct-text: #166534;
+
+      --state-wrong-bg: #fee2e2;
+      --state-wrong-border: #ef4444;
+      --state-wrong-text: #991b1b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      padding-bottom: 80px;
+    }
+
+    /* Marcador Sticky */
+    .sticky-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border-color);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      padding: 14px 24px;
+    }
+
+    .header-content {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header-title h1 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .header-title p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .score-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #0f172a;
+      color: #ffffff;
+      padding: 8px 16px;
+      border-radius: 9999px;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    /* Contenedor principal */
+    .container {
+      max-width: 900px;
+      margin: 24px auto;
+      padding: 0 16px;
+    }
+
+    .exercise-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .exercise-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 12px;
+    }
+
+    .exercise-header h2 {
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .badge-points {
+      font-size: 0.75rem;
+      background: #e2e8f0;
+      color: #334155;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+
+    .instructions {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      line-height: 1.4;
+    }
+
+    /* Reproductor de audio */
+    .audio-player-box {
+      background: #f1f5f9;
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    audio {
+      width: 100%;
+      height: 38px;
+    }
+
+    /* Opciones y botones interactivos */
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 10px;
+    }
+
+    .option-btn {
+      background: #ffffff;
+      border: 1.5px solid var(--border-color);
+      border-radius: 8px;
+      padding: 12px 14px;
+      text-align: left;
+      font-size: 0.88rem;
+      color: var(--text-main);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .option-btn:hover:not(.locked) {
+      border-color: #94a3b8;
+      background-color: #f8fafc;
+    }
+
+    /* Estados visuales */
+    .option-btn.pending {
+      background-color: var(--state-pending-bg) !important;
+      border-color: var(--state-pending-border) !important;
+      color: var(--state-pending-text) !important;
+      font-weight: 600;
+    }
+
+    .option-btn.correct {
+      background-color: var(--state-correct-bg) !important;
+      border-color: var(--state-correct-border) !important;
+      color: var(--state-correct-text) !important;
+      font-weight: 600;
+    }
+
+    .option-btn.wrong {
+      background-color: var(--state-wrong-bg) !important;
+      border-color: var(--state-wrong-border) !important;
+      color: var(--state-wrong-text) !important;
+      font-weight: 600;
+    }
+
+    .option-btn.locked {
+      cursor: default;
+    }
+
+    /* Selector en línea */
+    .cloze-row {
+      margin-bottom: 12px;
+      padding: 10px 14px;
+      background: #f8fafc;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-group {
+      display: inline-flex;
+      gap: 4px;
+    }
+
+    .mini-btn {
+      border: 1.5px solid var(--border-color);
+      background: white;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .mini-btn.pending {
+      background: var(--state-pending-bg);
+      border-color: var(--state-pending-border);
+      color: var(--state-pending-text);
+    }
+    .mini-btn.correct {
+      background: var(--state-correct-bg);
+      border-color: var(--state-correct-border);
+      color: var(--state-correct-text);
+    }
+    .mini-btn.wrong {
+      background: var(--state-wrong-bg);
+      border-color: var(--state-wrong-border);
+      color: var(--state-wrong-text);
+    }
+    .mini-btn.locked { cursor: default; }
+
+    /* Estilos Ejercicio 5 (Layout 2 columnas con Word Bank a la derecha) */
+    .ex5-layout {
+      display: grid;
+      grid-template-columns: 1fr 240px;
+      gap: 20px;
+      align-items: start;
+    }
+
+    @media (max-width: 768px) {
+      .ex5-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .spelling-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+
+    .spelling-card {
+      border: 1px solid var(--border-color);
+      padding: 12px;
+      border-radius: 8px;
+      background: #ffffff;
+    }
+
+    .spelling-input-group {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .spelling-input {
+      width: 100%;
+      padding: 8px 12px;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 2px;
+      font-size: 0.95rem;
+      border: 1.5px solid var(--border-color);
+      border-radius: 6px;
+      outline: none;
+    }
+
+    .spelling-input.pending {
+      background: var(--state-pending-bg);
+      border-color: var(--state-pending-border);
+      color: var(--state-pending-text);
+    }
+    .spelling-input.correct {
+      background: var(--state-correct-bg);
+      border-color: var(--state-correct-border);
+      color: var(--state-correct-text);
+    }
+    .spelling-input.wrong {
+      background: var(--state-wrong-bg);
+      border-color: var(--state-wrong-border);
+      color: var(--state-wrong-text);
+    }
+    .spelling-input:disabled { cursor: default; }
+
+    .confirm-btn {
+      background: #0f172a;
+      color: white;
+      border: none;
+      padding: 0 14px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .confirm-btn:disabled { opacity: 0.5; cursor: default; }
+
+    .tip-box {
+      margin-top: 10px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .word-bank-box {
+      background: #f8fafc;
+      border: 1.5px dashed #cbd5e1;
+      border-radius: 10px;
+      padding: 16px;
+    }
+
+    .word-bank-box h3 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--text-main);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .word-bank-box p {
+      font-size: 0.75rem;
+      color: #b91c1c;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .word-bank-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .bank-item {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #334155;
+      text-align: center;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="sticky-header">
+    <div class="header-content">
+      <div class="header-title">
+        <h1>Soccer Technical English &bull; Listening Assessment</h1>
+        <p>A2 Vocational Sports Training</p>
+      </div>
+      <div class="score-badge">
+        <span>Aciertos:</span>
+        <span id="score-counter">0</span> / <span>28</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- EJERCICIO 01 -->
+    <section class="exercise-card">
+      <div class="exercise-header">
+        <div>
+          <h2>Exercise 01: Team Schedule on Saturday</h2>
+          <p class="instructions">Escucha el audio. Selecciona únicamente las <strong>3 actividades</strong> que realizará el equipo. <em>(1er clic: amarillo / 2do clic: confirmar definitivo)</em>.</p>
+        </div>
+        <span class="badge-points">3 pts</span>
+      </div>
+
+      <div class="audio-player-box">
+        <audio controls src="generated_audios/exercise_01.mp3"></audio>
+      </div>
+
+      <div class="options-grid">
+        <button class="option-btn" data-correct="false" onclick="handleToggleClick(this)">
+          Meet in the park at 10:00 a.m.
+        </button>
+        <button class="option-btn" data-correct="true" onclick="handleToggleClick(this)">
+          Meet at the center circle at 8:00 a.m.
+        </button>
+        <button class="option-btn" data-correct="true" onclick="handleToggleClick(this)">
+          Practice positioning in defensive zone
+        </button>
+        <button class="option-btn" data-correct="false" onclick="handleToggleClick(this)">
+          Practice defensive positioning at goal line
+        </button>
+        <button class="option-btn" data-correct="true" onclick="handleToggleClick(this)">
+          Train dribbling and shooting in penalty box
+        </button>
+        <button class="option-btn" data-correct="false" onclick="handleToggleClick(this)">
+          Run 10 kilometers around the pitch
+        </button>
+      </div>
+    </section>
+
+    <!-- EJERCICIO 02 -->
+    <section class="exercise-card">
+      <div class="exercise-header">
+        <div>
+          <h2>Exercise 02: Tactical Rules & Advice (Modals)</h2>
+          <p class="instructions">Escucha la conversación táctica y selecciona el modal adecuado. <em>(Haz 2do clic en tu selección para confirmar)</em>.</p>
+        </div>
+        <span class="badge-points">6 pts</span>
+      </div>
+
+      <div class="audio-player-box">
+        <audio controls src="generated_audios/exercise_02.mp3"></audio>
+      </div>
+
+      <div>
+        <div class="cloze-row">
+          <span>1. The goalkeeper</span>
+          <div class="btn-group" data-group="ex2_1">
+            <button class="mini-btn" data-correct="true" onclick="handleSingleChoice(this, 'ex2_1')">must</button>
+            <button class="mini-btn" data-correct="false" onclick="handleSingleChoice(this, 'ex2_1')">mustn't</button>
+          </div>
+          <span>stay alert inside the goal area.</span>
+        </div>
+
+        <div class="cloze-row">
+          <span>2. The goalkeeper</span>
+          <div class="btn-group" data-group="ex2_2">
+            <button class="mini-btn" data-correct="false" onclick="handleSingleChoice(this, 'ex2_2')">must</button>
+            <button class="mini-btn" data-correct="true" onclick="handleSingleChoice(this, 'ex2_2')">mustn't</button>
+          </div>
+          <span>touch the ball with hands outside the penalty box.</span>
+        </div>
+
+        <div class="cloze-row">
+          <span>3. The centre-backs</span>
+          <div class="btn-group" data-group="ex2_3">
+            <button class="mini-btn" data-correct="true" onclick="handleSingleChoice(this, 'ex2_3')">should</button>
+            <button class="mini-btn" data-correct="false" onclick="handleSingleChoice(this, 'ex2_3')">shouldn't</button>
+          </div>
+          <span>maintain solid positioning in the defensive zone.</span>
+        </div>
+
+        <div class="cloze-row">
+          <span>4. The centre-backs</span>
+          <div class="btn-group" data-group="ex2_4">
+            <button class="mini-btn" data-correct="false" onclick="handleSingleChoice(this, 'ex2_4')">must</button>
+            <button class="mini-btn" data-correct="true" onclick="handleSingleChoice(this, 'ex2_4')">mustn't</button>
+          </div>
+          <span>commit dangerous fouls near the penalty spot.</span>
+        </div>
+
+        <div class="cloze-row">
+          <span>5. The central midfielder</span>
+          <div class="btn-group" data-group="ex2_5">
+            <button class="mini-btn" data-correct="true" onclick="handleSingleChoice(this, 'ex2_5')">should</button>
+            <button class="mini-btn" data-correct="false" onclick="handleSingleChoice(this, 'ex2_5')">shouldn't</button>
+          </div>
+          <span>control the rhythm in the midfield engine.</span>
+        </div>
+
+        <div class="cloze-row">
+          <span>6. The strikers</span>
+          <div class="btn-group" data-group="ex2_6">
+            <button class="mini-btn" data-correct="false" onclick="handleSingleChoice(this, 'ex2_6')">should</button>
+            <button class="mini-btn" data-correct="true" onclick="handleSingleChoice(this, 'ex2_6')">shouldn't</button>
+          </div>
+          <span>shoot from impossible angles.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- EJERCICIO 03 (Estructura no lineal corregida) -->
+    <section class="exercise-card">
+      <div class="exercise-header">
+        <div>
+          <h2>Exercise 03: Field Positions & Roles in Order</h2>
+          <p class="instructions">Escucha las 6 definiciones. Selecciona el número que corresponde a cada término según el orden en que se mencionan en el audio.</p>
+        </div>
+        <span class="badge-points">6 pts</span>
+      </div>
+
+      <div class="audio-player-box">
+        <audio controls src="generated_audios/exercise_03.mp3"></audio>
+      </div>
+
+      <div class="options-grid">
+        <!-- Center circle (Respuesta: 3) -->
+        <div class="cloze-row" style="justify-content: space-between;">
+          <b>Center circle</b>
+          <div class="btn-group" data-group="ex3_3">
+            <button class="mini-btn" data-correct="false" onclick="handleSingleChoice(this, 'ex3_3')">1</button>
+            <button class="mini-btn" data-correct="false" onclick="handleSingleChoice(this, 'ex3_3')">2</button>
+            <button class="mini-btn" data-correct="true" onclick="handleSingleChoice(this, 'ex3_3')">3</button>
+            <button class="mini-btn" data-correct="false" onclick="handleSingleChoice(this, 'ex3_3')">4</button>
+            <button class="mini-btn" data-correct="false" onclick="handleSingleChoice(this, 'ex3_3')">5</button>
+            <button class="mini-btn" data-correct="false" onclick="handleSingleChoice(this, 'ex3_3')">6</button>
+          </div>
+        </div>
+
+        <!-- Goalkeeper (Respuesta: 6) -->
+        <div class="cloze-row" style="justify-content: space-between;">
+          <b>Goalkeeper</b>
+          <div class="btn-group" data-group="ex3_6">
+            <button class="mini-btn" data-correct="false" onclick="handleSingleChoice(this, 'ex3_6')">1</button>
+            <button class="mini-btn" data-correct="false" onclick="handleSingleChoice(this, 'ex3_6')">2</button>
+            <button class="mini-btn" data-correct="false" onclick="handleSingleChoice(this, 'ex3_6')">3</button>
+            <button class="mini-btn" data-correct="false" onclick="handleSingleChoice(this, 'ex3_6')">4</button>
+            <button class="mini-btn" data-correct="false" onclick="handleSingleChoice(this, 'ex3_6')">5</button>
+            <button class="mini-btn" data-correct="true" onclick="handleSingleChoice(this, 'ex3_6')">6</button>
+          </div>
+        </div>
+
+        <!-- Penalty box (Respuesta: 1) -->
+        <div class="cloze-row" style="justify-content: space-between;">
+          <b>Penalty box</b>
+          <div class="btn-group" data-group="ex3_1">
+            <button class="mini-btn" data-correct="true" onclick="handleSingleChoice(this, 'ex3_1')">1</button>
+            <button class="mini-btn" data-correct="false" onclick="handleSingleChoice(this, 'ex3_1')">2</button>
+            <button class="mini-btn" data-correct="false" onclick="handleSingleChoice(this, 'ex3_1')">3</button>
+            <button class="mini-btn" data-correct="false" onclick="handleSingleChoice(this, 'ex3_1')">4</button>
+            <button class="mini-btn" data-correct="false" onclick="handleSingleChoice(this, 'ex3_1')">5</button>
+            <button class="mini-btn" data-correct="false" onclick="handleSingleChoice(this, 'ex3_1')">6</button>
+          </div>
+        </div>
+
+        <!-- Winger (Respuesta: 5) -->
+        <div class="cloze-row" style="justify-content: space-between;">
+          <b>Winger</b>
+          <div class="btn-group" data-group="ex3_5">
+            <button class="mini-btn" data-correct="false" onclick="handleSingleChoice(this, 'ex3_5')">1</button>
+            <button class="mini-btn" data-correct="false" onclick="handleSingleChoice(this, 'ex3_5')">2</button>
+            <button class="mini-btn" data-correct="false" onclick="handleSingleChoice(this, 'ex3_5')">3</button>
+            <button class="mini-btn" data-correct="false" onclick="handleSingleChoice(this, 'ex3_5')">4</button>
+            <button class="mini-btn" data-correct="true" onclick="handleSingleChoice(this, 'ex3_5')">5</button>
+            <button class="mini-btn" data-correct="false" onclick="handleSingleChoice(this, 'ex3_5')">6</button>
+          </div>
+        </div>
+
+        <!-- Striker (Respuesta: 2) -->
+        <div class="cloze-row" style="justify-content: space-between;">
+          <b>Striker</b>
+          <div class="btn-group" data-group="ex3_2">
+            <button class="mini-btn" data-correct="false" onclick="handleSingleChoice(this, 'ex3_2')">1</button>
+            <button class="mini-btn" data-correct="true" onclick="handleSingleChoice(this, 'ex3_2')">2</button>
+            <button class="mini-btn" data-correct="false" onclick="handleSingleChoice(this, 'ex3_2')">3</button>
+            <button class="mini-btn" data-correct="false" onclick="handleSingleChoice(this, 'ex3_2')">4</button>
+            <button class="mini-btn" data-correct="false" onclick="handleSingleChoice(this, 'ex3_2')">5</button>
+            <button class="mini-btn" data-correct="false" onclick="handleSingleChoice(this, 'ex3_2')">6</button>
+          </div>
+        </div>
+
+        <!-- Midfield engine (Respuesta: 4) -->
+        <div class="cloze-row" style="justify-content: space-between;">
+          <b>Midfield engine</b>
+          <div class="btn-group" data-group="ex3_4">
+            <button class="mini-btn" data-correct="false" onclick="handleSingleChoice(this, 'ex3_4')">1</button>
+            <button class="mini-btn" data-correct="false" onclick="handleSingleChoice(this, 'ex3_4')">2</button>
+            <button class="mini-btn" data-correct="false" onclick="handleSingleChoice(this, 'ex3_4')">3</button>
+            <button class="mini-btn" data-correct="true" onclick="handleSingleChoice(this, 'ex3_4')">4</button>
+            <button class="mini-btn" data-correct="false" onclick="handleSingleChoice(this, 'ex3_4')">5</button>
+            <button class="mini-btn" data-correct="false" onclick="handleSingleChoice(this, 'ex3_4')">6</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EJERCICIO 04 -->
+    <section class="exercise-card">
+      <div class="exercise-header">
+        <div>
+          <h2>Exercise 04: Short Questions (Present Simple & Wh-)</h2>
+          <p class="instructions">Escucha cada pregunta y selecciona la respuesta correcta. <em>(Haz clic dos veces para fijar)</em>.</p>
+        </div>
+        <span class="badge-points">7 pts</span>
+      </div>
+
+      <!-- Q1 -->
+      <div style="margin-bottom: 14px;">
+        <div class="audio-player-box" style="margin-bottom: 6px;">
+          <audio controls src="generated_audios/exercise_04_q1.mp3"></audio>
+        </div>
+        <div class="options-grid">
+          <button class="option-btn" data-correct="false" onclick="handleSingleChoice(this, 'ex4_1')">I'm meeting Kara.</button>
+          <button class="option-btn" data-correct="true" onclick="handleSingleChoice(this, 'ex4_1')">I mark the striker.</button>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div style="margin-bottom: 14px;">
+        <div class="audio-player-box" style="margin-bottom: 6px;">
+          <audio controls src="generated_audios/exercise_04_q2.mp3"></audio>
+        </div>
+        <div class="options-grid">
+          <button class="option-btn" data-correct="false" onclick="handleSingleChoice(this, 'ex4_2')">It ended at 9:30.</button>
+          <button class="option-btn" data-correct="true" onclick="handleSingleChoice(this, 'ex4_2')">It ends at 9:30.</button>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div style="margin-bottom: 14px;">
+        <div class="audio-player-box" style="margin-bottom: 6px;">
+          <audio controls src="generated_audios/exercise_04_q3.mp3"></audio>
+        </div>
+        <div class="options-grid">
+          <button class="option-btn" data-correct="false" onclick="handleSingleChoice(this, 'ex4_3')">Yes, I am.</button>
+          <button class="option-btn" data-correct="true" onclick="handleSingleChoice(this, 'ex4_3')">Yes, I do.</button>
+        </div>
+      </div>
+
+      <!-- Q4 -->
+      <div style="margin-bottom: 14px;">
+        <div class="audio-player-box" style="margin-bottom: 6px;">
+          <audio controls src="generated_audios/exercise_04_q4.mp3"></audio>
+        </div>
+        <div class="options-grid">
+          <button class="option-btn" data-correct="true" onclick="handleSingleChoice(this, 'ex4_4')">No, I'm not.</button>
+          <button class="option-btn" data-correct="false" onclick="handleSingleChoice(this, 'ex4_4')">No, I don't.</button>
+        </div>
+      </div>
+
+      <!-- Q5 -->
+      <div style="margin-bottom: 14px;">
+        <div class="audio-player-box" style="margin-bottom: 6px;">
+          <audio controls src="generated_audios/exercise_04_q5.mp3"></audio>
+        </div>
+        <div class="options-grid">
+          <button class="option-btn" data-correct="false" onclick="handleSingleChoice(this, 'ex4_5')">It does start at 7:00.</button>
+          <button class="option-btn" data-correct="true" onclick="handleSingleChoice(this, 'ex4_5')">It starts at 7:00.</button>
+        </div>
+      </div>
+
+      <!-- Q6 -->
+      <div style="margin-bottom: 14px;">
+        <div class="audio-player-box" style="margin-bottom: 6px;">
+          <audio controls src="generated_audios/exercise_04_q6.mp3"></audio>
+        </div>
+        <div class="options-grid">
+          <button class="option-btn" data-correct="false" onclick="handleSingleChoice(this, 'ex4_6')">Yes, they are.</button>
+          <button class="option-btn" data-correct="true" onclick="handleSingleChoice(this, 'ex4_6')">Yes, they do.</button>
+        </div>
+      </div>
+
+      <!-- Q7 -->
+      <div style="margin-bottom: 14px;">
+        <div class="audio-player-box" style="margin-bottom: 6px;">
+          <audio controls src="generated_audios/exercise_04_q7.mp3"></audio>
+        </div>
+        <div class="options-grid">
+          <button class="option-btn" data-correct="false" onclick="handleSingleChoice(this, 'ex4_7')">I'm going to the center circle.</button>
+          <button class="option-btn" data-correct="true" onclick="handleSingleChoice(this, 'ex4_7')">I go to the center circle.</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- EJERCICIO 05 (Word Bank a la derecha con 2 distractores) -->
+    <section class="exercise-card">
+      <div class="exercise-header">
+        <div>
+          <h2>Exercise 05: Audio Vocabulary Identification & Spelling</h2>
+          <p class="instructions">Escucha cada pista de audio y escribe el término correspondiente. Utiliza las opciones del <strong>Word Bank</strong> a la derecha. <strong>Nota: hay 2 palabras adicionales que no se utilizan.</strong></p>
+        </div>
+        <span class="badge-points">6 pts</span>
+      </div>
+
+      <div class="ex5-layout">
+        <!-- Columna Izquierda: Audios e Inputs -->
+        <div class="spelling-grid">
+          <!-- Word 1 -->
+          <div class="spelling-card">
+            <audio controls src="generated_audios/exercise_05_word1.mp3"></audio>
+            <p class="tip-box">3 letters</p>
+            <div class="spelling-input-group">
+              <input type="text" maxlength="3" class="spelling-input" id="word1" placeholder="___" oninput="handleInputTyping(this)">
+              <button class="confirm-btn" onclick="checkSpelling('word1', 'NET')">Check</button>
+            </div>
+          </div>
+
+          <!-- Word 2 -->
+          <div class="spelling-card">
+            <audio controls src="generated_audios/exercise_05_word2.mp3"></audio>
+            <p class="tip-box">3 letters</p>
+            <div class="spelling-input-group">
+              <input type="text" maxlength="3" class="spelling-input" id="word2" placeholder="___" oninput="handleInputTyping(this)">
+              <button class="confirm-btn" onclick="checkSpelling('word2', 'BOX')">Check</button>
+            </div>
+          </div>
+
+          <!-- Word 3 -->
+          <div class="spelling-card">
+            <audio controls src="generated_audios/exercise_05_word3.mp3"></audio>
+            <p class="tip-box">3 letters</p>
+            <div class="spelling-input-group">
+              <input type="text" maxlength="3" class="spelling-input" id="word3" placeholder="___" oninput="handleInputTyping(this)">
+              <button class="confirm-btn" onclick="checkSpelling('word3', 'DOT')">Check</button>
+            </div>
+          </div>
+
+          <!-- Word 4 -->
+          <div class="spelling-card">
+            <audio controls src="generated_audios/exercise_05_word4.mp3"></audio>
+            <p class="tip-box">5 letters</p>
+            <div class="spelling-input-group">
+              <input type="text" maxlength="5" class="spelling-input" id="word4" placeholder="_____" oninput="handleInputTyping(this)">
+              <button class="confirm-btn" onclick="checkSpelling('word4', 'SPEED')">Check</button>
+            </div>
+          </div>
+
+          <!-- Word 5 -->
+          <div class="spelling-card">
+            <audio controls src="generated_audios/exercise_05_word5.mp3"></audio>
+            <p class="tip-box">7 letters</p>
+            <div class="spelling-input-group">
+              <input type="text" maxlength="7" class="spelling-input" id="word5" placeholder="_______" oninput="handleInputTyping(this)">
+              <button class="confirm-btn" onclick="checkSpelling('word5', 'STAMINA')">Check</button>
+            </div>
+          </div>
+
+          <!-- Word 6 -->
+          <div class="spelling-card">
+            <audio controls src="generated_audios/exercise_05_word6.mp3"></audio>
+            <p class="tip-box">8 letters</p>
+            <div class="spelling-input-group">
+              <input type="text" maxlength="8" class="spelling-input" id="word6" placeholder="________" oninput="handleInputTyping(this)">
+              <button class="confirm-btn" onclick="checkSpelling('word6', 'CROSSBAR')">Check</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Columna Derecha: Word Bank -->
+        <aside class="word-bank-box">
+          <h3>Word Bank</h3>
+          <p>⚠️ 2 extra words included</p>
+          <div class="word-bank-list">
+            <div class="bank-item">NET</div>
+            <div class="bank-item">CORNER</div>
+            <div class="bank-item">BOX</div>
+            <div class="bank-item">DOT</div>
+            <div class="bank-item">WHISTLE</div>
+            <div class="bank-item">SPEED</div>
+            <div class="bank-item">STAMINA</div>
+            <div class="bank-item">CROSSBAR</div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    let currentScore = 0;
+    let ex1ConfirmedCount = 0;
+    const EX1_MAX_SELECTIONS = 3;
+
+    function addPoint() {
+      currentScore++;
+      document.getElementById('score-counter').textContent = currentScore;
+    }
+
+    // Lógica para Ejercicio 1 (Control de 3 selecciones)
+    function handleToggleClick(btn) {
+      if (btn.classList.contains('locked')) return;
+
+      if (btn.classList.contains('pending')) {
+        btn.classList.remove('pending');
+        btn.classList.add('locked');
+        ex1ConfirmedCount++;
+
+        const isCorrect = btn.getAttribute('data-correct') === 'true';
+        if (isCorrect) {
+          btn.classList.add('correct');
+          addPoint();
+        } else {
+          btn.classList.add('wrong');
+        }
+
+        if (ex1ConfirmedCount >= EX1_MAX_SELECTIONS) {
+          const grid = btn.closest('.options-grid');
+          grid.querySelectorAll('.option-btn').forEach(b => {
+            b.classList.remove('pending');
+            b.classList.add('locked');
+          });
+        }
+      } else {
+        if (ex1ConfirmedCount >= EX1_MAX_SELECTIONS) return;
+        btn.classList.add('pending');
+      }
+    }
+
+    // Lógica para grupos de opción única (Ejercicios 2, 3, 4)
+    function handleSingleChoice(btn, groupName) {
+      if (btn.classList.contains('locked')) return;
+
+      if (btn.classList.contains('pending')) {
+        const parent = btn.closest('[data-group]') || btn.parentElement;
+        const allInGroup = parent.querySelectorAll('button');
+
+        allInGroup.forEach(b => {
+          b.classList.remove('pending');
+          b.classList.add('locked');
+        });
+
+        const isCorrect = btn.getAttribute('data-correct') === 'true';
+        if (isCorrect) {
+          btn.classList.add('correct');
+          addPoint();
+        } else {
+          btn.classList.add('wrong');
+        }
+      } else {
+        const parent = btn.closest('[data-group]') || btn.parentElement;
+        parent.querySelectorAll('button').forEach(b => {
+          if (!b.classList.contains('locked')) {
+            b.classList.remove('pending');
+          }
+        });
+        btn.classList.add('pending');
+      }
+    }
+
+    // Lógica para inputs de ortografía (Ejercicio 5)
+    function handleInputTyping(input) {
+      if (!input.classList.contains('locked')) {
+        input.classList.add('pending');
+      }
+    }
+
+    function checkSpelling(inputId, targetWord) {
+      const input = document.getElementById(inputId);
+      const btn = input.nextElementSibling;
+      if (input.disabled) return;
+
+      const userVal = input.value.trim().toUpperCase();
+      if (!userVal) return;
+
+      input.classList.remove('pending');
+      input.classList.add('locked');
+      input.disabled = true;
+      btn.disabled = true;
+
+      if (userVal === targetWord) {
+        input.classList.add('correct');
+        addPoint();
+      } else {
+        input.classList.add('wrong');
+        input.value = `${userVal} (${targetWord})`;
+      }
+    }
+  </script>
+</body>
+</html>
