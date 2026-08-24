@@ -1,267 +1,434 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Leguson Dashboard | Technical English</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-  
-  <style>
-    :root {
-      --leguson-yellow: #f5b301;
-      --leguson-dark: #000000;
-      --leguson-gray: #f3f4f6;
-      --text-main: #1f2937;
-      --text-muted: #6b7280;
-      --border-color: #e5e7eb;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Open Sans', sans-serif; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mr. Jad ESL | Technical English Learning Platform</title>
     
-    body { background-color: #ffffff; color: var(--text-main); display: flex; flex-direction: column; height: 100vh; }
-
-    /* TOP NAVIGATION */
-    .top-nav {
-      background-color: var(--leguson-dark);
-      color: white;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 30px;
-      height: 70px;
-    }
-
-    .brand-logo {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 22px;
-      font-weight: 900;
-      letter-spacing: 1px;
-    }
-    .brand-logo span { color: var(--leguson-yellow); }
-
-    .nav-icons { display: flex; gap: 30px; }
-    .nav-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: #9ca3af;
-      font-size: 11px;
-      cursor: pointer;
-      transition: color 0.2s;
-    }
-    .nav-item:hover, .nav-item.active { color: white; }
-    .nav-icon-placeholder { font-size: 20px; margin-bottom: 4px; }
-
-    /* MAIN LAYOUT */
-    .main-container { display: flex; flex: 1; overflow: hidden; }
-
-    /* SIDEBAR */
-    .sidebar {
-      width: 260px;
-      background-color: #f9fafb;
-      border-right: 1px solid var(--border-color);
-      display: flex;
-      flex-direction: column;
-    }
-
-    .menu-item {
-      padding: 18px 25px;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text-main);
-      border-bottom: 1px solid var(--border-color);
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .menu-item:hover { background-color: #f3f4f6; }
-    .menu-item.active {
-      background-color: var(--leguson-yellow);
-      color: var(--leguson-dark);
-      font-weight: 800;
-      border-bottom: none;
-    }
-
-    /* CONTENT AREA */
-    .content-area { flex: 1; overflow-y: auto; display: flex; flex-direction: column; }
-
-    .content-header {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px 30px;
-      border-bottom: 1px solid var(--border-color);
-      position: relative;
-    }
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
-    .back-btn {
-      position: absolute;
-      left: 30px;
-      font-weight: 700;
-      font-size: 14px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .course-title {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 20px;
-      font-weight: 800;
-    }
-
-    /* GRID CARDS */
-    .grid-container {
-      padding: 40px;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 30px;
-      background-color: #f3f4f6;
-      flex: 1;
-    }
-
-    .unit-card {
-      background: white;
-      border-radius: 6px;
-      overflow: hidden;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-      border: 1px solid var(--border-color);
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-      text-decoration: none;
-      color: inherit;
-      display: block; /* Asegura que toda el área sea clickeable */
-    }
-    
-    .unit-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 25px rgba(0,0,0,0.1);
-    }
-
-    .card-img {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      border-bottom: 4px solid var(--leguson-yellow);
-    }
-
-    .card-body { padding: 20px; }
-    .card-title {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 16px;
-      font-weight: 800;
-      margin-bottom: 8px;
-      line-height: 1.4;
-    }
-    
-    .card-meta {
-      font-size: 12px;
-      color: var(--text-muted);
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    .card-count {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--leguson-dark);
-      margin-top: 4px;
-    }
-
-  </style>
+    <!-- Estilos Externos -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- TOP BAR -->
-  <header class="top-nav">
-    <div class="brand-logo">LEGUSON <span>EDTECH</span></div>
-    <div class="nav-icons">
-      <div class="nav-item active"><span class="nav-icon-placeholder">👥</span> Class Content</div>
-      <div class="nav-item"><span class="nav-icon-placeholder">📊</span> Dashboard</div>
-      <div class="nav-item"><span class="nav-icon-placeholder">📁</span> Cohorts</div>
-      <div class="nav-item"><span class="nav-icon-placeholder">📝</span> Assignments</div>
-      <div class="nav-item"><span class="nav-icon-placeholder">✉️</span> Messages</div>
+    <!-- ==========================================================================
+         1. LANDING PAGE
+         ========================================================================== -->
+    <div id="welcome-screen" class="landing-screen">
+        <nav class="top-nav">
+            <button class="lang-selector" aria-label="Language selection">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10" stroke-width="2"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                </svg>
+                <span>English / Español</span>
+                <span style="font-size: 0.65rem; margin-left: 2px;">▼</span>
+            </button>
+            <a href="javascript:void(0)" onclick="openModal('modal-instructor')" class="nav-link">Instructor Access</a>
+            <a href="javascript:void(0)" onclick="openModal('modal-register')" class="nav-link nav-register">Sign Up</a>
+        </nav>
+
+        <header class="hero">
+            <div class="hero-content">
+                <p class="hero-preheading">WELCOME TO</p>
+                <h1 class="hero-title">
+                    Mr. Jad <span class="brand-accent">ESL</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Bringing the technical world to the classroom<br>and <span class="highlight">professional skills to life</span>
+                </p>
+                <div class="hero-actions">
+                    <button onclick="loginAsGuest()" class="btn-hero btn-opt-guest">1. Explore as Guest</button>
+                    <button onclick="openModal('modal-instructor')" class="btn-hero btn-opt-instructor">2. Instructor Access</button>
+                    <button onclick="openModal('modal-trainee')" class="btn-hero btn-opt-student">3. Trainee Access</button>
+                    <button onclick="openModal('modal-register')" class="btn-hero btn-opt-guest">Sign Up</button>
+                </div>
+            </div>
+        </header>
+
+        <main class="features-section">
+            <div class="section-header">
+                <h2 class="section-title">Bring your Technical English program to life</h2>
+            </div>
+
+            <div class="features-grid">
+                <!-- Card 1: Guest -->
+                <article class="feature-card">
+                    <div>
+                        <div class="feature-img-wrapper">
+                            <img class="feature-img" 
+                                 src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=800&auto=format&fit=crop" 
+                                 alt="Instructor leading a technical course session">
+                        </div>
+                        <h3 class="feature-heading">1. Open Demonstration Mode</h3>
+                        <p class="feature-text">
+                            <strong>Explore interactive modules and vocational resources</strong> without prior registration. Discover transversal lessons and real-time decision simulators.
+                        </p>
+                    </div>
+                    <button onclick="loginAsGuest()" class="btn-card-action" style="background:var(--hero-bg-deep); color:#FFFFFF;">Explore as Guest →</button>
+                </article>
+
+                <!-- Card 2: Instructor -->
+                <article class="feature-card">
+                    <div>
+                        <div class="feature-img-wrapper">
+                            <img class="feature-img" 
+                                 src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=800&auto=format&fit=crop" 
+                                 alt="Students collaborating with digital devices">
+                        </div>
+                        <h3 class="feature-heading">2. Teacher Control Panel</h3>
+                        <p class="feature-text">
+                            <strong>Manage student cohorts, enroll trainees, and assign vocational programs.</strong> Download classroom evaluation rubrics and guides ready for Word and PDF.
+                        </p>
+                    </div>
+                    <button onclick="openModal('modal-instructor')" class="btn-card-action" style="background:var(--primary-indigo); color:#FFFFFF;">Teacher Portal →</button>
+                </article>
+
+                <!-- Card 3: Trainee -->
+                <article class="feature-card">
+                    <div>
+                        <div class="feature-img-wrapper">
+                            <img class="feature-img" 
+                                 src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop" 
+                                 alt="Analytics gradebook screen and progress tracking">
+                        </div>
+                        <h3 class="feature-heading">3. Personalized Trainee Hub</h3>
+                        <p class="feature-text">
+                            <strong>Access your enrolled program, evaluation evidence, and gradebook.</strong> Track your progress metric in real time to see what you need to complete.
+                        </p>
+                    </div>
+                    <button onclick="openModal('modal-trainee')" class="btn-card-action" style="background:var(--accent-mint); color:#064E3B;">My Learning Hub →</button>
+                </article>
+            </div>
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-container">
+                <p>&copy; 2026 Mr. Jad ESL Learning Ecosystem. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="javascript:void(0)">Privacy Policy</a>
+                    <a href="javascript:void(0)">Terms of Service</a>
+                    <a href="javascript:void(0)">Support</a>
+                </div>
+            </div>
+        </footer>
     </div>
-  </header>
 
-  <!-- MAIN LAYOUT -->
-  <div class="main-container">
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-      <div class="menu-item active">Technical Modules</div>
-      <div class="menu-item">Classroom Presentation</div>
-      <div class="menu-item">Instructor Resources</div>
-      <div class="menu-item">Zajuna / LMS Reports</div>
-      <div class="menu-item">User Management</div>
-      <div class="menu-item">Preview as Trainee</div>
-      <div class="menu-item">Course Settings</div>
-    </aside>
+    <!-- ==========================================================================
+         2. AUTHENTICATION MODALS
+         ========================================================================== -->
+    <!-- Modal Instructor -->
+    <div id="modal-instructor" class="modal-overlay" onclick="handleOutsideModalClick(event, 'modal-instructor')">
+        <div class="modal-card">
+            <h3 class="modal-title">Instructor Sign In</h3>
+            <p class="modal-subtitle">Enter your teacher credentials to access the management platform.</p>
+            <form onsubmit="handleInstructorLogin(event)">
+                <div class="form-group" style="margin-bottom:14px;">
+                    <label>Email Address</label>
+                    <input type="email" id="instUser" placeholder="instructor@mrjad.edu" required>
+                </div>
+                <div class="form-group" style="margin-bottom:14px;">
+                    <label>Password</label>
+                    <input type="password" id="instPass" placeholder="••••••••" required>
+                </div>
+                <div class="auth-links-row" style="margin-bottom: 20px;">
+                    <a href="javascript:void(0)" onclick="openResetPasswordModal('modal-instructor')" class="auth-link-text">Forgot password?</a>
+                    <a href="javascript:void(0)" onclick="switchModal('modal-instructor', 'modal-register')" class="auth-link-text">Create an account</a>
+                </div>
+                <div style="display:flex; gap:10px; justify-content:flex-end;">
+                    <button type="button" onclick="closeModal('modal-instructor')" class="btn-action" style="background:#E2E8F0; color:#334155;">Cancel</button>
+                    <button type="submit" class="btn-action" style="background:var(--primary-indigo);">Sign In</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-    <!-- CONTENT AREA -->
-    <main class="content-area">
-      <div class="content-header">
-        <div class="back-btn">← Back</div>
-        <div class="course-title">Technical English | Sports Training Cohort</div>
-      </div>
+    <!-- Modal Trainee -->
+    <div id="modal-trainee" class="modal-overlay" onclick="handleOutsideModalClick(event, 'modal-trainee')">
+        <div class="modal-card">
+            <h3 class="modal-title">Trainee Sign In</h3>
+            <p class="modal-subtitle">Enter your trainee account credentials to load your workspace.</p>
+            <form onsubmit="handleTraineeLogin(event)">
+                <div class="form-group" style="margin-bottom:14px;">
+                    <label>Email Address</label>
+                    <input type="email" id="traineeUser" placeholder="trainee@mrjad.edu" required>
+                </div>
+                <div class="form-group" style="margin-bottom:14px;">
+                    <label>Password</label>
+                    <input type="password" id="traineePass" placeholder="••••••••" required>
+                </div>
+                <div class="auth-links-row" style="margin-bottom: 20px;">
+                    <a href="javascript:void(0)" onclick="openResetPasswordModal('modal-trainee')" class="auth-link-text">Forgot password?</a>
+                    <a href="javascript:void(0)" onclick="switchModal('modal-trainee', 'modal-register')" class="auth-link-text">Create an account</a>
+                </div>
+                <div style="display:flex; gap:10px; justify-content:flex-end;">
+                    <button type="button" onclick="closeModal('modal-trainee')" class="btn-action" style="background:#E2E8F0; color:#334155;">Cancel</button>
+                    <button type="submit" class="btn-action" style="background:var(--accent-mint); color:#064E3B;">Sign In</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-      <div class="grid-container">
-        
-        <!-- CARD 1 (Enlaza a tu revista. El href "./index.html" fuerza a buscar el archivo exacto en esa misma carpeta) -->
-        <a href="./unit1.html" class="unit-card">
-          <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&auto=format&fit=crop&q=80" alt="Strength Coach" class="card-img">
-          <div class="card-body">
-            <h3 class="card-title">Unit 1: I'd Like to Be a Strength Coach</h3>
-            <div class="card-meta">Interactive Lessons</div>
-            <div class="card-count">8</div>
-          </div>
-        </a>
+    <!-- Modal Register -->
+    <div id="modal-register" class="modal-overlay" onclick="handleOutsideModalClick(event, 'modal-register')">
+        <div class="modal-card">
+            <h3 class="modal-title">Create an Account</h3>
+            <p class="modal-subtitle">Sign up to access your instructor or trainee workspace.</p>
+            <div id="registrationStatus" class="registration-status" role="status"></div>
+            <form id="registrationForm" class="registration-form" onsubmit="handleRegistration(event)">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="registerName">Full Name</label>
+                        <input type="text" id="registerName" autocomplete="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerEmail">Email Address</label>
+                        <input type="email" id="registerEmail" autocomplete="email" required>
+                    </div>
+                </div>
+                <div class="form-group" style="margin:14px 0;">
+                    <label for="registerRole">Account Role</label>
+                    <select id="registerRole" required>
+                        <option value="trainee">Trainee (Aprendiz)</option>
+                        <option value="instructor">Instructor</option>
+                    </select>
+                </div>
+                <div class="form-grid" style="margin-bottom:20px;">
+                    <div class="form-group">
+                        <label for="registerPassword">Password</label>
+                        <input type="password" id="registerPassword" minlength="6" autocomplete="new-password" placeholder="At least 6 characters" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPasswordConfirm">Confirm Password</label>
+                        <input type="password" id="registerPasswordConfirm" minlength="6" autocomplete="new-password" placeholder="At least 6 characters" required>
+                    </div>
+                </div>
+                <div style="display:flex; gap:10px; justify-content:flex-end;">
+                    <button type="button" onclick="closeModal('modal-register')" class="btn-action" style="background:#E2E8F0; color:#334155;">Cancel</button>
+                    <button type="submit" class="btn-action" style="background:var(--accent-mint); color:#064E3B;">Create Account</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-        <!-- CARD 2 -->
-        <div class="unit-card">
-          <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=800&auto=format&fit=crop&q=80" alt="Sports Nutrition" class="card-img">
-          <div class="card-body">
-            <h3 class="card-title">Unit 2: Sports Nutrition & Hydration</h3>
-            <div class="card-meta">Interactive Lessons</div>
-            <div class="card-count">8</div>
-          </div>
+    <!-- Modal Forgot Password -->
+    <div id="modal-forgot-password" class="modal-overlay" onclick="handleOutsideModalClick(event, 'modal-forgot-password')">
+        <div class="modal-card">
+            <h3 class="modal-title">Reset Password</h3>
+            <p class="modal-subtitle">Enter your registered email address to receive a secure password reset link.</p>
+            <div id="resetStatus" class="registration-status" role="status"></div>
+            <form id="resetPasswordForm" onsubmit="handlePasswordReset(event)">
+                <div class="form-group" style="margin-bottom:20px;">
+                    <label for="resetEmail">Email Address</label>
+                    <input type="email" id="resetEmail" placeholder="your-email@domain.com" required>
+                </div>
+                <div style="display:flex; gap:10px; justify-content:flex-end;">
+                    <button type="button" onclick="closeModal('modal-forgot-password')" class="btn-action" style="background:#E2E8F0; color:#334155;">Cancel</button>
+                    <button type="submit" class="btn-action" style="background:var(--primary-indigo);">Send Reset Link</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+         3. DASHBOARD WORKSPACE
+         ========================================================================== -->
+    <header class="app-top-nav">
+        <div class="brand-logo" onclick="showWelcomeScreen()">Mr. Jad <span>ESL</span></div>
+        <div class="nav-user-meta">
+            <span class="badge-user-role" id="navRoleBadge">Mode: Demo</span>
+            <button class="btn-return-home" onclick="showWelcomeScreen()">Switch Role / Sign Out</button>
+        </div>
+    </header>
+
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <button class="menu-item active" id="btn-side-modules" onclick="switchView('view-modules')">Technical Modules</button>
+            <button class="menu-item" id="btn-side-instructor" onclick="switchView('view-instructor')">Trainee Management</button>
+            <button class="menu-item" id="btn-side-resources" onclick="switchView('view-resources')">Teacher Resources</button>
+            <button class="menu-item" id="btn-side-trainee" onclick="switchView('view-trainee')">My Trainee Portal</button>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="content-area">
+            <div class="content-header">
+                <div class="course-heading" id="page-heading">Technical English | Sports Training Cohort</div>
+            </div>
+
+            <!-- VIEW 1: TECHNICAL MODULES -->
+            <section id="view-modules" class="view-panel active">
+                <div class="modules-grid">
+                    <a href="unit1.html" class="unit-card">
+                        <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&auto=format&fit=crop&q=80" alt="Strength Coach" class="card-banner-img">
+                        <div class="card-body">
+                            <h3 class="card-title">Unit 1: I'd Like to Be a Strength Coach</h3>
+                            <div class="card-meta">Interactive Lessons</div>
+                            <div class="card-count">8 Lecciones Disponibles</div>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- VIEW 2: TRAINEE MANAGEMENT (INSTRUCTOR) -->
+            <section id="view-instructor" class="view-panel">
+                <div class="section-box">
+                    <h2 class="section-title-dash">Enroll Trainee & Assign Technical Module</h2>
+                    <form id="studentForm" onsubmit="handleRegisterStudent(event)">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Full Name</label>
+                                <input type="text" id="regName" placeholder="e.g. Carlos Mendoza" required>
+                            </div>
+                            <div class="form-group">
+                                <label>ID Number / Document</label>
+                                <input type="text" id="regId" placeholder="e.g. 1098765432" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Assigned Program</label>
+                                <select id="regModule" required>
+                                    <option value="Entrenamiento Deportivo (Sports Training)">Entrenamiento Deportivo (Sports Training)</option>
+                                    <option value="Gestión Documental">Gestión Documental</option>
+                                    <option value="Administración en Salud">Administración en Salud</option>
+                                    <option value="Desarrollo de Software">Desarrollo de Software</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-action" style="margin-top:15px; background:var(--primary-indigo);">+ Save & Enroll Trainee</button>
+                    </form>
+                </div>
+
+                <div class="section-box">
+                    <h2 class="section-title-dash">Enrolled Trainees Roster</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Document ID</th>
+                                <th>Full Name</th>
+                                <th>Assigned Module</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentTableBody"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- VIEW 3: TEACHER RESOURCES -->
+            <section id="view-resources" class="view-panel">
+        <div style="margin-bottom: 16px;">
+            <button onclick="switchView('view-modules')" class="btn-action" style="background:#64748B; padding: 7px 14px; font-size: 12px; cursor: pointer;">
+                ← Back to Modules
+            </button>
         </div>
 
-        <!-- CARD 3 (IMAGEN CORREGIDA) -->
-        <div class="unit-card">
-          <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&auto=format&fit=crop&q=80" alt="Injury Prevention" class="card-img">
-          <div class="card-body">
-            <h3 class="card-title">Unit 3: Injury Prevention & First Aid</h3>
-            <div class="card-meta">Interactive Lessons</div>
-            <div class="card-count">8</div>
-          </div>
+        <div class="section-box">
+            <h2 class="section-title-dash">Evaluation Materials & Tests (Word & PDF)</h2>
+            <div class="form-group" style="max-width: 320px; margin-bottom: 20px;">
+                <label>Select Cohort Program:</label>
+                <select id="resModuleSelect" onchange="renderResourceFiles()">
+                    <option value="sports">Entrenamiento Deportivo</option>
+                    <option value="health">Administración en Salud</option>
+                    <option value="software">Desarrollo de Software</option>
+                </select>
+            </div>
+            <div id="resourcesListContainer"></div>
         </div>
+    </section>
 
-        <!-- CARD 4 -->
-        <div class="unit-card">
-          <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&auto=format&fit=crop&q=80" alt="Sports Psychology" class="card-img">
-          <div class="card-body">
-            <h3 class="card-title">Unit 4: Sports Psychology & Focus</h3>
-            <div class="card-meta">Interactive Lessons</div>
-            <div class="card-count">8</div>
-          </div>
-        </div>
+            <!-- VIEW 4: TRAINEE PORTAL -->
+            <section id="view-trainee" class="view-panel">
+                <div class="section-box" style="background: var(--hero-bg-deep); color: white;">
+                    <h2 style="font-size: 15px; margin-bottom: 10px; color: var(--accent-mint); font-weight:800;">TRAINEE PROFILE</h2>
+                    <div style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap;">
+                        <div><strong>Trainee:</strong> <span id="traineeDisplayName">Guest</span></div>
+                        <div><strong>ID Number:</strong> <span id="traineeDisplayId">--</span></div>
+                        <div id="traineeActiveModule" style="font-size: 13px; font-weight: 700;">Assigned Module: <span style="color:var(--accent-mint);">Entrenamiento Deportivo</span></div>
+                    </div>
+                </div>
 
-        <!-- CARD 5 -->
-        <div class="unit-card">
-          <img src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=800&auto=format&fit=crop&q=80" alt="Event Management" class="card-img">
-          <div class="card-body">
-            <h3 class="card-title">Unit 5: Event & Tournament Management</h3>
-            <div class="card-meta">Interactive Lessons</div>
-            <div class="card-count">8</div>
-          </div>
-        </div>
+                <!-- Progress Metric -->
+                <div class="progress-box">
+                    <div class="progress-header">
+                        <span>Progress Metric: <strong id="progressPercentage" style="color:var(--primary-indigo);">33.3%</strong> completed</span>
+                        <span style="color: var(--warning-amber); font-weight:700;" id="progressRemainingText">You have 66.7% remaining to complete your program</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" id="progressBarFill" style="width: 33.33%;"></div>
+                    </div>
+                </div>
 
-      </div>
-    </main>
-  </div>
+                <div class="section-box">
+                    <h2 class="section-title-dash">📝 Assigned Tasks & Evidence</h2>
+                    <div class="res-item">
+                        <div>
+                            <strong>Soccer Listening Assessment & Technical Decisions</strong>
+                            <div style="font-size: 12px; color: #64748B; margin-top: 2px;">Audio comprehension of technical play calls and on-field protocols.</div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span class="badge badge-pending">Pending</span>
+                            <a href="../Listening_soccer.html" class="btn-action" style="text-decoration:none; padding:6px 14px; background:var(--primary-indigo);">Start →</a>
+                        </div>
+                    </div>
 
+                    <div class="res-item">
+                        <div>
+                            <strong>Interactive VAR Simulator | Decision Protocol</strong>
+                            <div style="font-size: 12px; color: #64748B; margin-top: 2px;">Live refereeing decision simulation with oral English debrief.</div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span class="badge badge-pending">Pending</span>
+                            <a href="../var_simulator.html" class="btn-action" style="text-decoration:none; padding:6px 14px; background:var(--primary-indigo);">Start →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-box">
+                    <h2 class="section-title-dash">📊 Gradebook</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Assessment Evidence</th>
+                                <th>Score</th>
+                                <th>Weight</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Unit 1: Strength Coaching Diagnostic Quiz</td>
+                                <td><strong>4.7 / 5.0</strong></td>
+                                <td>30%</td>
+                                <td><span class="badge badge-approved">Passed</span></td>
+                            </tr>
+                            <tr>
+                                <td>Unit 2: Soccer Listening Assessment</td>
+                                <td><strong>--</strong></td>
+                                <td>35%</td>
+                                <td><span class="badge badge-pending">Pending</span></td>
+                            </tr>
+                            <tr>
+                                <td>Unit 2: VAR Simulation Decision Report</td>
+                                <td><strong>--</strong></td>
+                                <td>35%</td>
+                                <td><span class="badge badge-pending">Pending</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- ==========================================================================
+         4. LIBRERÍAS DE FIREBASE & ARCHIVO JS
+         ========================================================================== -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="auth.js"></script>
 </body>
 </html>
