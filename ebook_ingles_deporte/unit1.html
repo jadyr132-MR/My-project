@@ -1286,7 +1286,6 @@
           </tbody>
         </table>
 
-        <!-- BOTÓN ACTUALIZADO (Look) -->
         <div class="section-eval-bar">
           <button class="btn-grade-section" id="btn-grade-p2" onclick="gradePage2()">Check answers & look</button>
           <span class="section-feedback-msg" id="msg-grade-p2"></span>
@@ -1472,7 +1471,6 @@
         </div>
       </div>
 
-      <!-- BOTÓN ACTUALIZADO (Look) -->
       <div class="section-eval-bar">
         <button class="btn-grade-section" id="btn-grade-p3" onclick="gradePage3()">Check answers & look</button>
         <span class="section-feedback-msg" id="msg-grade-p3"></span>
@@ -1601,7 +1599,6 @@
         </div>
       </div>
 
-      <!-- BOTÓN ACTUALIZADO (Look) -->
       <div class="section-eval-bar">
         <button class="btn-grade-section" id="btn-grade-p4" onclick="gradePage4()">Check answers & look</button>
         <span class="section-feedback-msg" id="msg-grade-p4"></span>
@@ -1667,7 +1664,6 @@
             </p>
           </div>
 
-          <!-- IMAGEN NUEVA VERIFICADA (Balón de fútbol en campo - 100% funcional) -->
           <img src="https://images.unsplash.com/photo-1511886929837-354d827aae26?w=700&auto=format&fit=crop&q=80" alt="Football tactical vision" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); margin-bottom: 8px;">
         </div>
       </div>
@@ -1769,7 +1765,6 @@
         </div>
       </div>
 
-      <!-- BOTÓN ACTUALIZADO (Look) -->
       <div class="section-eval-bar">
         <button class="btn-grade-section" id="btn-grade-p5" onclick="gradePage5()">Check answers & look</button>
         <span class="section-feedback-msg" id="msg-grade-p5"></span>
@@ -1792,7 +1787,6 @@
         <span class="page-indicator-top">PAGE 6 / 7</span>
       </div>
 
-      <!-- SECCIÓN A: COMPREHENSION MULTIPLE CHOICE CON BADGES -->
       <div class="box-card" id="section-p6-mc">
         <h3 style="font-size: 16px; margin-bottom: 14px;">
           <span style="color: var(--natgeo-yellow); font-weight: 900;">A</span> Answer the questions about the Carlos Valderrama text:
@@ -1875,7 +1869,6 @@
         </div>
       </div>
 
-      <!-- BOTÓN ACTUALIZADO (Look) -->
       <div class="section-eval-bar">
         <button class="btn-grade-section" id="btn-grade-p6" onclick="gradePage6()">Check answers & look</button>
         <span class="section-feedback-msg" id="msg-grade-p6"></span>
@@ -1970,6 +1963,7 @@
   let currentPage = 1;
   const totalPages = 7;
   let zoomLevel = 1.0;
+  let isRegistered = false; // Control de validación de registro
 
   // ESTADO GLOBAL DE PUNTAJES POR SECCIÓN
   const sectionScores = {
@@ -2000,6 +1994,8 @@
     studentData.name = nameInput;
     studentData.cohort = cohortInput || "Sports Coaching Cohort";
     studentData.goal = goalInput || "Strength & Conditioning";
+
+    isRegistered = true; // Desbloquea la navegación a las demás páginas
 
     updateFinalReportUI();
     goToPage(2);
@@ -2092,6 +2088,12 @@
   // NAVEGACIÓN
   function showPage(pageNum) {
     if (pageNum < 1 || pageNum > totalPages) return;
+    
+    // Bloqueo estricto si intenta ir a una página mayor a 1 sin haberse registrado
+    if (pageNum > 1 && !isRegistered) {
+      alert("Debes ingresar tu nombre y completar el registro en la Página 1 para acceder al contenido.");
+      return;
+    }
     
     document.querySelectorAll('.magazine-page').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.dot-btn').forEach(d => d.classList.remove('active'));
