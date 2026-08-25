@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Sports & Football Speaking Academy</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <div class="ambient-bg"></div>
+
+  <header>
+    <a href="#" class="brand">SPORTS<span>.SPEAKING</span> ACADEMY</a>
+    <div class="level-badge" id="levelTag">A2.1 Foundation</div>
+  </header>
+
+  <main class="container">
+    
+    <!-- Config Panel -->
+    <div class="config-panel">
+      <div class="config-group">
+        <label for="trackSelect">Track / Topic:</label>
+        <select id="trackSelect">
+          <option value="sports_training" selected>🏋️ Sports Training & Fitness</option>
+          <option value="football_soccer">⚽ Football & Match Analysis</option>
+        </select>
+      </div>
+
+      <div class="config-group">
+        <label for="lessonSelect">Lesson Curriculum (1 to 20):</label>
+        <select id="lessonSelect"></select>
+      </div>
+
+      <div class="config-group">
+        <label for="durationSelect">Practice Time:</label>
+        <select id="durationSelect">
+          <option value="10" selected>10 Minutes</option>
+          <option value="20">20 Minutes</option>
+        </select>
+      </div>
+
+      <div class="action-row">
+        <div style="font-size: 12px; color: var(--text-muted);" id="progressStatus">Progress: 1/20 Unlocked</div>
+        <button id="startLessonBtn" class="btn-start">▶ Start Lesson</button>
+      </div>
+    </div>
+
+    <!-- Objective & Timer Banner -->
+    <div class="objective-banner">
+      <div class="objective-text" id="lessonObjective">
+        <strong>Goal:</strong> Select a track and lesson, then press "Start Lesson".
+      </div>
+      <div class="timer-controls">
+        <div class="timer-display" id="timeRemaining">10:00</div>
+        <button class="btn-pause" id="pauseTimerBtn" disabled>⏸️ Pause</button>
+      </div>
+    </div>
+
+    <!-- 3D Avatar Container -->
+    <div id="avatar-container" class="avatar-box"></div>
+
+    <div class="status-text" id="statusIndicator">Loading 3D Coach...</div>
+
+    <!-- Scorecard & Progression Panel -->
+    <div class="assessment-card" id="assessmentCard">
+      <div class="assessment-header">
+        <span>🏆 Lesson Exam & Assessment</span>
+        <span class="pass-tag" id="passBadge">PASSED</span>
+      </div>
+      <div class="score-grid">
+        <div class="score-box">
+          <div class="label">Fluency</div>
+          <div class="val" id="scoreFluency">-/10</div>
+        </div>
+        <div class="score-box">
+          <div class="label">Grammar</div>
+          <div class="val" id="scoreGrammar">-/10</div>
+        </div>
+        <div class="score-box">
+          <div class="label">Vocab & ESP</div>
+          <div class="val" id="scoreVocab">-/10</div>
+        </div>
+      </div>
+      <div class="assessment-summary" id="scoreSummary">Evaluation details will appear here.</div>
+      <div style="display: flex; justify-content: flex-end;">
+        <button class="btn-next-lesson" id="btnNextLesson" style="display: none;">Next Lesson ➔</button>
+      </div>
+    </div>
+
+    <!-- Conversation Feed -->
+    <div class="chat-container" id="chatHistory">
+      <div class="chat-bubble tutor">
+        <div class="bubble-author">AI Coach</div>
+        <div>Welcome to the Sports Speaking Academy. Choose your topic and lesson to begin your guided conversation.</div>
+      </div>
+    </div>
+
+    <!-- Microphone Controls -->
+    <div class="controls">
+      <button class="btn-mic" id="toggleMicBtn" disabled>
+        <span id="micIcon">🎙️</span>
+        <span id="micText">Microphone Ready</span>
+      </button>
+      <div class="mic-hint">Auto-listening active: The mic listens automatically after the coach finishes speaking.</div>
+    </div>
+  </main>
+
+  <!-- Modal for Time Extension -->
+  <div class="modal-overlay" id="timeModal">
+    <div class="modal-box">
+      <h3>⏳ Practice Time Finished!</h3>
+      <p>Would you like to extend by <strong>5 minutes</strong> to complete the speaking challenge and receive your official scorecard?</p>
+      <div class="modal-actions">
+        <button class="btn-modal-yes" id="btnExtendYes">Yes, continue (5m)</button>
+        <button class="btn-modal-no" id="btnExtendNo">Finish & Grade Now</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
