@@ -369,7 +369,7 @@ async function callAITutor(userInput = null) {
   }
 
   const payload = {
-    model: "openai/gpt-oss-20b",
+    model: "llama-3.1-8b-instant",
     messages: [
       { role: "system", content: buildSystemPrompt() },
       ...appState.conversationHistory
@@ -396,6 +396,10 @@ async function callAITutor(userInput = null) {
 
   if (parsed.advance_step && appState.currentStep < 4) {
     appState.nextStep();
+  }
+
+  return parsed;
+}
   }
 
   return parsed;
