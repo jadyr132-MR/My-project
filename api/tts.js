@@ -12,7 +12,7 @@ export default async function handler(req) {
 
   try {
     const body = await req.json();
-    const textToSpeak = body.text || body.input?.text || '';
+    const textToSpeak = (body.text || body.input?.text || body.input?.ssml || '').replace(/<[^>]*>/g, '').trim();
 
     if (!textToSpeak) {
       return new Response(JSON.stringify({ error: 'Text is required' }), {
