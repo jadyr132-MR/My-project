@@ -28,7 +28,7 @@ export default async function handler(req) {
       },
       body: JSON.stringify({
         ...body,
-        model: 'llama-3.1-8b-instant'
+        model: 'llama3-8b-8192'
       })
     });
 
