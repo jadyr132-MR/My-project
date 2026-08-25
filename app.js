@@ -121,18 +121,13 @@ const btnNextLesson = document.getElementById('btnNextLesson');
 const timeModal = document.getElementById('timeModal');
 const btnExtendYes = document.getElementById('btnExtendYes');
 const btnExtendNo = document.getElementById('btnExtendNo');
-
-// 3. AVATAR 3D CON PARÁMETROS REALISTAS (ARKit + Visemas + LOD HD)
-let head = null;
-let avatarLoaded = false;
-
-// 3. AVATAR 3D LOCAL DE ALTA DEFINICIÓN
+// 3. AVATAR 3D CON TALKINGHEAD
 let head = null;
 let avatarLoaded = false;
 
 async function initAvatar() {
   const container = document.getElementById('avatar-container');
-  statusIndicator.innerText = "Loading 3D Coach...";
+  statusIndicator.innerText = "Connecting 3D Coach...";
 
   try {
     head = new TalkingHead(container, {
@@ -142,11 +137,18 @@ async function initAvatar() {
       cameraRotateEnable: false,
       avatarMood: "neutral",
       lipsyncLang: "en"
-    });// Carga del modelo 3D local
+    });
+
+    // Carga con URL garantizada desde CDN y porcentaje de progreso en tiempo real
     await head.showAvatar({
-      url: "./brunette.glb",
+      url: "https://met4citizen.github.io/TalkingHead/avatars/brunette.glb",
       body: "M",
       avatarMood: "happy"
+    }, (ev) => {
+      if (ev.lengthComputable) {
+        const percent = Math.round((ev.loaded / ev.total) * 100);
+        statusIndicator.innerText = `Loading Avatar: ${percent}%`;
+      }
     });
 
     avatarLoaded = true;
