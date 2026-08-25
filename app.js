@@ -131,13 +131,13 @@ async function initAvatar() {
 
   try {
     head = new TalkingHead(container, {
+      ttsEndpoint: "/api/tts",
       cameraView: "head",
       cameraDistance: 0.65,
       cameraRotateEnable: false,
       avatarMood: "neutral",
       lipsyncLang: "en"
     });
-
     // Carga con URL garantizada desde CDN y porcentaje de progreso en tiempo real
     await head.showAvatar({
       url: "https://met4citizen.github.io/TalkingHead/avatars/brunette.glb",
