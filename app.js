@@ -593,7 +593,7 @@ function speakText(text) {
   if (head && avatarLoaded) {
     try {
       head.speakText(text, {
-        596       rate: 0.95,
+               rate: 0.95,
        lang: "en-US",
        lipsync: "default",  // <--- AÑADE ESTA NUEVA LÍNEA AQUÍ
        onEnd: () => {
