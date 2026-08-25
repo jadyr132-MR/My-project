@@ -43,14 +43,11 @@ export default async function handler(req) {
     const audioContent = btoa(binary);
 
     // Retorna el formato exacto que TalkingHead espera
-    return new Response(JSON.stringify({ audioContent }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' }
-    });
-  } catch (error) {
-    return new Response(JSON.stringify({ error: error.message }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' }
-    });
-  }
+  return new Response(JSON.stringify({ 
+    audioContent, 
+    timepoints: [] 
+  }), {
+    status: 200,
+    headers: { 'Content-Type': 'application/json' }
+  });
 }
