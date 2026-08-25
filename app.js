@@ -400,10 +400,6 @@ async function callAITutor(userInput = null) {
 
   return parsed;
 }
-  }
-
-  return parsed;
-}
 
 // 9. MICRÓFONO
 let micStream = null;
