@@ -594,8 +594,6 @@ function speakText(text) {
     try {
       head.speakText(text, {
         rate: 0.95,
-        lang: "en-US",
-        lipsync: "default",
         onEnd: () => {
           resetMic();
           if (appState.lessonActive && !appState.isPaused && appState.currentStep < 4) {
