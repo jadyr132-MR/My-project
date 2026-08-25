@@ -131,7 +131,6 @@ async function initAvatar() {
 
   try {
     head = new TalkingHead(container, {
-      ttsEndpoint: "WebSpeech",
       cameraView: "head",
       cameraDistance: 0.65,
       cameraRotateEnable: false,
