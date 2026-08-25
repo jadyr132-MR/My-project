@@ -589,36 +589,22 @@ function resetMic() {
 function speakText(text) {
   statusIndicator.innerText = 'Coach is speaking...';
 
-  // Si el avatar 3D está cargado, él sincroniza labios y audio
-  if (head && avatarLoaded) {
-    try {
-      head.speakText(text, {
-        rate: 0.95,
-        onEnd: () => {
-          resetMic();
-          if (appState.lessonActive && !appState.isPaused && appState.currentStep < 4) {
-            setTimeout(startListeningAuto, 400);
-          }
-        }
-      });
-      return;
-    } catch (err) {
-      console.warn("Avatar TTS error:", err);
-    }
-  }
-
-  // Fallback nativo
+  // Bypass nativo: ignoramos la sincronización de la librería para evitar el crash
   if (!('speechSynthesis' in window)) return;
+  
   window.speechSynthesis.cancel();
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = 'en-US';
   utterance.rate = 0.94;
+  
+  // Cuando termine de hablar, liberamos el micrófono automáticamente
   utterance.onend = () => {
     resetMic();
     if (appState.lessonActive && !appState.isPaused && appState.currentStep < 4) {
       setTimeout(startListeningAuto, 400);
     }
   };
+  
   window.speechSynthesis.speak(utterance);
 }
 
