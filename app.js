@@ -593,11 +593,11 @@ function speakText(text) {
   if (head && avatarLoaded) {
     try {
       head.speakText(text, {
-        rate: 0.95,
-        lang: "en-US",
-        onEnd: () => {
-          resetMic();
-          if (appState.lessonActive && !appState.isPaused && appState.currentStep < 4) {
+        596       rate: 0.95,
+       lang: "en-US",
+       lipsync: "default",  // <--- AÑADE ESTA NUEVA LÍNEA AQUÍ
+       onEnd: () => {
+         resetMic();
             setTimeout(startListeningAuto, 400);
           }
         }
