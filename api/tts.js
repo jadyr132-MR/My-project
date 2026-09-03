@@ -12,40 +12,49 @@ export default async function handler(req) {
 
   try {
     const body = await req.json();
-    const textToSpeak = (body.text || body.input?.text || body.input?.ssml || '').replace(/<[^>]*>/g, '').trim();
-
-    if (!textToSpeak) {
+    if (!body.input?.text && !body.input?.ssml) {
       return new Response(JSON.stringify({ error: 'Text is required' }), {
         status: 400,
         headers: { 'Content-Type': 'application/json' }
       });
     }
 
-    // Servicio de voz en inglés
-    const ttsUrl = `https://translate.google.com/translate_tts?ie=UTF-8&tl=en&client=tw-ob&q=${encodeURIComponent(textToSpeak)}`;
-    
-    const audioRes = await fetch(ttsUrl, {
+    const apiKey = process.env.GOOGLE_TTS_API_KEY;
+    if (!apiKey) {
+      return new Response(JSON.stringify({ error: 'GOOGLE_TTS_API_KEY is not configured on server' }), {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+
+    const ttsBody = {
+      ...body,
+      audioConfig: {
+        ...body.audioConfig,
+        audioEncoding: body.audioConfig?.audioEncoding === 'OGG-OPUS'
+          ? 'OGG_OPUS'
+          : body.audioConfig?.audioEncoding
+      },
+      enableTimePointing: ['SSML_MARK']
+    };
+
+    const audioRes = await fetch(`https://texttospeech.googleapis.com/v1/text:synthesize?key=${encodeURIComponent(apiKey)}`, {
+      method: 'POST',
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'
-      }
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(ttsBody)
     });
 
+    const responseBody = await audioRes.text();
     if (!audioRes.ok) {
-      throw new Error(`TTS upstream error: ${audioRes.statusText}`);
+      return new Response(responseBody, {
+        status: audioRes.status,
+        headers: { 'Content-Type': 'application/json' }
+      });
     }
 
-    const arrayBuffer = await audioRes.arrayBuffer();
-    const bytes = new Uint8Array(arrayBuffer);
-    let binary = '';
-    for (let i = 0; i < bytes.byteLength; i++) {
-      binary += String.fromCharCode(bytes[i]);
-    }
-    const audioContent = btoa(binary);
-
-    // Retorna el formato exacto que TalkingHead espera
-    return new Response(JSON.stringify({ 
-      audioContent 
-    }), {
+    return new Response(responseBody, {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
     });
