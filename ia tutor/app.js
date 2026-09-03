@@ -139,23 +139,6 @@ async function initAvatar() {
     });
     window.head = head;
 
-    const originalAnimate = head.animate.bind(head);
-
-    head.animate = function (time) {
-      // Ejecuta el fotograma normal del avatar
-      originalAnimate(time);
-
-      // Monitoreo en cada frame mientras el contexto de audio esté reproduciendo
-      if (head.audioCtx && head.audioCtx.state === 'running') {
-        // Inspeccionamos las variables internas activas de tiempo y visemas
-        console.log({
-          currentTime: head.audioCtx.currentTime,
-          animQueue: head.animQueue,
-          audio: head.audio
-        });
-      }
-    };
-
     // Carga del modelo 3D optimizado
     await head.showAvatar({
       url: "https://met4citizen.github.io/TalkingHead/avatars/brunette.glb",
@@ -677,7 +660,6 @@ async function speakText(text) {
 
   // 2. Fallback de contingencia (SpeechSynthesis nativo)
   if (!('speechSynthesis' in window)) return;
-}
   window.speechSynthesis.cancel();
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = 'en-US';
@@ -689,6 +671,7 @@ async function speakText(text) {
     }
   };
   window.speechSynthesis.speak(utterance);
+}
 
 async function testTalkingHead() {
   if (!head) {
@@ -708,3 +691,36 @@ async function testTalkingHead() {
 
 toggleMicBtn.addEventListener('click', toggleRecording);
 testTalkingHeadBtn.addEventListener('click', testTalkingHead);
+
+let playbackStartTime = null;
+
+function monitorLipsync() {
+  if (head.isSpeaking) {
+    if (!playbackStartTime) {
+      playbackStartTime = performance.now();
+    }
+
+    // Tiempo transcurrido en segundos
+    const audioTime = (performance.now() - playbackStartTime) / 1000;
+
+    // Localizar la pista de la boca en la cola de animación activa
+    const mouthTrack = head.animQueue?.find(track => track.template?.name === "mouth");
+
+    if (mouthTrack && mouthTrack.ts && mouthTrack.ndx !== undefined) {
+      const currentTargetMs = mouthTrack.ts[mouthTrack.ndx];
+      const startTargetMs = mouthTrack.ts[0] || playbackStartTime;
+      
+      // Tiempo objetivo del visema actual en segundos
+      const targetVisemeTime = (currentTargetMs - startTargetMs) / 1000;
+
+      console.log(`Audio: ${audioTime.toFixed(3)}s | Target Viseme Time: ${targetVisemeTime.toFixed(3)}s | Index: ${mouthTrack.ndx}`);
+    }
+  } else {
+    playbackStartTime = null; // Reinicia el cronómetro al terminar de hablar
+  }
+
+  requestAnimationFrame(monitorLipsync);
+}
+
+// Iniciar la escucha continua en cada frame
+requestAnimationFrame(monitorLipsync);
