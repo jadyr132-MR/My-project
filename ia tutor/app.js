@@ -108,6 +108,7 @@ const levelTag = document.getElementById('levelTag');
 const timeRemainingEl = document.getElementById('timeRemaining');
 const pauseTimerBtn = document.getElementById('pauseTimerBtn');
 const statusIndicator = document.getElementById('statusIndicator');
+const testTalkingHeadBtn = document.getElementById('testTalkingHeadBtn');
 const chatHistory = document.getElementById('chatHistory');
 const toggleMicBtn = document.getElementById('toggleMicBtn');
 const micText = document.getElementById('micText');
@@ -145,6 +146,7 @@ async function initAvatar() {
     });
 
     avatarLoaded = true;
+    testTalkingHeadBtn.disabled = false;
     statusIndicator.innerText = "Ready • Press Start Lesson";
   } catch (error) {
     console.warn("3D Avatar fallback mode:", error);
@@ -631,20 +633,60 @@ async function speakAudioFromBackend(text) {
 
 async function speakText(text) {
   if (!text) return;
-
   statusIndicator.innerText = 'Coach is speaking...';
 
-  if ('speechSynthesis' in window && window.speechSynthesis.speaking) {
-    window.speechSynthesis.cancel();
+  // 1. Intento primario con TalkingHead (Lip-sync real)
+  if (head && typeof head.speakText === 'function') {
+    try {
+      // Detener locuciones o audios previos si existieran
+      if (typeof head.stopSpeaking === 'function') {
+        head.stopSpeaking();
+      }
+
+      // speakText es una promesa que se resuelve al terminar de hablar
+      await head.speakText(text);
+
+      // Liberar micrófono tras completar la animación
+      resetMic();
+      if (appState.lessonActive && !appState.isPaused && appState.currentStep < 4) {
+        setTimeout(startListeningAuto, 400);
+      }
+      return;
+    } catch (err) {
+      console.warn('Fallo en TalkingHead speakText, activando fallback nativo:', err);
+    }
   }
 
-  const usedTalkingHead = await speakAudioFromBackend(text);
-  if (usedTalkingHead) {
+  // 2. Fallback de contingencia (SpeechSynthesis nativo)
+  if (!('speechSynthesis' in window)) return;
+}
+  window.speechSynthesis.cancel();
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = 'en-US';
+  utterance.rate = 0.94;
+  utterance.onend = () => {
     resetMic();
     if (appState.lessonActive && !appState.isPaused && appState.currentStep < 4) {
       setTimeout(startListeningAuto, 400);
     }
+  };
+  window.speechSynthesis.speak(utterance);
+
+async function testTalkingHead() {
+  if (!head) {
+    console.error("La instancia 'head' es null o aún no ha terminado de inicializarse.");
+    return;
+  }
+
+  try {
+    console.log("Probando head.speakText...");
+    await head.speakText("Hello, let's practice your English.");
+    console.log("speakText ejecutado con éxito.");
+  } catch (error) {
+    console.error("Excepción capturada en TalkingHead:", error);
+    console.error("Pila del error:", error.stack);
   }
 }
 
 toggleMicBtn.addEventListener('click', toggleRecording);
+testTalkingHeadBtn.addEventListener('click', testTalkingHead);
