@@ -584,41 +584,67 @@ function resetMic() {
   toggleMicBtn.classList.remove('active');
 }
 
-function speakText(text) {
+async function speakAudioFromBackend(text) {
+  try {
+    const response = await fetch('/api/tts', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text })
+    });
+
+    if (!response.ok) throw new Error(`TTS HTTP error: ${response.status}`);
+
+    let arrayBuffer;
+    if (response.headers.get('content-type')?.includes('application/json')) {
+      const { audioContent } = await response.json();
+      if (!audioContent) throw new Error('TTS response did not include audio');
+      const binary = atob(audioContent);
+      const bytes = Uint8Array.from(binary, character => character.charCodeAt(0));
+      arrayBuffer = bytes.buffer;
+    } else {
+      arrayBuffer = await (await response.blob()).arrayBuffer();
+    }
+
+    if (!window.head || typeof window.head.speakAudio !== 'function') {
+      throw new Error('TalkingHead speakAudio is unavailable');
+    }
+
+    await window.head.speakAudio(arrayBuffer);
+    return true;
+  } catch (error) {
+    console.error('Error al reproducir audio backend:', error);
+    if (!('speechSynthesis' in window)) return;
+
+    const fallback = new SpeechSynthesisUtterance(text);
+    fallback.lang = 'en-US';
+    fallback.rate = 0.95;
+    fallback.onend = () => {
+      resetMic();
+      if (appState.lessonActive && !appState.isPaused && appState.currentStep < 4) {
+        setTimeout(startListeningAuto, 400);
+      }
+    };
+    window.speechSynthesis.speak(fallback);
+    return false;
+  }
+}
+
+async function speakText(text) {
+  if (!text) return;
+
   statusIndicator.innerText = 'Coach is speaking...';
 
-  // Si el avatar 3D está cargado, él sincroniza labios y audio
-  if (head && avatarLoaded) {
-    try {
-      head.speakText(text, {
-        rate: 0.95,
-        lang: "en-US",
-        onEnd: () => {
-          resetMic();
-          if (appState.lessonActive && !appState.isPaused && appState.currentStep < 4) {
-            setTimeout(startListeningAuto, 400);
-          }
-        }
-      });
-      return;
-    } catch (err) {
-      console.warn("Avatar TTS error:", err);
-    }
+  if ('speechSynthesis' in window && window.speechSynthesis.speaking) {
+    window.speechSynthesis.cancel();
   }
 
-  // Fallback nativo
-  if (!('speechSynthesis' in window)) return;
-  window.speechSynthesis.cancel();
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = 'en-US';
-  utterance.rate = 0.94;
-  utterance.onend = () => {
+  const usedTalkingHead = await speakAudioFromBackend(text);
+  if (usedTalkingHead) {
     resetMic();
     if (appState.lessonActive && !appState.isPaused && appState.currentStep < 4) {
       setTimeout(startListeningAuto, 400);
     }
-  };
-  window.speechSynthesis.speak(utterance);
+  }
 }
 
 toggleMicBtn.addEventListener('click', toggleRecording);
