@@ -605,11 +605,11 @@ async function speakAudioFromBackend(text) {
       arrayBuffer = await (await response.blob()).arrayBuffer();
     }
 
-    if (!window.head || typeof window.head.speakAudio !== 'function') {
+    if (!head || typeof head.speakAudio !== 'function') {
       throw new Error('TalkingHead speakAudio is unavailable');
     }
 
-    await window.head.speakAudio(arrayBuffer);
+    await head.speakAudio(arrayBuffer);
     return true;
   } catch (error) {
     console.error('Error al reproducir audio backend:', error);
