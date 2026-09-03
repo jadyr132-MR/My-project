@@ -470,12 +470,15 @@ async function processUserSpeech(rawTranscript) {
 
 function handleLessonCompletion(card) {
   if (!card) return;
-  const avg = ((card.fluency_score + card.grammar_score + card.vocab_score) / 3).toFixed(1);
+  const fluency = card.fluency_score ?? 7;
+  const grammar = card.grammar_score ?? 7;
+  const vocab = card.vocab_score ?? 8;
+  const avg = ((fluency + grammar + vocab) / 3).toFixed(1);
   const passed = avg >= 7.0;
 
-  scoreFluency.innerText = `${card.fluency_score || 7}/10`;
-  scoreGrammar.innerText = `${card.grammar_score || 7}/10`;
-  scoreVocab.innerText = `${card.vocab_score || 8}/10`;
+  scoreFluency.innerText = `${fluency}/10`;
+  scoreGrammar.innerText = `${grammar}/10`;
+  scoreVocab.innerText = `${vocab}/10`;
   scoreSummary.innerText = card.summary || "Lesson finished!";
 
   if (passed) {
