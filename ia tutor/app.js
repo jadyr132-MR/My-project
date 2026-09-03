@@ -133,7 +133,7 @@ async function initAvatar() {
 
   try {
     head = new TalkingHead(container, {
-      ttsEndpoint: "WebSpeech",
+      ttsEndpoint: "/api/tts",
       cameraView: "head",
       avatarMood: "neutral"
     });
@@ -551,9 +551,12 @@ if (SpeechRecognition) {
   };
 
   recognition.onerror = (e) => {
-    if (e.error !== 'no-speech') {
+    const expectedErrors = ['no-speech', 'aborted', 'not-allowed', 'audio-capture'];
+    if (!expectedErrors.includes(e.error)) {
       console.error("Speech Error:", e);
       statusIndicator.innerText = 'Audio capture error. Tap mic again.';
+    } else if (e.error === 'not-allowed' || e.error === 'audio-capture') {
+      statusIndicator.innerText = 'Microphone unavailable. Check browser permissions.';
     }
     resetMic();
   };
@@ -636,29 +639,7 @@ async function speakText(text) {
   if (!text) return;
   statusIndicator.innerText = 'Coach is speaking...';
 
-  // 1. Intento primario con TalkingHead (Lip-sync real)
-  if (head && typeof head.speakText === 'function') {
-    try {
-      // Detener locuciones o audios previos si existieran
-      if (typeof head.stopSpeaking === 'function') {
-        head.stopSpeaking();
-      }
-
-      // speakText es una promesa que se resuelve al terminar de hablar
-      await head.speakText(text);
-
-      // Liberar micrófono tras completar la animación
-      resetMic();
-      if (appState.lessonActive && !appState.isPaused && appState.currentStep < 4) {
-        setTimeout(startListeningAuto, 400);
-      }
-      return;
-    } catch (err) {
-      console.warn('Fallo en TalkingHead speakText, activando fallback nativo:', err);
-    }
-  }
-
-  // 2. Fallback de contingencia (SpeechSynthesis nativo)
+  // Audio nativo del navegador: mantiene el avatar sin movimiento labial.
   if (!('speechSynthesis' in window)) return;
   window.speechSynthesis.cancel();
   const utterance = new SpeechSynthesisUtterance(text);
@@ -680,9 +661,9 @@ async function testTalkingHead() {
   }
 
   try {
-    console.log("Probando head.speakText...");
-    await head.speakText("Hello, let's practice your English.");
-    console.log("speakText ejecutado con éxito.");
+    console.log("Probando síntesis de voz nativa...");
+    await speakText("Hello, let's practice your English.");
+    console.log("Síntesis de voz ejecutada con éxito.");
   } catch (error) {
     console.error("Excepción capturada en TalkingHead:", error);
     console.error("Pila del error:", error.stack);
