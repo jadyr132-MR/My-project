@@ -137,6 +137,24 @@ async function initAvatar() {
       cameraView: "head",
       avatarMood: "neutral"
     });
+    window.head = head;
+
+    const originalAnimate = head.animate.bind(head);
+
+    head.animate = function (time) {
+      // Ejecuta el fotograma normal del avatar
+      originalAnimate(time);
+
+      // Monitoreo en cada frame mientras el contexto de audio esté reproduciendo
+      if (head.audioCtx && head.audioCtx.state === 'running') {
+        // Inspeccionamos las variables internas activas de tiempo y visemas
+        console.log({
+          currentTime: head.audioCtx.currentTime,
+          animQueue: head.animQueue,
+          audio: head.audio
+        });
+      }
+    };
 
     // Carga del modelo 3D optimizado
     await head.showAvatar({
